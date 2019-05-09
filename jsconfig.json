@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./components/*"],
+    },
+    "target": "ES6",
+    "module": "es6",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules"]
+}

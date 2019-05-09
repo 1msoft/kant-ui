@@ -1,6 +1,11 @@
 const path = require("path")
 const webpack = require('webpack')
 
+// 路径别名配置
+const alias = {
+  '@components': path.resolve(__dirname, '../components')
+};
+
 module.exports = {
   mode: "production",
   module: {
@@ -79,7 +84,8 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".js", ".json"]
+    alias,
+    extensions: [".js", ".jsx", ".js", ".json"],
   },
   plugins: [
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|en-gb/),
