@@ -1,5 +1,5 @@
 {
-  "name": "em-component-text-lh",
+  "name": "em-component",
   "version": "0.1.6",
   "private": false,
   "files": [
@@ -17,7 +17,6 @@
   },
   "scripts": {
     "start": "npm run storybook",
-    "release": "standard-version",
     "clean": "rimraf dist lib es",
     "build:css": "cd scripts && gulp",
     "build:umd": "webpack --config ./scripts/build.umd.js",
@@ -26,7 +25,9 @@
     "build:publish": "npm run clean && npm run build:lib && npm run build:es && npm run build:umd && npm run build:css",
     "storybook": "start-storybook -p 8080 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o .out",
-    "storybook:docs": "npm run storybook:build && storybook-to-ghpages --existing-output-dir=.out"
+    "storybook:docs": "npm run storybook:build && storybook-to-ghpages --existing-output-dir=.out",
+    "eslint:fix": "eslint ./stories/**/*.js ./stories/**/*.jsx ./components/**/*.js ./components/**/*.jsx --fix",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -63,11 +64,15 @@
     "@storybook/addon-links": "^5.0.11",
     "@storybook/addons": "^5.0.11",
     "@storybook/react": "^5.0.11",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "cz-conventional-changelog-emsoft": "^1.0.1",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-react": "^7.13.0",
     "file-loader": "^3.0.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
@@ -87,6 +92,7 @@
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "^1.1.2",
+    "webpack": "^4.31.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.2"
   },

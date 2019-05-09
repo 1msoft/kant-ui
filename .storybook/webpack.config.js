@@ -10,7 +10,9 @@ module.exports = {
         use: [
           {
             loader: "babel-loader",
-          },
+          }, {
+            loader: "eslint-loader",
+          }
         ],
         exclude: /node_modules/,
       },
