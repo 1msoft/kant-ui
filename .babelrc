@@ -12,7 +12,9 @@
       "libraryName": "antd",
       "libraryDirectory": "es",
       "style": true
-    }], 
+    }],
+    // 代码覆盖率插件
+    ["istanbul"],
   ],
   "presets": ["@babel/preset-react", "@babel/preset-env"]
 }

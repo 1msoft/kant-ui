@@ -3,16 +3,7 @@ import {assert} from 'chai'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 const { mount }=Enzyme
-
-class Test extends React.Component{
-  render(){
-    return (
-      <div className="content">
-        this is test code!
-      </div>
-    );
-  }
-}
+import Test from './testcom';
 
 // 为 Enzyme 配置适配器
 Enzyme.configure({ adapter: new Adapter() })

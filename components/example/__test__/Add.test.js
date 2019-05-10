@@ -1,7 +1,5 @@
 //  add 函数
-const add = (a, b) => {
-  return a + b;
-}
+import add from './add';
 
 // 导入断言库
 import {expect} from 'chai';

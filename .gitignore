@@ -15,6 +15,7 @@
 /lib
 /.out
 /mochawesome-report
+/.nyc_output
 
 # misc
 .DS_Store
