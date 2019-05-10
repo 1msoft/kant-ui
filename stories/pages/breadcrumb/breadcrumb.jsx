@@ -12,7 +12,8 @@ export default () => (
           color={'red'}
           breadcrumbs={[{path: '/abc', text: '菜单', icon: 'edit'},
             {path: '/abc1', text: '菜单1', icon: 'delete'}
-            ]} />
+          ]}
+        />
       </Route>
     </Router>
   </div>

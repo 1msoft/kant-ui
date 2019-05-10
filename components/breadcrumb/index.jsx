@@ -1,10 +1,11 @@
 import React from 'react';
 import { Icon, Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 /**
  * 面包屑导航通用组件
- * @ array  props.breadcrumbs
+ * @ array  props.breadcrumbs [icon text path ]
  * @ string props.color
  */
 
@@ -35,6 +36,11 @@ const BreadcrumbBlock = ({ ...props }) => {
       }
     </Breadcrumb>
   )
+}
+
+BreadcrumbBlock.propTypes = {
+  breadcrumbs: PropTypes.array,
+  color: PropTypes.string
 }
 
 export default BreadcrumbBlock;
