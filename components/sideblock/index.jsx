@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * 悬停菜单栏
  */
@@ -64,8 +65,8 @@ class SideBlock extends React.Component{
   get sideBlockClassName(){
     let className = 'side-block';
     this.state.show
-      ? (className = `${className} show-o`)
-      : (className = `${className} hidden-o`);
+      ? (className = `${className} hidden-o`)
+      : (className = `${className} show-o`);
     return className;
   }
 
@@ -106,11 +107,11 @@ class SideBlock extends React.Component{
     }
   }
 
-   /**
-   * 防抖
-   * @param {Function} func 事件函数
-   * @param {Number} wait 时长
-   */
+  /**
+    * 防抖
+    * @param {Function} func 事件函数
+    * @param {Number} wait 时长
+    */
   debounce = (func, wait) => {
     let timeout;
     return function () {
