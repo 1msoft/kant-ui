@@ -114,7 +114,7 @@ Header.propTypes = {
   upShow: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
-    PropTypes.number,
+    PropTypes.number, // 补充校验
   ]),
   subNav: PropTypes.element,
   subNavPlacement: PropTypes.oneOf([
