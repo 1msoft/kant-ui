@@ -1,7 +1,18 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 /**
  * 悬停菜单栏
+ * props.className 最外层盒子类名
+ * props.freeDom 传入自定义组件
+ * props.listClassName 外层盒子类名
+ * props.suggestClassName 反馈留言类名
+ * props.suggestEvent 反馈留言触发事件
+ * props.arrowClassName 回到顶部类名
  */
+
+@withRouter
 class SideBlock extends React.Component{
   constructor(props){
     super(props);
@@ -35,19 +46,23 @@ class SideBlock extends React.Component{
   }
 
   render(){
+    const Com = this.props.freeDom;
     return (
-      <div className={this.sideBlockClassName}>
-        <div className={'side-block-list'}>
-          <div
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}
-            className={`${'side-block-list-weixin'} cp`}>
-          </div>
-          <div
-            onClick={this.scrollToTop}
-            className={`${'side-block-list-arrow'} cp`}>
-          </div>
-        </div>
+      <div className={`${this.sideBlockClassName} ${this.props.className}`}>
+        {
+          Com ?
+            <Com /> :
+            <div className={`side-block-list ${this.props.listClassName}`}>
+              <div
+                onClick={this.props.suggestEvent ? this.props.suggestEvent : null}
+                className={`${'side-block-list-weixin'} cp ${this.props.suggestClassName}`}>
+              </div>
+              <div
+                onClick={this.scrollToTop}
+                className={`${'side-block-list-arrow'} cp ${this.props.arrowClassName}`}>
+              </div>
+            </div>
+        }
       </div>
     );
   }
@@ -123,6 +138,15 @@ class SideBlock extends React.Component{
       }, wait);
     }
   }
+}
+
+SideBlock.propTypes = {
+  className: PropTypes.string,
+  freeDom: PropTypes.func,
+  listClassName: PropTypes.string,
+  suggestClassName: PropTypes.string,
+  suggestEvent: PropTypes.func,
+  arrowClassName: PropTypes.string,
 }
 
 export default SideBlock;
