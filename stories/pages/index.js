@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import HeaderComponent from './layout/HeaderComponent';
 
 export default [
   {
@@ -23,5 +24,14 @@ export default [
         component: Input
       }
     ] 
+  },
+  {
+    title: '布局',
+    parents: [
+      {
+        title: '头部导航栏',
+        component: HeaderComponent,
+      }
+    ]
   }
 ];

@@ -1,0 +1,28 @@
+@custom-color: #31c27c;
+
+.em-header {
+  background: #fff;
+  padding: 0;
+  transition: all 0.7s;
+
+  &-hide {
+    top: -100%;
+    opacity: 0;
+  }
+
+  &-show {
+    top: 0;
+    opacity: 1;
+  }
+
+  &-fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+  }
+
+  .ant-layout-header {
+    background: #fff;
+    padding: 0;
+  }
+}
