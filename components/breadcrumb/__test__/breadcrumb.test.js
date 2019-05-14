@@ -15,17 +15,14 @@ describe('<Breadcrumb />', function() {
     //渲染组件
     const app = mount(<Breadcrumb
       breadcrumbs={[{path: '/abcc', text: '测试1', icon: 'delete'}]}
-      color="red"/>);
+      />);
 
       //判断相不相等
-    expect(app.props().color).to.equal('red');
     expect(app.props().breadcrumbs[0].path).to.equal('/abcc');
     expect(app.props().breadcrumbs[0].text).to.equal('测试1');
     expect(app.props().breadcrumbs[0].icon).to.equal('delete');
 
     //设置props会不会改变值
-    app.setProps({ color: 'black' });
-    expect(app.props().color).to.equal('black');
     app.setProps({ breadcrumbs: [{path: '/abcd', text: '测试2', icon: 'add'}] });
     expect(app.props().breadcrumbs[0].path).to.equal('/abcd');
     expect(app.props().breadcrumbs[0].text).to.equal('测试2');
