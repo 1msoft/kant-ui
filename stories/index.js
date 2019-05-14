@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import config from './pages';
+import './assets/styles/index';
 
 const setStoriesOf = () => {
   config.forEach(v => {

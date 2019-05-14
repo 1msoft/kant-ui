@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import SelectDoc from './form/SelectDoc';
 
 export default [
   {
@@ -13,7 +14,7 @@ export default [
         title: '欢迎页面111',
         component: Welcome
       }
-    ] 
+    ]
   },
   {
     title: '表单',
@@ -21,7 +22,10 @@ export default [
       {
         title: '输入框',
         component: Input
+      }, {
+        title: '选择器',
+        component: SelectDoc
       }
-    ] 
+    ]
   }
 ];
