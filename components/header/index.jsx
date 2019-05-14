@@ -1,11 +1,18 @@
+/**
+ * 头部组件
+ * @author kjx
+ * @module Header
+ */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 
 const AntHeader = Layout.Header;
 
+// 下拉隐藏/上拉显示 距离顶部默认值
 const DISPLAY_VALUE = 100;
 
+// 获取底部距离
 const getScrollTop = () => {
   return (
     document.documentElement.scrollTop ||
@@ -14,16 +21,29 @@ const getScrollTop = () => {
   );
 };
 
+// 获取页面高度
+const getWebHeight = () => {
+  return (
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+  );
+}
+
+// 下拉隐藏/上拉显示 边界值计算
 const getBoundaryValue = (val) => {
   if (typeof val === 'boolean') return DISPLAY_VALUE;
-  const percentageReg = /(\d){1,}%$/;
+  // 百分比计算
+  const percentageReg = /(\d){1,2}%$/;
   if (percentageReg.test(val)) {
-    // 暂时返回，之后加工
-    return DISPLAY_VALUE;
+    const webHeight = getWebHeight();
+    const percentage = parseInt(val, 10) / 100;
+    return Math.floor(webHeight * percentage);
   }
-  return parseInt(val);
+  return parseInt(val, 10);
 };
 
+// 头部类名设置
 const setHeaderClassName = (isFixed, isHide) => {
   let className = 'em-header';
   if (isFixed) {
@@ -34,9 +54,10 @@ const setHeaderClassName = (isFixed, isHide) => {
       className = `${className} em-header-show`;
     }
   }
-  return className
+  return className;
 };
 
+// 渲染DOM节点
 const renderDom = ({ children, subNav, subNavPlacement }) => {
   const dom = [
     <AntHeader key="header">
@@ -59,8 +80,13 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
 };
 
 /**
- * Layout 头部组件封装
- * @param {*} props 
+ * Layout 头部组件封装 参数
+ * @param {object} props
+ * @param {boolean}               [props.fixed=true]      是否固定在页面
+ * @param {boolean|string|number} [props.downHide=false]  是否固定在页面
+ * @param {boolean|string|number} [props.upShow=false]    是否固定在页面
+ * @param {element}               [props.subNav]          子菜单的ReactDom
+ * @param {string}                [props.subNavPlacement] 子菜单向上或者向下 'up' | 'down'
  */
 
 const Header = (props) => {
@@ -104,18 +130,38 @@ const Header = (props) => {
   );
 };
 
+// 自定义类型校验
+function customTypeValidators(props, propName, componentName) {
+  const val = props[propName];
+  switch (typeof val) {
+  case 'number':
+    // 大于零
+    if (val <= 0) {
+      return new Error(`无效值：当${propName}为number时，必须大于0`);
+    }
+    break;
+  case 'boolean':
+    break;
+  case 'string':
+    // 仅支持'100' '100px' '10%'
+    const numberReg = /^\d{1,}$/;
+    const pxReg = /^\d{1,}px$/;
+    const percentageReg = /^\d{1,2}%$/;
+    if (!numberReg.test(val) &&
+      !pxReg.test(val) &&
+      !percentageReg.test(val)) {
+      return new Error(`无效值：当${propName}为string时，仅支持"px"、"%"、"数值"`);
+    }
+    break;
+  default:
+    return new Error(`无效类型：${propName}支持string、number、boolean`);
+  };
+}
+
 Header.propTypes = {
   fixed: PropTypes.bool,
-  downHide: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
-  upShow: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-    PropTypes.number, // 补充校验
-  ]),
+  downHide: customTypeValidators,
+  upShow: customTypeValidators,
   subNav: PropTypes.element,
   subNavPlacement: PropTypes.oneOf([
     'up',
@@ -127,7 +173,6 @@ Header.defaultProps = {
   fixed: false,
   downHide: false,
   upShow: false,
-  subNavPlacement: 'up',
 };
 
 export default Header;

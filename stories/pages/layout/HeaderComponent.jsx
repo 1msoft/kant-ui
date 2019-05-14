@@ -6,7 +6,7 @@ import '@components/header/style';
 const styles = {
   outerLayer: {
     background: '#eef0f3',
-    height: 1000,
+    height: 1500,
   },
   marginTop: {
     marginTop: 96
@@ -22,7 +22,7 @@ const styles = {
 const subHeaderComponent = () => {
   return (
     <div style={styles.subNav} key="subNav">
-      <span style={{marginRight: 10}}>加为书签</span>
+      <span style={{ marginRight: 10 }}>加为书签</span>
       <span>收藏本站点</span>
     </div>
   )
@@ -58,25 +58,25 @@ const HeaderComponent = () => {
                 checkedChildren="是"
                 unCheckedChildren="否"
                 checked={fixed}
-                onChange={(checked) => {setFixed(checked)}} />
+                onChange={(checked) => { setFixed(checked) }} />
             </p>
             <p>是否存在子标题:
               <Switch
                 checkedChildren="是"
                 unCheckedChildren="否"
                 checked={subNav}
-                onChange={(checked) => {SetSubNav(checked)}} />
+                onChange={(checked) => { SetSubNav(checked) }} />
             </p>
             {
               subNav ?
-              <p>
-                子标题方向：
-                <Switch
-                  checkedChildren="上"
-                  unCheckedChildren="下"
-                  checked={placement}
-                  onChange={(checked) => {setPlacement(checked)}} />
-              </p> : ''
+                <p>
+                  子标题方向：
+                  <Switch
+                    checkedChildren="上"
+                    unCheckedChildren="下"
+                    checked={placement}
+                    onChange={(checked) => { setPlacement(checked) }} />
+                </p> : ''
             }
           </div>
         </Layout>
