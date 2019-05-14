@@ -44,9 +44,9 @@ const getBoundaryValue = (val) => {
 };
 
 // 头部类名设置
-const setHeaderClassName = (isFixed, isHide) => {
+const setHeaderClassName = (fixed, isHide) => {
   let className = 'em-header';
-  if (isFixed) {
+  if (fixed) {
     className = `${className} em-header-fixed`;
     if (isHide) {
       className = `${className} em-header-hide`;
@@ -90,22 +90,20 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
  */
 
 const Header = (props) => {
-  const { downHide, upShow, fixed } = props;
   const [historyScrollTop, setHistoryScrollTop] = useState(0);
-  const [isFixed, setFixed] = useState(false);
   const [hide, setHide] = useState(false);
 
   const onScroll = (e) => {
     const scrollTop = getScrollTop();
     let hidden = hide;
-    const downHideVal = getBoundaryValue(downHide);
-    const upShowVal = getBoundaryValue(upShow);
-    if (downHide && scrollTop > downHideVal) {
+    const downHideVal = getBoundaryValue(props.downHide);
+    const upShowVal = getBoundaryValue(props.upShow);
+    if (props.downHide && scrollTop > downHideVal) {
       hidden = true;
     } else {
       hidden = false;
     }
-    if (upShow && scrollTop > upShowVal) {
+    if (props.upShow && scrollTop > upShowVal) {
       hidden = historyScrollTop > scrollTop ? false : true;
     }
     setHide(hidden);
@@ -113,18 +111,14 @@ const Header = (props) => {
   };
 
   useEffect(() => {
-    setFixed(fixed);
-  }, [fixed]);
-
-  useEffect(() => {
-    fixed && (downHide || upShow) && window.addEventListener('scroll', onScroll);
+    props.fixed && (props.downHide || props.upShow) && window.addEventListener('scroll', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
   });
   return (
     <div
-      className={setHeaderClassName(isFixed, hide)}>
+      className={setHeaderClassName(props.fixed, hide)}>
       {renderDom(props)}
     </div>
   );
