@@ -33,7 +33,7 @@ const InputNumber = ({
   const regex = new RegExp(`\\${prefix}\s?|${suffix}|(,*)`, "g");
   return (
     <AntInputNumber
-      formatter={value => `${prefix} ${value} ${suffix}`}
+      formatter={value => `${prefix}${value}${suffix}`}
       parser={value => value.replace(regex, "")}
       className={`
         em-input-number
@@ -42,7 +42,7 @@ const InputNumber = ({
         ${className}
       `.replace(/\s+/, " ")}
       onKeyDown={e =>
-        e.keyCode === 13 && enterFunc(String(e.target.value).replace(regex, ""))
+        e.keyCode === 13 && enterFunc(Number(String(e.target.value).replace(regex, "")))
       }
       {...remain}
     />
@@ -66,7 +66,8 @@ InputNumber.defaultProps = {
   autoFocus: false,
   controls: true,
   prefix: "",
-  suffix: ""
+  suffix: "",
+  enterFunc: () => {},
 };
 
 export default InputNumber;
