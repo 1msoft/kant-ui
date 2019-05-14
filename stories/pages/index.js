@@ -1,6 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
-import Sideblock_ from './sideblock/Sideblock';
+import FixedMenu_ from './fixedmenu/FixedMenu';
 export default [
   {
     title: '综述',
@@ -20,7 +20,7 @@ export default [
     parents: [
       {
         title: '悬停菜单',
-        component: Sideblock_
+        component: FixedMenu_
       }
     ]
   },

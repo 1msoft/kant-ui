@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, HashRouter as Router } from 'react-router-dom';
-import { Sideblock } from '@components/index';
-import '@components/sideblock/style';
+import { FixedMenu } from '@components/index';
+import '@components/fixedmenu/style';
 import './style.less';
 
 const xxxxx = () => (
@@ -13,10 +13,14 @@ const xxxxx = () => (
 export default () => (
   <Router>
     <Route>
-      <div>
+      <div style={{height: '3000px'}}>
         <div>
-          这是停菜单
-          <Sideblock className='fixedss'
+          这是悬停菜单
+          <FixedMenu showHeight={0} show={true} always={true}/>
+          <FixedMenu className='fixedss'
+            show={true}
+            always={true}
+            showHeight={1000}
             freeDom={xxxxx}
             suggestEvent={() => {console.log('我传入了自定义事件')}}
             listClassName='x1' suggestClassName='x2' arrowClassName='x3'

@@ -1,24 +1,26 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
  * 悬停菜单栏
- * props.className 最外层盒子类名
- * props.freeDom 传入自定义组件
- * props.listClassName 外层盒子类名
- * props.suggestClassName 反馈留言类名
- * props.suggestEvent 反馈留言触发事件
- * props.arrowClassName 回到顶部类名
+ * @param {string}  props
+ * @param {number} [props.showHeight] 悬停菜单出现的滚动高度
+ * @param {string} [props.className] 最外层盒子雷子
+ * @param {function} [props.freeDom] 自定义组件
+ * @param {string} [props.listClassName] 外层盒子类名
+ * @param {string} [props.suggestClassName] 反馈留言块类名
+ * @param {function} [props.suggestEvent] 反馈留言触发事件
+ * @param {string} [props.arrowClassName] 回到顶部块类型
+ * @param {boolean} [props.show] 一开始是否默认显示悬停菜单
+ * @param {boolean} [props.always] 悬停菜单栏是否一直存在
  */
 
-@withRouter
-class SideBlock extends React.Component{
+
+class FixedMenu extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      show: false,
-      showWithOpacity: false,
+      show: this.props.show || false,
     };
   }
 
@@ -28,21 +30,6 @@ class SideBlock extends React.Component{
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.onScroll);
-  }
-
-  componentDidUpdate(preProps) {
-    this.monitorRoute(preProps);
-  }
-
-  /**
-   * 监听路由变换: 当路由切换时回到顶部
-   * @param {Object} preProps 上一个 props
-   */
-  monitorRoute = (preProps) => {
-    const { match: oldMatch } =  preProps;
-    const { match } =  this.props;
-    if (oldMatch === match){return false;}
-    this.setScrollTop(0);
   }
 
   render(){
@@ -55,7 +42,7 @@ class SideBlock extends React.Component{
             <div className={`side-block-list ${this.props.listClassName}`}>
               <div
                 onClick={this.props.suggestEvent ? this.props.suggestEvent : null}
-                className={`${'side-block-list-weixin'} cp ${this.props.suggestClassName}`}>
+                className={`${'side-block-list-weixin'} cp ${this.props.suggestClassName}`}>12345
               </div>
               <div
                 onClick={this.scrollToTop}
@@ -80,8 +67,8 @@ class SideBlock extends React.Component{
   get sideBlockClassName(){
     let className = 'side-block';
     this.state.show
-      ? (className = `${className} hidden-o`)
-      : (className = `${className} show-o`);
+      ? (className = `${className} show-o`)
+      : (className = `${className} hidden-o`);
     return className;
   }
 
@@ -114,8 +101,10 @@ class SideBlock extends React.Component{
    * @param {Object} e 事件
    */
   onScroll = (e) => {
-    const showHeight = this.props.showHeight;
-    if (this.scrollTop > showHeight && !this.state.show ){
+    const showHeight = this.props.showHeight || 0;
+    if (this.props.always === true) {
+      this.setState({show: true})
+    } else if (this.scrollTop > showHeight && !this.state.show ){
       this.setState({ show: true })
     } else if ( this.scrollTop < showHeight && this.state.show ){
       this.setState({ show: false })
@@ -140,13 +129,15 @@ class SideBlock extends React.Component{
   }
 }
 
-SideBlock.propTypes = {
+FixedMenu.propTypes = {
   className: PropTypes.string,
   freeDom: PropTypes.func,
   listClassName: PropTypes.string,
   suggestClassName: PropTypes.string,
   suggestEvent: PropTypes.func,
   arrowClassName: PropTypes.string,
+  show: PropTypes.bool,
+  always: PropTypes.bool,
 }
 
-export default SideBlock;
+export default FixedMenu;
