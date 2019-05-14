@@ -7,12 +7,11 @@ const webpackConf = {
         test: /\.jsx?$/,
         use: [
           {
-            loader: "babel-loader",
-          },
-          {
             loader: 'istanbul-instrumenter-loader',
             options: { esModules: true }
-          }
+          }, {
+            loader: "babel-loader",
+          },
         ],
         exclude: /node_modules/,
       },
@@ -77,6 +76,9 @@ const webpackConf = {
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".js", ".json"],
   },
 };
 
