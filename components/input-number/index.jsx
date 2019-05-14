@@ -9,7 +9,7 @@ import { InputNumber as AntInputNumber } from "antd";
 
 /**
  * 自定义数字输入框组件
- * @param {ojbect}  props
+ * @param {object}  props
  * @param {string}  [props.theme='box']     不同风格   'box' 'underline'
  * @param {string}  [props.label]           信息
  * @param {string}  [props.className]       附加类名
