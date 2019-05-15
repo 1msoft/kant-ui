@@ -54,10 +54,9 @@ export default () => (
     />
     <Divider orientation="left">回车事件</Divider>
     <InputNumber
-      enterFunc={(value) => alert(value)}
       defaultValue={100}
-      onKeyDown={(event, value) => console.log(event, value)}
       className="custom-input-number"
+      onPressEnter={(value) => alert(value)}
     />
   </div>
 );
