@@ -11,11 +11,11 @@ import {
   Button,
   Divider,
   Collapse,
-  Select as AntdSelect,
+  Select as AntSelect,
 } from 'antd';
 
 const Panel = Collapse.Panel;
-const Option = AntdSelect.Option
+const Option = AntSelect.Option
 
 export default () => {
   return (
@@ -133,7 +133,7 @@ const TouchBottom = () => {
     {title: '黄色', value: 'yellow'},
     {title: '绿色', value: 'green'},
     {title: '青色', value: 'cyan'},
-    {title: '蓝色', value: 'blue'},
+    {title: '蓝色', value: 'blue', props: {disabled: true}},
     {title: '紫色', value: 'purple'},
     {title: '灰色', value: 'grey'},
     {title: '粉色', value: 'pink'},

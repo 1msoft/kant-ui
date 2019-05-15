@@ -2,6 +2,7 @@
  * 选择器组件
  * 1. 在 antd Select 的基础上新增功能,支持内部渲染 Option 列表
  * 2. 在 antd Select 的基础上新增下拉触底事件
+ * 3. 如果使用 data 参数进行渲染 Option 那么 Option 对应 key 值为当条记录的 JSON 值， 在 onChange 中可以拿到完整 记录
  *
  * @param {Array}  props.data        用于渲染 antd select Option 列表数据源
  * @param {String | Number | ReactDOM} props.data.title  用于渲染 antd select Option 列表数据的 title(显示值)
@@ -9,16 +10,17 @@
  * @param {Object} props.data.props  为 antd select Option 配置 props
  * @param {String} props.titleKey    指定渲染 antd select Option 时,使用哪个属性作为 title
  * @param {String} props.valueKey    指定渲染 antd select Option 时,使用哪个属性作为 value
- * @param {Function} props.onPopupScroll 触底事件(当下拉列表下拉到最底部时触发)
- * @param {Number} props.faultTolerant 容错,设置触底事件触发时机,当下拉列表到底部的距离小于该值时将会触发 onPopupScroll
+ * @param {Function} props.onTouchBottom 触底事件(当下拉列表下拉到最底部时触发)
+ * @param {Number} props.faultTolerant 容错,设置触底事件触发时机,当下拉列表到底部的距离小于该值时将会触发 onTouchBottom
+ * 更多参数参考 [antd 官网](https://ant.design/components/select-cn/)
  */
 import React, {
   useMemo,
   useCallback
 } from 'react';
 import _ from 'lodash';
-import { Select as AntSelect } from 'antd';
 import PropTypes from 'prop-types';
+import { Select as AntSelect } from 'antd';
 
 const Option = AntSelect.Option;
 
@@ -31,12 +33,12 @@ const useStateHook = (props) => {
       <Option
         {...v.props}
         value={v[props.valueKey || 'value']}
-        key = {JSON.stringify(v)}>
+        key = {JSON.stringify(v)}
+      >
         {v[props.titleKey || 'title']}
       </Option>
     ));
   }, [props.data, props.children]);
-
 
   // 选择器下拉滚动事件
   const onPopupScroll = useCallback(e => {
@@ -61,6 +63,7 @@ const Select = (props) => {
     </AntSelect>
   );
 }
+
 Select.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
