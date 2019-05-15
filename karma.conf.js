@@ -127,7 +127,7 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-phantomjs-launcher'),
     ],
-    browsers: ['ChromeHeadless'],
+    browsers: ['PhantomJS_custom', 'ChromeHeadless'],
     customLaunchers: {
       'PhantomJS_custom': {
         base: 'PhantomJS',
