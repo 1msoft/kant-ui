@@ -34,14 +34,14 @@ export default () => (
     />
     <Divider orientation="left">不同风格模式 box | underline</Divider>
     <InputNumber
-      mode="box"
+      theme="box"
       controls={false}
       defaultValue={100}
       className="custom-input-number"
     />
     <span style={{ padding: '0 30px' }}></span>
     <InputNumber
-      mode="underline"
+      theme="underline"
       controls={false}
       defaultValue={100}
       className="custom-input-number"
@@ -56,6 +56,7 @@ export default () => (
     <InputNumber
       enterFunc={(value) => alert(value)}
       defaultValue={100}
+      onKeyDown={(event, value) => console.log(event, value)}
       className="custom-input-number"
     />
   </div>

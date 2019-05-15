@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { InputNumber as AntInputNumber } from "antd";
 
 /**
- * 自定义数字输入框组件
+ * 自定义数字输入框组件 antd数字输入框{@link https://ant.design/components/input-number-cn/}
  * @param {object}  props
  * @param {string}  [props.theme='box']     不同风格   'box' 'underline'
  * @param {string}  [props.label]           信息
@@ -16,21 +16,33 @@ import { InputNumber as AntInputNumber } from "antd";
  * @param {boolean} [props.autoFocus=false] 自动获焦
  * @param {boolean} [props.controls=true]   是否显示控制器按钮
  * @param {number}  [props.precision]       数值精度
- * @param {function}[props.enterFunc]       回车事件
+ * @param {function}[props.onPressEnter]    回车事件
  * @param {string}  [props.prefix]          格式化前缀
  * @param {string}  [props.suffix]          格式化后缀
+ *
  */
-const InputNumber = ({
-  theme,
-  label,
-  controls,
-  className,
-  prefix,
-  suffix,
-  enterFunc,
-  ...remain
-}) => {
-  const regex = new RegExp(`\\${prefix}\s?|${suffix}|(,*)`, "g");
+const InputNumber = (props) => {
+  const {
+    theme,
+    suffix,
+    prefix,
+    controls,
+    className,
+    onPressEnter,
+    ...remain
+  } = props;
+  const regex = new RegExp(`\\${prefix}\s+?|${suffix}|(,*)`, "g");
+
+  const handleKeyDown = (event) => {
+    const { onPressEnter, onKeyDown } = props;
+    const value = Number(String(event.target.value).replace(regex, ""));
+    if (onPressEnter && event.keyCode === 13) {
+      onPressEnter(value);
+    }
+    if (onKeyDown) {
+      onKeyDown(event);
+    }
+  }
   return (
     <AntInputNumber
       formatter={value => `${prefix}${value}${suffix}`}
@@ -40,10 +52,9 @@ const InputNumber = ({
         em-input-number-theme-${theme}
         ${controls ? "" : "em-input-number-handler-hide"}
         ${className}
-      `.replace(/\s+/, " ")}
-      onKeyDown={e =>
-        e.keyCode === 13 && enterFunc(Number(String(e.target.value).replace(regex, "")))
+        `.replace(/\s+/, " ")
       }
+      onKeyDown={handleKeyDown}
       {...remain}
     />
   );
@@ -58,7 +69,7 @@ InputNumber.propTypes = {
   precision: PropTypes.number,
   prefix: PropTypes.string,
   suffix: PropTypes.string,
-  enterFunc: PropTypes.func,
+  onPressEnter: PropTypes.func,
 };
 
 InputNumber.defaultProps = {
@@ -67,7 +78,7 @@ InputNumber.defaultProps = {
   controls: true,
   prefix: "",
   suffix: "",
-  enterFunc: () => {},
+  onPressEnter: () => {},
 };
 
 export default InputNumber;
