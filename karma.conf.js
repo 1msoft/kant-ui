@@ -7,12 +7,11 @@ const webpackConf = {
         test: /\.jsx?$/,
         use: [
           {
-            loader: "babel-loader",
-          },
-          {
             loader: 'istanbul-instrumenter-loader',
             options: { esModules: true }
-          }
+          }, {
+            loader: "babel-loader",
+          },
         ],
         exclude: /node_modules/,
       },
@@ -78,12 +77,16 @@ const webpackConf = {
       },
     ],
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".js", ".json"],
+  },
 };
 
 module.exports = function(config) {
   config.set({
 
     files: [
+      './node_modules/@babel/polyfill/dist/polyfill.min.js',
       'components/**/*.test.js'
     ],
 
@@ -120,9 +123,38 @@ module.exports = function(config) {
       require("karma-chrome-launcher"),
       require("karma-mocha-reporter"),
       require("karma-coverage-istanbul-reporter"),
-      require("istanbul-instrumenter-loader")
+      require("istanbul-instrumenter-loader"),
+      require('karma-jasmine'),
+      require('karma-phantomjs-launcher'),
     ],
+    browsers: ['PhantomJS_custom', 'ChromeHeadless'],
+    customLaunchers: {
+      'PhantomJS_custom': {
+        base: 'PhantomJS',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          },
+        },
+        flags: ['--load-images=true'],
+        debug: true
+      },
 
-    browsers: ['Chrome']
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--disable-translate',
+          '--headless',
+          '--disable-gpu',
+          '--disable-extensions',
+          '--remote-debugging-port=9222',
+        ],
+      }
+    },
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
   });
 };
