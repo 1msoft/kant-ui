@@ -2,8 +2,22 @@ module.exports = {
   parser: "babel-eslint",
   plugins: ["react"],
   rules: {
+    // 基数必填
+    radix: "error",
     // 代码缩进
-    indent: [1, 2],
+    indent: [1, 2, {
+      SwitchCase: 1
+    }],
+    // jsdoc注释规范
+    "require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "ClassDeclaration": true,
+          "FunctionDeclaration": true,
+        }
+      }
+    ],
     // 最大长度
     "max-len": [1, { "code": 100 } ],
     // 不允许多个空行
