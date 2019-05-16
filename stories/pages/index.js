@@ -1,6 +1,7 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import DatePickerComponent from './form/DatePicker';
+import InputNumber from './form/InputNumber';
 
 export default [
   {
@@ -14,7 +15,7 @@ export default [
         title: '欢迎页面111',
         component: Welcome
       }
-    ] 
+    ]
   },
   {
     title: '表单',
@@ -24,9 +25,13 @@ export default [
         component: Input
       },
       {
+        title: 'InputNumber 数字输入框',
+        component: InputNumber,
+      },
+      {
         title: '日期范围选择器',
         component: DatePickerComponent,
       }
-    ] 
+    ]
   }
 ];
