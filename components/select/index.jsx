@@ -2,43 +2,66 @@
  * 选择器组件
  * 1. 在 antd Select 的基础上新增功能,支持内部渲染 Option 列表
  * 2. 在 antd Select 的基础上新增下拉触底事件
- * 3. 如果使用 data 参数进行渲染 Option,那么 Option 对应的 key 值为当条记录的 JSON 字符串， 这样在 onChange 中就可以拿到完整的数据
+ * 3. 在 antd Select 的基础上新增加载状态
  *
- * @param {Array}  [props.data]        用于渲染 antd select Option 列表数据源
- * @param {String | Number | ReactDOM} props.data.title  用于渲染 antd select Option 列表数据的 title(显示值)
- * @param {String} props.data.value  用于渲染 antd select Option 列表数据的 value
- * @param {Object} props.data.props  为 antd select Option 配置 props
- * @param {String} [props.titleKey]  指定渲染 antd select Option 时,使用哪个属性作为 title
- * @param {String} [props.valueKey]  指定渲染 antd select Option 时,使用哪个属性作为 value
- * @param {Function} [props.onTouchBottom] 触底事件(当下拉列表下拉到最底部时触发)
- * @param {Number} [props.faultTolerant] 容错,设置触底事件触发时机,当下拉列表到底部的距离小于该值时将会触发 onTouchBottom 事件
- * 更多参数参考 [antd 官网](https://ant.design/components/select-cn/)
  */
 import React, {
   useMemo,
-  useCallback
+  Fragment,
+  useCallback,
 } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Select as AntSelect } from 'antd';
+import { Select as AntSelect, Spin } from 'antd';
 
 const Option = AntSelect.Option;
 
+// 唯一值
+const UNIQUE = Math.random().toString(36).substring(7).split('').join('.');
+// 加载类型loadingType
+const LOADING_TYPE = {
+  ALL: 'all',
+  MENU: 'menu',
+  FIELD: 'field',
+};
+
 const useStateHook = (props) => {
+  /**
+   * 处理数据方法： value、title
+   * @param {Object | String | number} data 待处理数据
+   * @param {String} type 处理数据类型（Value | Title）
+   */
+  const handlerData = useCallback(({ data, type }) => {
+    const cData = _.isObject(data) ? data : { title: data, value: data };
+    const format = props[`format${_.upperFirst(type)}`];
+    if (_.isString(format)){ return cData[format];}
+    if (_.isFunction(format)){return format(data);}
+    return cData[type];
+  }, [props.data, props.formatValue, props.formatTitle]);
+
   // 计算 options
   const options = useMemo(() => {
     if (props.children){return props.children;}
     if (!props.data || props.data.length < 1){return [];}
-    return props.data.map((v, index) => (
-      <Option
-        {...v.props}
-        value={v[props.valueKey || 'value']}
-        key = {JSON.stringify(v)}
-      >
-        {v[props.titleKey || 'title']}
+    const hOptions = props.data.map((v, index) => {
+      let value = handlerData({ data: v, type: 'value' });
+      let title = handlerData({ data: v, type: 'title' });
+      const key = v.key || value || index;
+      return (
+        <Option {...v.props} value={value} key = {key}>
+          {title}
+        </Option>
+      );
+    });
+    hOptions.push(
+      <Option value={UNIQUE} key={UNIQUE} disabled={true} className="kant-append-option" >
+        <div className="kant-append-option-wrapper">
+          {props.apendOption || null}
+        </div>
       </Option>
-    ));
-  }, [props.data, props.children]);
+    );
+    return hOptions;
+  }, [props.data, props.formatValue, props.formatTitle, props.children, props.apendOption]);
 
   // 选择器下拉滚动事件
   const onPopupScroll = useCallback(e => {
@@ -50,14 +73,44 @@ const useStateHook = (props) => {
     // 2. 调用 props.onPopupScroll
     props.onPopupScroll && props.onPopupScroll(e);
   }, []);
-  return {options, onPopupScroll};
+
+  // 自定义下拉框内容
+  const dropdownRender = useCallback((menuNode) => {
+    const loading = [
+      props.loading,
+      [ LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
+    ].every(v => v);
+    return <Spin spinning={loading}> {menuNode}</Spin>;
+  }, [props.loading, props.loadingType]);
+
+  return {options, onPopupScroll, dropdownRender};
 }
 
+/**
+ * @param {Object} Props
+ * @param {Array} [props.data]                      数据源 [object|String|number]
+ * @param {String|Number|ReactDOM} props.data.title 下拉项默认显示字段
+ * @param {String} props.data.value                 下拉项默认 value 字段
+ * @param {Object} props.data.props                 下拉项 Option 组件附加 props
+ * @param {String|Function} [props.formatTitle]     String: 指定下拉项显示字段，
+ *                                                  function: (item) => {}, 自定义下拉框显示字段
+ * @param {String|Function} [props.formatValue]     String: 指定下拉项 value 字段，
+ *                                                  function: (item) => {}, 自定义下拉框显示字段
+ * @param {Function} [props.onTouchBottom]          触底事件
+ * @param {Number} [props.faultTolerant]            指定下拉项滚动条距离底部的距离小于多少值时触发 onTouchBottom 事件
+ * @param {ReactDom} [props.apendOption]            在下拉项中追加 option
+ * @param {String} [props.loadingType]              加载中类型（menu | field | all）
+ * @link 更多参数参考 [antd 官网](https://ant.design/components/select-cn/#API)
+ * 加载更多按钮
+ * 加载中
+ */
 const Select = (props) => {
   const state = useStateHook(props);
   return (
     <AntSelect
       {...props}
+      loading
+      dropdownRender={state.dropdownRender}
       onPopupScroll={state.onPopupScroll}>
       {state.options}
     </AntSelect>
@@ -65,15 +118,19 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.node,
-      value: PropTypes.string,
-      props: PropTypes.object,
-    })
-  ),
-  titleKey: PropTypes.string,
-  valueKey: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
+  formatTitle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
+  formatValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   onPopupScroll: PropTypes.func,
   faultTolerant: PropTypes.number,
 };

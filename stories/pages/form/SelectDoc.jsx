@@ -24,6 +24,8 @@ export default () => {
       <BaseUse />
       <DividerBlock>自定义数据 key</DividerBlock>
       <CustomDataKey />
+      <DividerBlock>手动格式化数据</DividerBlock>
+      <FormatData />
       <DividerBlock>自定义 option</DividerBlock>
       <CustomOption />
       <DividerBlock>滚动触底加载更多</DividerBlock>
@@ -66,6 +68,7 @@ const BaseUse = () => {
         onChange={onChange}
         onSearch={onSearch}
         placeholder="请选择颜色"
+        apendOption={<div>加载更多</div>}
         style={{width: '100%'}}
       />
     </div>
@@ -94,11 +97,35 @@ const CustomDataKey = () => {
   return (
     <Select
       data={data}
-      titleKey="desc"
-      valueKey="color"
+      formatTitle="desc"
+      formatValue="color"
       onChange={onChange}
       placeholder="请选择颜色"
       style={{width: '100%'}}
+    />
+  );
+}
+
+// 格式化数据
+const FormatData = () => {
+  const data = useMemo(() => ([
+    {community: '国关小区', building: '1', house: '201', id: '123'},
+    {community: '花园小区', building: '8', house: '801', id: '456'},
+  ]), []);
+
+  // onChange 事件
+  const onChange = useCallback((value, option) => {
+    console.log('------ value ----', value, option);
+  }, []);
+
+  return (
+    <Select
+      data={data}
+      onChange={onChange}
+      placeholder="请选择颜色"
+      style={{width: '100%'}}
+      formatValue={v => v.id}
+      formatTitle={v => (`${v.community}${v.building}楼${v.house}`)}
     />
   );
 }
