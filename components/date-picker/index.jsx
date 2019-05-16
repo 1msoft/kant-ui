@@ -9,6 +9,7 @@ import moment from 'moment';
 import omit from 'omit.js';
 import { DatePicker as AntDatePicker } from 'antd';
 import YearPicker from './YearPicker';
+import locale from 'antd/lib/date-picker/locale/zh_CN';
 
 AntDatePicker.YearPicker = YearPicker;
 
@@ -70,15 +71,16 @@ const getPickerProps = (props, index) => {
 /**
  * 日期范围输入框
  * @param {object}   props
- * @param {string}   props.type           类型('Date' | 'Month' | 'Week' | 'Year')
- * @param {string}   props.theme          主题('box' | 'underline')
- * @param {array}    props.value          指定时间[moment, moment]
- * @param {array}    props.defaultValue   默认时间[moment, moment]
- * @param {number}   props.minYear        // 最小年份 年份选择器专用
- * @param {number}   props.maxYear        // 最大年份 年份选择器专用
- * @param {function} props.onChange       时间发生变化的回调
- * @param {object}   props.starPickerConfig 起始时间配置
- * @param {object}   props.endPickerConfig  结束时间配置
+ * @param {string}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
+ * @param {string}   [props.theme='box']             主题('box' | 'underline')
+ * @param {array}    [props.value=[]]                指定时间[moment, moment]
+ * @param {array}    [props.defaultValue=[]]         默认时间[moment, moment]
+ * @param {number}   [props.minYear]                 最小年份 年份选择器专用
+ * @param {number}   [props.maxYear]                 最大年份 年份选择器专用
+ * @param {function} [props.onChange=() => {}]       时间发生变化的回调
+ * @param {object}   [props.starPickerConfig]        起始时间配置
+ * @param {object}   [props.endPickerConfig]         结束时间配置
+ * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
  */
 const DatePicker = (props) => {
   const [startDate, setStartDate] = useState(
@@ -136,6 +138,7 @@ DatePicker.defaultProps = {
   type: "Date",
   theme: "box",
   value: [],
+  locale,
   defaultValue: [],
   onChange: () => {},
 };

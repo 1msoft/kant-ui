@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Select as AntSelect } from 'antd';
+import { Select as AntSelect, Icon } from 'antd';
 
 const Option = AntSelect.Option;
 
@@ -30,9 +30,17 @@ const renderOptions = (props) => {
   return options;
 };
 
+// 默认设置下拉框的后缀图标
+const selectSuffixIcon = () => {
+  return (
+    <Icon className="kant-select-calendar-icon" type="calendar" />
+  );
+}
+
 // 获取下拉框props
 const getSelectProps = (props) => {
   const selectProps = {
+    suffixIcon: selectSuffixIcon(),
     ...props,
     onChange: (value, option) => {
       const date = moment([value], 'YYYY');
@@ -49,12 +57,13 @@ const getSelectProps = (props) => {
 /**
  * 年份范围输入框
  * @param {object}   props
- * @param {date}     props.value         值
- * @param {date}     props.defaultValue  默认值
- * @param {function} props.onChange      年份发生变化的回调
- * @param {string}   props.className     类名
- * @param {number}   props.minYear       最小年份
- * @param {number}   props.maxYear       最大年份
+ * @param {date}     [props.value]              值
+ * @param {date}     [props.defaultValue]       默认值
+ * @param {function} [props.onChange]           年份发生变化的回调
+ * @param {string}   [props.className]          类名
+ * @param {number}   [props.minYear=1990]       最小年份
+ * @param {number}   [props.maxYear=当前年份+10]  最大年份
+ * @see {@link https://ant.design/components/select-cn/#API 更多参数详见 antd 选择框 Select 文档}
  */
 const YearPicker = (props) => {
   const selectProps = getSelectProps(props);

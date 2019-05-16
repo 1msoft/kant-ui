@@ -77,6 +77,30 @@ const DatePickerComponent = () => {
         type="Year"
         value={[year[0], year[1]]}
         onChange={(startDate, endDate) => {setYear([startDate, endDate])}} />
+
+      <Divider>Format参数</Divider>
+      <Divider orientation="left">日期选择器</Divider>
+      <DatePicker
+        theme={theme}
+        value={[date[0], date[1]]}
+        format="YYYY年MM月DD日"
+        onChange={(startDate, endDate) => {setDate([startDate, endDate])}} />
+
+      <Divider orientation="left">周数选择器</Divider>
+      <DatePicker
+        type="Week"
+        theme={theme}
+        value={[week[0], week[1]]}
+        format="YYYY年 第wo"
+        onChange={(startDate, endDate) => {setWeek([startDate, endDate])}} />
+
+      <Divider orientation="left">月份选择器</Divider>
+      <DatePicker
+        theme={theme}
+        type="Month"
+        value={[month[0], month[1]]}
+        format="YYYY年MM月"
+        onChange={(startDate, endDate) => {setMonth([startDate, endDate])}} />
     </div>
   );
 };
