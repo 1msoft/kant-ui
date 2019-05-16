@@ -10,7 +10,7 @@ import omit from 'omit.js';
 import { InputNumber as AntInputNumber } from "antd";
 
 /**
- * 自定义数字输入框组件 antd数字输入框文档{@link https://ant.design/components/input-number-cn/}
+ * 数字输入框
  * @param {object}  props
  * @param {string}  [props.theme='box']            不同风格   'box' 'underline'
  * @param {string}  [props.label]                  信息
@@ -21,6 +21,7 @@ import { InputNumber as AntInputNumber } from "antd";
  * @param {function}[props.onPressEnter=()=>{}]    回车事件
  * @param {string}  [props.prefix='']              格式化前缀
  * @param {string}  [props.suffix='']              格式化后缀
+ * @see {@link https://ant.design/components/input-number-cn/#API 更多参数详见 antd 数字输入框 InputNumber 文档}
  */
 const InputNumber = (props) => {
   const regex = new RegExp(`\\${props.prefix}\s+?|${props.suffix}|(,*)`, "g");
