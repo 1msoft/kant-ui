@@ -45,13 +45,13 @@ const getBoundaryValue = (val) => {
 
 // 头部类名设置
 const setHeaderClassName = (fixed, isHide) => {
-  let className = 'em-header';
+  let className = 'kant-header';
   if (fixed) {
-    className = `${className} em-header-fixed`;
+    className = `${className} kant-header-fixed`;
     if (isHide) {
-      className = `${className} em-header-hide`;
+      className = `${className} kant-header-hide`;
     } else {
-      className = `${className} em-header-show`;
+      className = `${className} kant-header-show`;
     }
   }
   return className;
@@ -66,14 +66,14 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
   ];
   if (subNav) {
     switch (subNavPlacement) {
-    case 'up':
-      dom.unshift(subNav);
-      break;
-    case 'down':
-      dom.push(subNav);
-      break;
-    default:
-      throw new Error(`无效 subNavPlacement(${subNavPlacement}) 值`);
+      case 'up':
+        dom.unshift(subNav);
+        break;
+      case 'down':
+        dom.push(subNav);
+        break;
+      default:
+        throw new Error(`无效 subNavPlacement(${subNavPlacement}) 值`);
     };
   }
   return dom;
@@ -81,7 +81,7 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
 
 /**
  * Layout 头部组件封装 参数
- * @param {object} props
+ * @param {object}                props
  * @param {boolean}               [props.fixed=true]      是否固定在页面
  * @param {boolean|string|number} [props.downHide=false]  是否固定在页面
  * @param {boolean|string|number} [props.upShow=false]    是否固定在页面
@@ -124,31 +124,33 @@ const Header = (props) => {
   );
 };
 
-// 自定义类型校验
+/**
+ * 自定义类型校验
+*/
 function customTypeValidators(props, propName, componentName) {
   const val = props[propName];
   switch (typeof val) {
-  case 'number':
-    // 大于零
-    if (val <= 0) {
-      return new Error(`无效值：当${propName}为number时，必须大于0`);
-    }
-    break;
-  case 'boolean':
-    break;
-  case 'string':
-    // 仅支持'100' '100px' '10%'
-    const numberReg = /^\d{1,}$/;
-    const pxReg = /^\d{1,}px$/;
-    const percentageReg = /^\d{1,2}%$/;
-    if (!numberReg.test(val) &&
-      !pxReg.test(val) &&
-      !percentageReg.test(val)) {
-      return new Error(`无效值：当${propName}为string时，仅支持"px"、"%"、"数值"`);
-    }
-    break;
-  default:
-    return new Error(`无效类型：${propName}支持string、number、boolean`);
+    case 'number':
+      // 大于零
+      if (val <= 0) {
+        return new Error(`无效值：当${propName}为number时，必须大于0`);
+      }
+      break;
+    case 'boolean':
+      break;
+    case 'string':
+      // 仅支持'100' '100px' '10%'
+      const numberReg = /^\d{1,}$/;
+      const pxReg = /^\d{1,}px$/;
+      const percentageReg = /^\d{1,2}%$/;
+      if (!numberReg.test(val) &&
+        !pxReg.test(val) &&
+        !percentageReg.test(val)) {
+        return new Error(`无效值：当${propName}为string时，仅支持"px"、"%"、"数值"`);
+      }
+      break;
+    default:
+      return new Error(`无效类型：${propName}支持string、number、boolean`);
   };
 }
 
