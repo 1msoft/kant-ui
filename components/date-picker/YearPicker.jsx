@@ -77,7 +77,9 @@ const YearPicker = (props) => {
   );
 };
 
-// 自定义日期校验
+/**
+ * 自定义日期校验
+ */
 function customDateValidators(props, propName, componentName) {
   const val = props[propName];
   if (val && !moment.isMoment(val)) {
@@ -85,7 +87,6 @@ function customDateValidators(props, propName, componentName) {
   }
 }
 
-// TUDO: 校验
 YearPicker.propTypes = {
   value: customDateValidators,
   defaultValue: customDateValidators,

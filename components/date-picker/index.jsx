@@ -114,7 +114,9 @@ const DatePicker = (props) => {
   );
 }
 
-// 自定义日期校验
+/**
+ * 自定义日期校验
+ */
 function customDateValidators(propValue, key, componentName, location, propFullName) {
   const val = propValue[key];
   if (val !== null && !moment.isMoment(val)) {
