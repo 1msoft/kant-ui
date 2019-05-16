@@ -1,13 +1,11 @@
-import React from '@components/date-picker/__test__/react'
-import {assert} from 'chai';
-import Enzyme from '@components/date-picker/__test__/enzyme'
-import Adapter from '@components/date-picker/__test__/enzyme-adapter-react-16'
-const { mount }=Enzyme
-import Test from './testcom';
-import { Button } from '@components/date-picker/__test__/antd';
+import React from 'react';
+import { assert } from 'chai';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+const { mount } = Enzyme;
 
 // 为 Enzyme 配置适配器
-// Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() })
 
 // describe('Enzyme的 mount 测试套件', function () {
 //   it('Example组件中dom值的判断', function () {

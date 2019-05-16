@@ -23,9 +23,9 @@ const DatePickerComponent = () => {
       <div>
         <span style={{color: "#40a9ff", cursor: "pointer"}}
           onClick={() => {
-          const nextTheme = theme === "box" ? "underline" : "box";
-          setTheme(nextTheme);
-        }}>
+            const nextTheme = theme === "box" ? "underline" : "box";
+            setTheme(nextTheme);
+          }}>
           切换风格
         </span>
       </div>
