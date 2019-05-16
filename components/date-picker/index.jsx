@@ -40,23 +40,24 @@ const getPickerProps = (props, index) => {
     "endDate",
     "setEndDate",
   ]);
-  const config = index === 0 ? props.starPickerConfig : props.endPickerConfig;
+  const isStartPicker = index === 0;
+  const config = isStartPicker ? props.starPickerConfig : props.endPickerConfig;
   const className = `${props.className} kant-date-picker kant-date-picker-theme-${props.theme}`;
   let pickerProps = {
     className,
-    placeholder: index === 0 ? '开始日期' : '结束日期',
+    placeholder: isStartPicker ? '开始日期' : '结束日期',
     onChange: (date, dateString) => {
-      index === 0 ? props.setStartDate(date) : props.setEndDate(date);
+      isStartPicker ? props.setStartDate(date) : props.setEndDate(date);
     },
     disabledDate: (date) => {
       const dateValue = date.valueOf();
       // 相对时间
-      const relativeDate = index === 0 ? props.endDate : props.startDate;
+      const relativeDate = isStartPicker ? props.endDate : props.startDate;
       if (!date || !relativeDate) {
         return false;
       }
       const relativeDateValue = relativeDate.valueOf();
-      return index === 0 ? (dateValue > relativeDateValue) : (dateValue < relativeDateValue);
+      return isStartPicker ? (dateValue > relativeDateValue) : (dateValue < relativeDateValue);
     },
     ...otherProps,
     ...config,

@@ -19,9 +19,8 @@ const renderOptions = (props) => {
   for (let year = minYear; year <= maxYear; year++) {
     // 年份范围
     const disabled = props.disabledDate ?
-      props.disabledDate(
-        moment(year, 'YYYY')
-      ) : false;
+      props.disabledDate(moment(year, 'YYYY')) : false;
+
     options.push(
       <Option key={year} value={`${year}`} disabled={disabled}>
         {year}年
@@ -49,12 +48,13 @@ const getSelectProps = (props) => {
 
 /**
  * 年份范围输入框
- * @param {*} props
- * @param {*}
- * @param {*}
- * @param {*}
- * @param {*}
- * @param {*}
+ * @param {object}   props
+ * @param {date}     props.value         值
+ * @param {date}     props.defaultValue  默认值
+ * @param {function} props.onChange      年份发生变化的回调
+ * @param {string}   props.className     类名
+ * @param {number}   props.minYear       最小年份
+ * @param {number}   props.maxYear       最大年份
  */
 const YearPicker = (props) => {
   const selectProps = getSelectProps(props);
