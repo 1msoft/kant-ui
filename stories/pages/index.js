@@ -1,6 +1,7 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import InputNumber from './form/InputNumber';
+import FormLayout from './form/FormLayout';
 
 export default [
   {
@@ -26,6 +27,10 @@ export default [
       {
         title: 'InputNumber 数字输入框',
         component: InputNumber,
+      },
+      {
+        title: '表单 FormLayout',
+        component: FormLayout,
       }
     ]
   }
