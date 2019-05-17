@@ -11,14 +11,20 @@ import React, {
   useCallback,
 } from 'react';
 import _ from 'lodash';
+import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import { Select as AntSelect, Spin } from 'antd';
 
 const Option = AntSelect.Option;
 
-// 唯一值
+/**
+ * @constant 唯一值
+ */
 const UNIQUE = Math.random().toString(36).substring(7).split('').join('.');
-// 加载类型loadingType
+
+/**
+ * @constant 加载类型
+ */
 const LOADING_TYPE = {
   ALL: 'all',
   MENU: 'menu',
@@ -29,7 +35,7 @@ const useStateHook = (props) => {
   /**
    * 处理数据方法： value、title
    * @param {Object | String | number} data 待处理数据
-   * @param {String} type 处理数据类型（Value | Title）
+   * @param {String} type 处理数据类型（value | title）
    */
   const handlerData = useCallback(({ data, type }) => {
     const cData = _.isObject(data) ? data : { title: data, value: data };
@@ -37,7 +43,7 @@ const useStateHook = (props) => {
     if (_.isString(format)){ return cData[format];}
     if (_.isFunction(format)){return format(data);}
     return cData[type];
-  }, [props.data, props.formatValue, props.formatTitle]);
+  }, [props.formatValue, props.formatTitle]);
 
   // 计算 options
   const options = useMemo(() => {
@@ -53,15 +59,15 @@ const useStateHook = (props) => {
         </Option>
       );
     });
-    hOptions.push(
+    props.apendDom && hOptions.push(
       <Option value={UNIQUE} key={UNIQUE} disabled={true} className="kant-append-option" >
         <div className="kant-append-option-wrapper">
-          {props.apendOption || null}
+          {props.apendDom}
         </div>
       </Option>
     );
     return hOptions;
-  }, [props.data, props.formatValue, props.formatTitle, props.children, props.apendOption]);
+  }, [props.data, props.children, props.apendDom]);
 
   // 选择器下拉滚动事件
   const onPopupScroll = useCallback(e => {
@@ -72,18 +78,30 @@ const useStateHook = (props) => {
     }
     // 2. 调用 props.onPopupScroll
     props.onPopupScroll && props.onPopupScroll(e);
-  }, []);
+  }, [props.onTouchBottom, props.faultTolerant, props.onPopupScroll]);
 
   // 自定义下拉框内容
-  const dropdownRender = useCallback((menuNode) => {
+  const dropdownRender = useCallback((menuNode, currProps) => {
     const loading = [
       props.loading,
       [ LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
     ].every(v => v);
-    return <Spin spinning={loading}> {menuNode}</Spin>;
-  }, [props.loading, props.loadingType]);
+    const render = (
+      loading
+        ? <Spin spinning={loading} {...props.spin}> {menuNode}</Spin>
+        : menuNode
+    );
+    return (props.dropdownRender ? props.dropdownRender(render, currProps) : render);
+  }, [props.loading, props.loadingType, props.dropdownRender, props.spin]);
 
-  return {options, onPopupScroll, dropdownRender};
+  // 计算其余 props
+  const otherProps = useMemo(() => {
+    const filter = ['dropdownRender', 'onPopupScroll'];
+    if (props.loadingType === LOADING_TYPE.MENU){filter.push('loading')}
+    return omit(props, filter)
+  });
+
+  return {options, onPopupScroll, dropdownRender, otherProps};
 }
 
 /**
@@ -91,6 +109,7 @@ const useStateHook = (props) => {
  * @param {Array} [props.data]                      数据源 [object|String|number]
  * @param {String|Number|ReactDOM} props.data.title 下拉项默认显示字段
  * @param {String} props.data.value                 下拉项默认 value 字段
+ * @param {String} props.data.key                   下拉项 key 值
  * @param {Object} props.data.props                 下拉项 Option 组件附加 props
  * @param {String|Function} [props.formatTitle]     String: 指定下拉项显示字段，
  *                                                  function: (item) => {}, 自定义下拉框显示字段
@@ -98,31 +117,33 @@ const useStateHook = (props) => {
  *                                                  function: (item) => {}, 自定义下拉框显示字段
  * @param {Function} [props.onTouchBottom]          触底事件
  * @param {Number} [props.faultTolerant]            指定下拉项滚动条距离底部的距离小于多少值时触发 onTouchBottom 事件
- * @param {ReactDom} [props.apendOption]            在下拉项中追加 option
+ * @param {ReactDom} [props.apendDom]               在下拉项中追加 dom(不可选)
  * @param {String} [props.loadingType]              加载中类型（menu | field | all）
+ * @param {Boolean} [props.loading]                 是否显示加载中
+ * @param {Object} [props.spin]                     设置下拉列表加载组件 Spin.props
+ * @link props.spin参数参考  [antd 官网](https://ant.design/components/spin-cn/#API)
  * @link 更多参数参考 [antd 官网](https://ant.design/components/select-cn/#API)
- * 加载更多按钮
- * 加载中
  */
 const Select = (props) => {
   const state = useStateHook(props);
   return (
     <AntSelect
-      {...props}
-      loading
+      onPopupScroll={state.onPopupScroll}
       dropdownRender={state.dropdownRender}
-      onPopupScroll={state.onPopupScroll}>
+      {...state.otherProps}
+    >
       {state.options}
     </AntSelect>
   );
 }
 
 Select.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.number),
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(PropTypes.object),
-  ]),
+  data: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ])),
+
   formatTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func
@@ -136,7 +157,8 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  faultTolerant: 10
+  faultTolerant: 10,
+  loadingType: LOADING_TYPE.FIELD,
 };
 
 export default Select;
