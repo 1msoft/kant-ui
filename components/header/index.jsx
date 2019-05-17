@@ -24,8 +24,7 @@ const getScrollTop = () => {
 // 获取页面高度
 const getWebHeight = () => {
   return (
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
+    document.body.scrollHeight ||
     document.body.clientHeight
   );
 }
@@ -83,6 +82,7 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
  * Layout 头部组件封装 参数
  * @param {object}                props
  * @param {boolean}               [props.fixed=true]      是否固定在页面
+ * @param {object}                [props.style]           行内样式
  * @param {boolean|string|number} [props.downHide=false]  是否固定在页面
  * @param {boolean|string|number} [props.upShow=false]    是否固定在页面
  * @param {element}               [props.subNav]          子菜单的ReactDom
@@ -117,7 +117,7 @@ const Header = (props) => {
     };
   });
   return (
-    <div
+    <div style={props.style}
       className={setHeaderClassName(props.fixed, hide)}>
       {renderDom(props)}
     </div>
