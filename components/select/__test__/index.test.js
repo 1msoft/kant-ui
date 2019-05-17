@@ -197,9 +197,9 @@ describe('Select: 选择器', function () {
     const wrapper = mount(
       <Select
         data = {data}
-        apendDom={(
-          <div onClick={onClick} className="kant-append">加载更多</div>
-        )}/>
+        apendDom={(<div onClick={onClick} className="kant-append">加载更多</div>)}
+        dropdownRender={(dom) => (<div>{dom}<div className="kant-dropdown-render"></div></div>)}
+      />
     );
     // 1. option 是否渲染
     wrapper.find('.ant-select').simulate('click');
@@ -210,7 +210,11 @@ describe('Select: 选择器', function () {
     assert.equal(wrapper.find('.kant-append').text(), '加载更多');
 
     // 2. 点击事件是否执行
-    wrapper.find('.kant-append').simulate('click')
+    wrapper.find('.kant-append').simulate('click');
     assert.isTrue(onClick.called);
+
+    // 3. 原生 dropdownRender 是否可用
+    assert.equal(wrapper.find('.kant-dropdown-render').length, 1);
+
   });
 });

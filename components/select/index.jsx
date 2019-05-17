@@ -3,7 +3,7 @@
  * 1. 在 antd Select 的基础上新增功能,支持内部渲染 Option 列表
  * 2. 在 antd Select 的基础上新增下拉触底事件
  * 3. 在 antd Select 的基础上新增加载状态
- *
+ * 4. 在 antd Select 的基础上允许对下拉菜单追加 dom
  */
 import React, {
   useMemo,
