@@ -10,6 +10,7 @@ const SideBlock = () => {
   const [openChildMode, setOpenChildMode] = useState('inline');
   const [isCollapsed, setisCollapsed] = useState(true);
   const [inlineStyle, setinlineStyle] = useState('normal');
+  const [showChildMenu, setShowChildMenu] = useState(true);
   const changeMode = value => {
     setRetractMode(value ? 'all' : 'half');
   };
@@ -22,6 +23,9 @@ const SideBlock = () => {
   const changeMCollapsed = value => {
     setisCollapsed(value ? false : true);
   };
+  const getshowChildMenu = value => {
+    setShowChildMenu(value ? false : true);
+  };
 
   const testButtonDom = (props) => (
     <Button type="primary"
@@ -33,21 +37,28 @@ const SideBlock = () => {
   );
 
   const testDom = (props) => (
-    <div style={{height: '100px', border: '1px solid red'}}></div>
+    <div style={{height: '100px', border: '1px solid black'}}></div>
   );
 
   const siderStyle = {
-    height: 600
+    overflow: 'auto',
+    height: '100vh',
+    position: 'fixed',
+    left: 0,
+    top: 0,
   }
 
   return (
-    <div style={{marginLeft: '30px'}} className="em-side-menu">
+    <div style={{ marginLeft: '30px', position: 'absolute', left: '200px',
+      height: '300px', top: '50px' }} className="em-side-menu">
       这是侧边栏
       <div style={{ width: '1000px', height: '30px' }}
       ></div>
       <SideMenu
+        menuListDom={testDom}
         inlineOpenStyle={inlineStyle}
         siderStyle={siderStyle}
+        showChildMenu={showChildMenu}
         header={testDom}
         footer={testDom}
         halfRetractHeader={testDom}
@@ -77,10 +88,11 @@ const SideBlock = () => {
         { key: '978', title: '菜单6', url: '/abcde', icon: 'delete'}]}
       />
       <div>
-        <p><Switch onChange={changeMCollapsed} />是否可以展开子级</p>
-        <p><Switch onChange={changeMode} />收缩方式</p>
-        <p><Switch onChange={openMode} />展开模式</p>
-        <p><Switch onChange={getinlineStyle} />inline展开方式</p>
+        <p><Switch onChange={changeMCollapsed} />是否可以收缩</p>
+        <p><Switch onChange={changeMode} />收缩方式（全收缩/半收缩）</p>
+        <p><Switch onChange={openMode} />展开模式(inline/vertical)</p>
+        <p><Switch onChange={getinlineStyle} />inline的展开方式</p>
+        <p><Switch onChange={getshowChildMenu}/>收缩菜单是否收缩子菜单</p>
       </div>
     </div>
   );
@@ -89,32 +101,3 @@ const SideBlock = () => {
 export default () => (
   <SideBlock />
 )
-
-// (
-//   <div style={{marginLeft: '30px'}}>
-//     这是侧边栏
-//     <div style={{ width: '1000px', height: '30px' }}
-//     ></div>
-//     <SideMenu
-//       retractMode={retractMode}
-//       isCollapsed={false}
-//       dataSource={[{ key: '123', title: '菜单1', path: '/abc', icon: 'delete',
-//         child: [{ key: '345', name: '菜单2', path: '/abcd', icon: 'add',
-//           child: [
-//             { key: '778', name: '菜单88', path: '/abcdea', icon: 'delete'},
-//             { key: '878', name: '菜单99', path: '/abcdea', icon: 'delete'},
-//             { key: '078', name: '菜单00', path: '/abcdea', icon: 'delete'},
-//           ]}
-//         ]},
-//       { key: '678', name: '菜单3', path: '/abcde', icon: 'delete',
-//         child: [{ key: '3456', name: '菜单62', path: '/abcdh', icon: 'add'}]
-//       },
-//       { key: '798', name: '菜单4', path: '/abcde', icon: 'delete'},
-//       { key: '789', name: '菜单5', path: '/abcde', icon: 'delete'},
-//       { key: '978', name: '菜单6', path: '/abcde', icon: 'delete'}]}
-//     />
-//     <div>
-//       <Switch onChange={this.changeMode}>展开子级方式</Switch>
-//     </div>
-//   </div>
-// );
