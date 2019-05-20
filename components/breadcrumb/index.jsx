@@ -36,7 +36,7 @@ const Breadcrumb = (props) => {
               >
                 {
                   !!props.linkRoute ?
-                    props.linkRoute(item.path, item.icon, item.text)
+                    props.linkRoute(item)
                     :
                     <a href={item.path}>{item.icon ? <Icon type={item.icon}/> : ''}{item.text}</a>
                 }

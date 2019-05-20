@@ -11,23 +11,40 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Breadcrumb />', function() {
 
-  it ('判断是否能正确接收导航路由数据，及其当前路由高亮颜色', function() {
+  it ('判断是否能正确接收导航路由数据', function() {
     //渲染组件
+    const breadcrumbs = [{path: '/abcc', text: '测试1', icon: 'delete'},
+    {path: '/abcd', text: '测试2', icon: 'delete'}
+    ]
     const app = mount(<Breadcrumb
-      breadcrumbs={[{path: '/abcc', text: '测试1', icon: 'delete'}]}
+      lightFocusClass="kant-link"
+      breadcrumbs={breadcrumbs}
       />);
 
       //判断相不相等
-    expect(app.props().breadcrumbs[0].path).to.equal('/abcc');
-    expect(app.props().breadcrumbs[0].text).to.equal('测试1');
-    expect(app.props().breadcrumbs[0].icon).to.equal('delete');
+    assert.equal(app.find('.ant-breadcrumb span .kant-link').at(0).text().trim(),
+      breadcrumbs[1].text);
 
-    //设置props会不会改变值
-    app.setProps({ breadcrumbs: [{path: '/abcd', text: '测试2', icon: 'add'}] });
-    expect(app.props().breadcrumbs[0].path).to.equal('/abcd');
-    expect(app.props().breadcrumbs[0].text).to.equal('测试2');
-    expect(app.props().breadcrumbs[0].icon).to.equal('add');
+    assert.equal(app.find('.ant-breadcrumb span a').at(0).text(),
+      breadcrumbs[0].text)
   });
+
+  it ('判断传入函数是否生效', function() {
+    const breadcrumbs = [{path: '/abcc', text: '测试1', icon: 'delete'},
+      {path: '/abcd', text: '测试2', icon: 'delete'}
+    ]
+    const freeDom = (props) => {
+      return <a  href={props.path} className="kant-a">{props.text}</a>
+    }
+    const app = mount(<Breadcrumb
+      lightFocusClass="kant-link"
+      breadcrumbs={breadcrumbs}
+      linkRoute={freeDom}
+      />);
+
+      assert.equal(app.find('.kant-a').at(0).text().trim(),
+        breadcrumbs[0].text)
+  })
 
 })
 
