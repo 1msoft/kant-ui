@@ -1,42 +1,44 @@
 import React from 'react';
 import { Icon, Breadcrumb as AntBreadcrumb} from 'antd';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import omit from 'omit.js';
 
 /**
  * 面包屑导航通用组件
- * @param {string} props
- * @param {array} [props.breadcrumbs = [{icon: '', text: '', path: ''}]] 面包屑路由
- * @param {boolean} [props.isRoute= true] 有无路由
- * @param {string} [props.lightFocusClass] 当前路由高亮等自定义样式
- * @param {string} [props.breadClassName] 面包屑路由的总体样式
- * @param {string} [props.normalbreadClassName] 当前路由前的路由样式
+ * @param {object}   props
+ * @param {array}    [props.breadcrumbs = [{icon: '', text: '', path: ''}]] 面包屑路由
+ * @param {function} [props.linkRoute]             链接路由函数
+ * @param {string}   [props.lightFocusClass]       当前路由高亮等自定义样式
  */
 
 const Breadcrumb = (props) => {
+  const otherProps = omit(props, [
+    'breadcrumbs',
+    'linkRoute',
+    'lightFocusClass',
+  ]);
   return (
-    <AntBreadcrumb {...props} className={props.breadClassName}>
+    <AntBreadcrumb {...otherProps}>
       {
         props.breadcrumbs.map( (item, idx, array) => {
-          // 无链接面包屑项或者当前面包屑项，不使用 Link 标签
           if (idx === array.length - 1 || !item.path) {
             return (
-              <AntBreadcrumb.Item key={idx} className={props.lightFocusClass}>
-                {idx === 0 ? <Icon type={item.icon} /> : ''} {item.text}
+              <AntBreadcrumb.Item key={idx} className={props.lightFocusClass}
+                {...otherProps}
+              >
+                {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
               </AntBreadcrumb.Item>
             )
           } else {
-            // 第一个面包屑项显示图标
             return (
               <AntBreadcrumb.Item key={idx}
-                className={props.normalbreadClassName}>
+                {...otherProps}
+              >
                 {
-                  props.isRoute ?
-                    <span>
-                      <Link to={item.path}>
-                        {idx === 0 ? <Icon type={item.icon} /> : ''} {item.text}
-                      </Link>
-                    </span> : <a href={item.path}>{item.text}</a>
+                  !!props.linkRoute ?
+                    props.linkRoute(item.path, item.icon, item.text)
+                    :
+                    <a href={item.path}>{item.icon ? <Icon type={item.icon}/> : ''}{item.text}</a>
                 }
               </AntBreadcrumb.Item>
             )
@@ -55,15 +57,13 @@ Breadcrumb.propTypes = {
       path: PropTypes.string,
     })
   ),
-  isRoute: PropTypes.bool,
+  linkRoute: PropTypes.func,
   lightFocusClass: PropTypes.string,
-  breadClassName: PropTypes.string,
-  normalbreadClassName: PropTypes.string,
 }
 
 Breadcrumb.defaultProps = {
   breadcrumbs: [],
-  isRoute: true,
+  linkRoute: null,
 }
 
 export default Breadcrumb;
