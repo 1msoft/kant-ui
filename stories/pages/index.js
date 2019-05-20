@@ -29,7 +29,7 @@ export default [
         component: InputNumber,
       },
       {
-        title: '日期范围选择器',
+        title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
       }
     ]
