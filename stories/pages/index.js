@@ -34,7 +34,7 @@ export default [
     title: '布局',
     parents: [
       {
-        title: '头部导航栏',
+        title: 'Header 头部导航栏',
         component: HeaderComponent,
       }
     ]
