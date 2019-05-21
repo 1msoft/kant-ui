@@ -17,15 +17,15 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {string}   [props.retractMode=('half' | 'all')]   收缩模式
  * @param {string}   [props.openChildMode=('vertical' | 'inline')] 展开子级的方式
  * @param {object}   [props.lightHeightstyle: {}]           当前选中菜单的高亮样式
- * @param {function} [header]                               全收缩头部组件
- * @param {function} [footer]                               全收缩底部组件
+ * @param {function} [header]                               未收缩头部组件
+ * @param {function} [footer]                               未收缩底部组件
  * @param {function} [halfRetractHeader]                    半收缩头部组件
  * @param {function} [halfRetractFooter]                    半收缩底部组件
  * @param {object}   [siderStyle]                           侧边栏样式覆盖
  * @param {string}   [inlineOpenStyle='normal' | 'hideOther']   mode=inline是的子菜单展开方式
  * @param {boolean}  [showChildMenu=true]                   关闭菜单是否收缩子菜单
- * @param {array}    [selectKeysArr=[]]                     初始selectKeys的数据
- * @param {array}    [openKeysArr=[]]                       初始openKeys的数据
+ * @param {array}    [selectKeysArr=[]]                     当前selectKeys的数据
+ * @param {array}    [openKeysArr=[]]                       当前openKeys的数据
  * @param {function} [onLink]                               处理menuItem链接的函数
  * @param {function} [menuListDom]                          自定义的DOM处理菜单
  */
@@ -60,7 +60,7 @@ const SideMenu = (props) => {
     const menuElement = menu => menu.map(item => {
       if (selectedKeysState.length === 1
         && selectedKeysState[0] === item.key) {
-        item.style = props.lightHeightstyle || { color: 'red' }
+        item.style = props.lightHeightstyle
       } else {
         item.style = {}
       }
@@ -87,8 +87,8 @@ const SideMenu = (props) => {
             {...otherProps}
           >
             {
-              item.url ? (!_.isEmpty(props.onLink) ? props.onLink(item.title, item.icon, item.url) :
-                <a href={item.url} className='em-menu-link'>
+              item.url ? (!!props.onLink ? props.onLink(item) :
+                <a href={item.url} className='kant-menu-link'>
                   {item.icon ? <Icon type={item.icon} /> : ''}
                   <span>
                     {item.title}
@@ -277,10 +277,10 @@ const SideMenu = (props) => {
         {...otherProps}
       >
         {
-          props.retractMode === 'half' ?
-            (HalfRetractHeaderDom ? <HalfRetractHeaderDom /> : '')
+          props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
+            <HalfRetractHeaderDom />
             :
-            (HeaderDom ? <HeaderDom /> : '')
+            (props.header ? <HeaderDom /> : '')
         }
         <Menu
           onSelect={onSelect}
@@ -296,10 +296,10 @@ const SideMenu = (props) => {
               menuNode(props.dataSource) }
         </Menu>
         {
-          props.retractMode === 'half' ?
-            (HalfRetractFooterDom ? <HalfRetractFooterDom /> : '')
+          props.retractMode === 'half' && collapsed && props.halfRetractFooter ?
+            <HalfRetractFooterDom />
             :
-            (FooterDom ? <FooterDom /> : '')
+            (props.footer ? <FooterDom /> : '')
         }
       </AntSider>
     </Layout>

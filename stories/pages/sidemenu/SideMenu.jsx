@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SideMenu } from '@components/index';
 import { Switch, Button, Icon } from 'antd';
-import '@components/sidemenu/style';
+import '@components/side-menu/style';
 import './style.less';
 
 
@@ -29,7 +29,7 @@ const SideBlock = () => {
 
   const testButtonDom = (props) => (
     <Button type="primary"
-      className="testButton"
+      className="kant-testButton"
       onClick={props.onClick}
       style={{ marginBottom: 16, width: '50px'}}>
       <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />
@@ -40,6 +40,10 @@ const SideBlock = () => {
     <div style={{height: '100px', border: '1px solid black'}}></div>
   );
 
+  const test1Dom = (props) => (
+    <div style={{height: '100px', border: '1px solid red'}}></div>
+  );
+
   const siderStyle = {
     overflow: 'auto',
     height: '100vh',
@@ -48,21 +52,26 @@ const SideBlock = () => {
     top: 0,
   }
 
+  const onLink = (props) => (
+    <a href={props.url}  className="kant-a">{props.title}</a>
+  );
+
   return (
     <div style={{ marginLeft: '30px', position: 'absolute', left: '200px',
-      height: '300px', top: '50px' }} className="em-side-menu">
+      height: '300px', top: '50px' }} className="kant-side-menu">
       这是侧边栏
       <div style={{ width: '1000px', height: '30px' }}
       ></div>
       <SideMenu
+        onLink={onLink}
         menuListDom={testDom}
         inlineOpenStyle={inlineStyle}
         siderStyle={siderStyle}
         showChildMenu={showChildMenu}
         header={testDom}
         footer={testDom}
-        halfRetractHeader={testDom}
-        halfRetractFooter={testDom}
+        halfRetractHeader={test1Dom}
+        halfRetractFooter={test1Dom}
         collapsedDom={testButtonDom}
         theme="light"
         retractMode={retractMode}
