@@ -3,20 +3,16 @@ import PropTypes from 'prop-types';
 
 /**
  * 悬停菜单栏
- * @param {string}  props
- * @param {number} [props.showHeight] 悬停菜单出现的滚动高度
- * @param {string} [props.className] 最外层盒子雷子
- * @param {function} [props.freeDom] 自定义组件
- * @param {string} [props.listClassName] 外层盒子类名
- * @param {string} [props.suggestClassName] 反馈留言块类名
- * @param {function} [props.suggestEvent] 反馈留言触发事件
- * @param {string} [props.arrowClassName] 回到顶部块类型
- * @param {boolean} [props.show] 一开始是否默认显示悬停菜单
- * @param {boolean} [props.always] 悬停菜单栏是否一直存在
+ * @param {object}   props
+ * @param {number}   [props.showHeight]        悬停菜单出现的滚动高度
+ * @param {function} [props.freeDom]           自定义组件
+ * @param {function} [props.suggestEvent]      反馈留言触发事件
+ * @param {boolean}  [props.show]              初始是否默认显示悬停菜单
+ * @param {boolean}  [props.always]            悬停菜单栏是否一直存在
+ * @param {string}   [className]               悬停菜单盒子的类名
+ *
  */
-
-
-class FixedMenu extends React.Component{
+class FixedMenu extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -25,28 +21,28 @@ class FixedMenu extends React.Component{
   }
 
   componentDidMount(){
-    window.addEventListener('scroll', this.debounce(this.onScroll, 50));
+    document.addEventListener('scroll', this.debounce(this.onScroll, 50));
   }
 
   componentWillUnmount(){
-    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll);
   }
 
   render(){
-    const Com = this.props.freeDom;
+    const FixMenuDom = !!this.props.freeDom ? this.props.freeDom : '';
     return (
       <div className={`${this.sideBlockClassName} ${this.props.className}`}>
         {
-          Com ?
-            <Com /> :
-            <div className={`side-block-list ${this.props.listClassName}`}>
+          !!this.props.freeDom ?
+            <FixMenuDom /> :
+            <div className={`kant-side-block-list`}>
               <div
-                onClick={this.props.suggestEvent ? this.props.suggestEvent : null}
-                className={`${'side-block-list-weixin'} cp ${this.props.suggestClassName}`}>12345
+                onClick={!!this.props.suggestEvent ? this.props.suggestEvent : null}
+                className={`${'kant-side-block-list-weixin'} kant-cp `}>
               </div>
               <div
                 onClick={this.scrollToTop}
-                className={`${'side-block-list-arrow'} cp ${this.props.arrowClassName}`}>
+                className={`${'kant-side-block-list-arrow'} kant-cp `}>
               </div>
             </div>
         }
@@ -65,10 +61,10 @@ class FixedMenu extends React.Component{
 
   // 计算样式
   get sideBlockClassName(){
-    let className = 'side-block';
+    let className = 'kant-side-block';
     this.state.show
-      ? (className = `${className} show-o`)
-      : (className = `${className} hidden-o`);
+      ? (className = `${className} kant-show`)
+      : (className = `${className} kant-hidden`);
     return className;
   }
 
@@ -104,9 +100,9 @@ class FixedMenu extends React.Component{
     const showHeight = this.props.showHeight || 0;
     if (this.props.always === true) {
       this.setState({show: true})
-    } else if (this.scrollTop > showHeight && !this.state.show ){
+    } else if (!this.props.always && this.scrollTop > showHeight && !this.state.show ){
       this.setState({ show: true })
-    } else if ( this.scrollTop < showHeight && this.state.show ){
+    } else if ( !this.props.always && this.scrollTop < showHeight && this.state.show ){
       this.setState({ show: false })
     }
   }
@@ -130,14 +126,17 @@ class FixedMenu extends React.Component{
 }
 
 FixedMenu.propTypes = {
-  className: PropTypes.string,
   freeDom: PropTypes.func,
-  listClassName: PropTypes.string,
-  suggestClassName: PropTypes.string,
   suggestEvent: PropTypes.func,
-  arrowClassName: PropTypes.string,
   show: PropTypes.bool,
   always: PropTypes.bool,
+  className: PropTypes.string,
+}
+
+FixedMenu.defaultProps = {
+  freeDom: null,
+  suggestEvent: null,
+  show: false,
 }
 
 export default FixedMenu;
