@@ -1,6 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
-import Breadcrumb from './breadcrumb/Breadcrumbs';
+import Breadcrumb from './breadcrumb/Breadcrumb';
 import InputNumber from './form/InputNumber';
 
 export default [
