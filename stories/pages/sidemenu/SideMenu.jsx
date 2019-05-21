@@ -31,17 +31,17 @@ const SideBlock = () => {
     <Button type="primary"
       className="kant-testButton"
       onClick={props.onClick}
-      style={{ marginBottom: 16, width: '50px'}}>
+      style={{ marginBottom: 16, width: '50px' }}>
       <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />
     </Button>
   );
 
   const testDom = (props) => (
-    <div style={{height: '100px', border: '1px solid black'}}></div>
+    <div style={{ height: '100px', border: '1px solid black' }}></div>
   );
 
   const test1Dom = (props) => (
-    <div style={{height: '100px', border: '1px solid red'}}></div>
+    <div style={{ height: '100px', border: '1px solid red' }}></div>
   );
 
   const siderStyle = {
@@ -50,7 +50,7 @@ const SideBlock = () => {
     position: 'fixed',
     left: 0,
     top: 0,
-  }
+  };
 
   const onLink = (props) => (
     <a href={props.url}  className="kant-a">{props.title}</a>
@@ -85,16 +85,16 @@ const SideBlock = () => {
                   key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
                 }]
               },
-              { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete'},
-              { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete'},
-            ]}
-          ]},
+              { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete' },
+              { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete' },
+            ] }
+          ] },
         { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
-          child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete'}]
+          child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete' }]
         },
-        { key: '798', title: '菜单4', url: '/abcde', icon: 'delete'},
-        { key: '789', title: '菜单5', url: '/abcde', icon: 'delete'},
-        { key: '978', title: '菜单6', url: '/abcde', icon: 'delete'}]}
+        { key: '798', title: '菜单4', url: '/abcde', icon: 'delete' },
+        { key: '789', title: '菜单5', url: '/abcde', icon: 'delete' },
+        { key: '978', title: '菜单6', url: '/abcde', icon: 'delete' }]}
       />
       <div>
         <p><Switch onChange={changeMCollapsed} />是否可以收缩</p>
@@ -105,8 +105,8 @@ const SideBlock = () => {
       </div>
     </div>
   );
-}
+};
 
 export default () => (
   <SideBlock />
-)
+);

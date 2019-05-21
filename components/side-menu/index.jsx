@@ -29,7 +29,6 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {function} [onLink]                               处理menuItem链接的函数
  * @param {function} [menuListDom]                          自定义的DOM处理菜单
  */
-
 const SideMenu = (props) => {
   const otherProps = omit(props, [
     'dataSource',
@@ -60,9 +59,9 @@ const SideMenu = (props) => {
     const menuElement = menu => menu.map(item => {
       if (selectedKeysState.length === 1
         && selectedKeysState[0] === item.key) {
-        item.style = props.lightHeightstyle
+        item.style = props.lightHeightstyle;
       } else {
-        item.style = {}
+        item.style = {};
       }
       if (item.child) {
         return (
@@ -82,12 +81,12 @@ const SideMenu = (props) => {
       } else {
         return (
           <Menu.Item
-            style={item.style ? {...item.style} : ''}
+            style={item.style ? { ...item.style } : ''}
             key={item.key}
             {...otherProps}
           >
             {
-              item.url ? (!!props.onLink ? props.onLink(item) :
+              item.url ? (props.onLink ? props.onLink(item) :
                 <a href={item.url} className='kant-menu-link'>
                   {item.icon ? <Icon type={item.icon} /> : ''}
                   <span>
@@ -101,12 +100,12 @@ const SideMenu = (props) => {
       }
     });
     return menuElement(data);
-  }
+  };
 
   //点击显示/隐藏菜单
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
-  }
+  };
 
   //收缩模式insetProps
   const toggelRetractMode = (mark, otherProps) => {
@@ -114,7 +113,7 @@ const SideMenu = (props) => {
       otherProps.collapsedWidth = 0;
     }
     return otherProps;
-  }
+  };
 
   //递归遍历子级的菜单url 及其索引拥有子级菜单的key
   const loopChildMenu = (data) => {
@@ -128,19 +127,19 @@ const SideMenu = (props) => {
       } else {
         childMenuArr.push(item);
       }
-    })
+    });
     loopMenuObject.childMenuArr = childMenuArr;
     loopMenuObject.cascadeKeys = cascadeKeys;
     loopData(data);
     return loopMenuObject;
-  }
+  };
 
   //展开子菜单隐藏其他项
   const hideOtherMenu = (openKeys) => {
     let dataSource = props.dataSource;
     let rootSubmenuKeys = [];
     dataSource.forEach( (item) => {
-      rootSubmenuKeys.push(item.key)
+      rootSubmenuKeys.push(item.key);
     });
     const latestOpenKey = openKeys.find(key => openKeysState.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -148,12 +147,12 @@ const SideMenu = (props) => {
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
-  }
+  };
 
   //删除接收数组方法
   const pullAll = (arr, rmarr) => {
     return arr.filter(e => !rmarr.includes(e));
-  }
+  };
 
   const showMenuOpenKeys = (openKeys) => {
     //根据这个openKeys 找到子级的key 收缩的时候将子级的key 关闭
@@ -162,9 +161,9 @@ const SideMenu = (props) => {
     let cascadeListArr = [];
     for (let i = 0; i < dataSource.length; i++) {
       let loopArr = loopChildMenu([dataSource[i]]);
-      cascadeListArr.push(loopArr.cascadeKeys.reverse())
+      cascadeListArr.push(loopArr.cascadeKeys.reverse());
     }
-    let cont = 0 ;
+    let cont = 0;
     let arr = [];
     cascadeListArr.forEach( (item) => {
       if (!item[0]) return;
@@ -172,21 +171,21 @@ const SideMenu = (props) => {
         let a = pullAll(openKeys, item);
         arr.push(...a);
         setOpenKeys(arr);
-        cont++
+        cont++;
       } else if(cont < 1){
         setOpenKeys(openKeys);
       }
-    } )
-  }
+    } );
+  };
 
   //展开子菜单项不隐藏其他项
   const showOtherMenu = (openKeys) => {
     if (!props.showChildMenu) {
-      showMenuOpenKeys(openKeys)
+      showMenuOpenKeys(openKeys);
     } else {
       setOpenKeys(openKeys);
     }
-  }
+  };
 
   //展开的子菜单项 找到openKeys目前点击的openkey
   const onOpenChange = (openKeys) => {
@@ -198,7 +197,7 @@ const SideMenu = (props) => {
       //正常显示打开的菜单项
       showOtherMenu(openKeys);
     }
-  }
+  };
 
   //默认展开当前第一项的菜单栏
   const cascadeKeys = () => {
@@ -211,7 +210,7 @@ const SideMenu = (props) => {
     } else {
       setOpenKeys(openKeysArr);
     }
-  }
+  };
 
   //首次设置传入数据源数据的第一项菜单可点击子项为selectedKeys
   const resetMenuKeys = () => {
@@ -224,12 +223,12 @@ const SideMenu = (props) => {
     } else {
       setSelectedKeys(selectKeysArr);
     }
-  }
+  };
 
   //设置selecteKeys到hook
-  const onSelect = ({item, key, selectedKeys}) => {
+  const onSelect = ({ item, key, selectedKeys }) => {
     setSelectedKeys(selectedKeys);
-  }
+  };
 
   //展开的子级的方式
   const toogelOpenChildMode = (mark, otherProps) => {
@@ -242,21 +241,21 @@ const SideMenu = (props) => {
       otherProps.mode = 'vertical';
     }
     return otherProps;
-  }
+  };
 
-  const CollapsedDom = !!props.collapsedDom ? props.collapsedDom : '';
-  const HalfRetractHeaderDom = !!props.halfRetractHeader ? props.halfRetractHeader : '';
-  const HalfRetractFooterDom = !!props.halfRetractFooter ? props.halfRetractFooter : '';
-  const HeaderDom = !!props.header ? props.header : '';
-  const FooterDom = !!props.footer ? props.footer : '';
-  const MenuListDom = !!props.menuListDom ? props.menuListDom : '';
+  const CollapsedDom = props.collapsedDom ? props.collapsedDom : '';
+  const HalfRetractHeaderDom = props.halfRetractHeader ? props.halfRetractHeader : '';
+  const HalfRetractFooterDom = props.halfRetractFooter ? props.halfRetractFooter : '';
+  const HeaderDom = props.header ? props.header : '';
+  const FooterDom = props.footer ? props.footer : '';
+  const MenuListDom = props.menuListDom ? props.menuListDom : '';
 
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
       cascadeKeys();
     }
-  }, [])
+  }, []);
 
   return (
     <Layout>
@@ -332,7 +331,7 @@ SideMenu.propTypes = {
   openKeysArr: PropTypes.array,
   onLink: PropTypes.func,
   menuListDom: PropTypes.func,
-}
+};
 
 SideMenu.defaultProps = {
   dataSource: [],
@@ -350,7 +349,7 @@ SideMenu.defaultProps = {
   footer: null,
   halfRetractHeader: null,
   halfRetractFooter: null,
-}
+};
 
 export default SideMenu;
 

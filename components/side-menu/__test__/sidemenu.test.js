@@ -9,30 +9,32 @@ import { Button, Icon } from 'antd';
 const { mount } = Enzyme;
 Enzyme.configure({ adapter: new Adapter() });
 
+const dataSource = [
+  { key: '123', title: '菜单1', url: '/abc', icon: 'delete',
+    child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
+      child: [{ key: '778', title: '菜单3', url: '/abcdea', icon: 'delete',
+        child: [{
+          key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
+        }]
+      },
+      { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete' },
+      { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete' },
+      ] }
+    ] },
+  { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
+    child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete' }]
+  },
+  { key: '798', title: '菜单4', url: '/abcde', icon: 'delete' },
+  { key: '789', title: '菜单5', url: '/abcde', icon: 'delete' },
+  { key: '978', title: '菜单6', url: '/abcde', icon: 'delete' }
+];
+
 describe('侧边栏菜单', function () {
 
   it('给入数据源是否正确渲染数据', function () {
-    const dataSource = [
-      { key: '123', title: '菜单1', url: '/abc', icon: 'delete',
-        child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
-        child: [{ key: '778', title: '菜单3', url: '/abcdea', icon: 'delete',
-          child: [{
-            key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
-          }]
-        },
-          { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete'},
-          { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete'},
-        ]}
-      ]},
-      { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
-        child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete'}]
-      },
-      { key: '798', title: '菜单4', url: '/abcde', icon: 'delete'},
-      { key: '789', title: '菜单5', url: '/abcde', icon: 'delete'},
-      { key: '978', title: '菜单6', url: '/abcde', icon: 'delete'}
-    ];
+
     const testDom = (props) => (
-      <div style={{height: '100px', border: '1px solid red'}}></div>
+      <div style={{ height: '100px', border: '1px solid red' }}></div>
     );
     const wrapper = mount(
       <SideMenu dataSource={dataSource}
@@ -56,7 +58,7 @@ describe('侧边栏菜单', function () {
       <Button type="primary"
         className="kant-button"
         onClick={onClick}
-        style={{ marginBottom: 16, width: '50px'}}>
+        style={{ marginBottom: 16, width: '50px' }}>
         <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />点击
       </Button>
     );
@@ -75,12 +77,12 @@ describe('侧边栏菜单', function () {
     const onClick = sinon.fake();
     const testDom = (props) => (
       <div className="kant-div"></div>
-      );
+    );
     const testButtonDom = (props) => (
       <Button type="primary"
         className="kant-button"
         onClick={onClick}
-        style={{ marginBottom: 16, width: '50px'}}>
+        style={{ marginBottom: 16, width: '50px' }}>
         <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />点击
       </Button>
     );
@@ -99,25 +101,6 @@ describe('侧边栏菜单', function () {
 
   it ('打开菜单事件触发', function () {
     const onClick = sinon.fake();
-    const dataSource = [
-      { key: '123', title: '菜单1', url: '/abc', icon: 'delete',
-        child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
-        child: [{ key: '778', title: '菜单3', url: '/abcdea', icon: 'delete',
-          child: [{
-            key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
-          }]
-        },
-          { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete'},
-          { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete'},
-        ]}
-      ]},
-      { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
-        child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete'}]
-      },
-      { key: '798', title: '菜单4', url: '/abcde', icon: 'delete'},
-      { key: '789', title: '菜单5', url: '/abcde', icon: 'delete'},
-      { key: '978', title: '菜单6', url: '/abcde', icon: 'delete'}
-    ];
 
     const wrapper = mount(
       <SideMenu dataSource={dataSource} onClick={onClick}/>
@@ -131,19 +114,6 @@ describe('侧边栏菜单', function () {
 
   it ('传入自定义的链接方法是否生效', function () {
     const onClick = sinon.fake();
-    const dataSource = [
-      { key: '123', title: '菜单1', url: '/abc', icon: 'delete',
-        child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
-        child: [{ key: '778', title: '菜单3', url: '/abcdea', icon: 'delete',
-          child: [{
-            key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
-          }]
-        },
-          { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete'},
-          { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete'},
-        ]}
-      ]},
-    ];
 
     const onLink = (props) => (
       <a href={props.url}  className="kant-a">{props.title}</a>
@@ -156,10 +126,10 @@ describe('侧边栏菜单', function () {
         onLink={onLink}
         retractMode={'all'}
         showChildMenu={false}
-        />
+      />
     );
 
-    assert.equal(wrapper.find('.kant-a').length, 3
+    assert.equal(wrapper.find('.kant-a').length, 6
     );
     (wrapper.find('.kant-a').at(0)).simulate('click');
     assert.isTrue(onClick.called);
@@ -172,26 +142,6 @@ describe('侧边栏菜单', function () {
 
     const onClick = sinon.fake();
 
-    const dataSource = [
-      { key: '123', title: '菜单1', url: '/abc', icon: 'delete',
-        child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
-        child: [{ key: '778', title: '菜单3', url: '/abcdea', icon: 'delete',
-          child: [{
-            key: '999', title: '菜单99', url: '/abcdea', icon: 'delete'
-          }]
-        },
-          { key: '878', title: '菜单99', url: '/abcdea', icon: 'delete'},
-          { key: '078', title: '菜单00', url: '/abcdea', icon: 'delete'},
-        ]}
-      ]},
-      { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
-        child: [{ key: '3456', title: '菜单62', url: '/abcdh', icon: 'delete'}]
-      },
-      { key: '798', title: '菜单4', url: '/abcde', icon: 'delete'},
-      { key: '789', title: '菜单5', url: '/abcde', icon: 'delete'},
-      { key: '978', title: '菜单6', url: '/abcde', icon: 'delete'}
-    ];
-
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
@@ -200,7 +150,7 @@ describe('侧边栏菜单', function () {
         openKeysArr={['678']}
         selectKeysArr={['3456']}
         showChildMenu={true}
-        />
+      />
     );
     (wrapper.find('.ant-menu-submenu-title').at(0)).simulate('click');
     assert.isTrue(onClick.called);
@@ -211,4 +161,4 @@ describe('侧边栏菜单', function () {
       dataSource[1].child[0].title);
 
   });
-})
+});

@@ -26,8 +26,8 @@ describe('InputNumber', () => {
       enterFunc={(value) => value}
     />);
 
-    wrapper.find('input').simulate('keyup', { keyCode: 13, target: { value: 50 }});
+    wrapper.find('input').simulate('keyup', { keyCode: 13, target: { value: 50 } });
     wrapper.update();
     expect(wrapper.find('input').prop('enterFunc')).to.equal(50);
-  })
-})
+  });
+});
