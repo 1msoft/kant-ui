@@ -71,7 +71,7 @@ const useStateHook = (props) => {
 
   // 选择器下拉滚动事件
   const onPopupScroll = useCallback(e => {
-    const {scrollHeight, scrollTop, clientHeight} = e.target;
+    const { scrollHeight, scrollTop, clientHeight } = e.target;
     // 1. 触底处理
     if (scrollHeight - clientHeight - scrollTop < props.faultTolerant){
       props.onTouchBottom && props.onTouchBottom(e);
@@ -84,7 +84,7 @@ const useStateHook = (props) => {
   const dropdownRender = useCallback((menuNode, currProps) => {
     const loading = [
       props.loading,
-      [ LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
+      [LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
     ].every(v => v);
     const render = (
       loading
@@ -97,12 +97,12 @@ const useStateHook = (props) => {
   // 计算其余 props
   const otherProps = useMemo(() => {
     const filter = ['dropdownRender', 'onPopupScroll'];
-    if (props.loadingType === LOADING_TYPE.MENU){filter.push('loading')}
-    return omit(props, filter)
+    if (props.loadingType === LOADING_TYPE.MENU){filter.push('loading');}
+    return omit(props, filter);
   });
 
-  return {options, onPopupScroll, dropdownRender, otherProps};
-}
+  return { options, onPopupScroll, dropdownRender, otherProps };
+};
 
 /**
  * @param {Object} Props
@@ -135,7 +135,7 @@ const Select = (props) => {
       {state.options}
     </AntSelect>
   );
-}
+};
 
 Select.propTypes = {
   data: PropTypes.arrayOf(PropTypes.oneOfType([
