@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
 
 export default [
@@ -26,6 +27,15 @@ export default [
       {
         title: 'InputNumber 数字输入框',
         component: InputNumber,
+      }
+    ] 
+  },
+  {
+    title: '布局',
+    parents: [
+      {
+        title: 'Header 头部导航栏',
+        component: HeaderComponent,
       }
     ]
   }
