@@ -1,7 +1,10 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+
 import HeaderComponent from './layout/HeaderComponent';
+
 import InputNumber from './form/InputNumber';
+import DatePickerComponent from './form/DatePicker';
 
 export default [
   {
@@ -27,6 +30,10 @@ export default [
       {
         title: 'InputNumber 数字输入框',
         component: InputNumber,
+      },
+      {
+        title: 'DatePicker 日期范围选择器',
+        component: DatePickerComponent,
       }
     ] 
   },
