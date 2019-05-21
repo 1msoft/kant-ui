@@ -1,13 +1,13 @@
 import React from 'react';
-import {assert, expect} from 'chai';
+import { assert, expect } from 'chai';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-const { mount, shallow }=Enzyme;
+const { mount, shallow } = Enzyme;
 import sinon from 'sinon';
 import FixedMenu from '../index.jsx';
 
 // 为 Enzyme 配置适配器
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<FixedMenu>', function () {
   it('判断悬停菜单是否能正确传props值', function () {
@@ -18,7 +18,7 @@ describe('<FixedMenu>', function () {
         showHeight={200}
         show={true}
         suggestEvent={suggestEvents}
-        />);
+      />);
     const scrollToTop = sinon.spy(app.instance().scrollToTop);
     assert.equal(app.find('.kant-test').at(0).length, 1);
     assert.equal((app.find('.kant-show').at(0)).length, 1);
@@ -34,14 +34,14 @@ describe('<FixedMenu>', function () {
         className={'kant-test'}
         showHeight={200}
         show={false}
-        />);
+      />);
     assert.equal((app.find('.kant-hidden').at(0)).length, 1);
   });
 
   it('传入自定义dom是否生效', function () {
     const kantTestDom = () => (
       <div className='kant-test2'>
-        <div style={{width: '100px', height: '100px', background: 'green'}}></div>
+        <div style={{ width: '100px', height: '100px', background: 'green' }}></div>
       </div>
     );
     const app = mount(
@@ -49,7 +49,7 @@ describe('<FixedMenu>', function () {
         className={'kant-test'}
         freeDom={kantTestDom}
         always={true}
-        />);
+      />);
     assert.equal((app.find('.kant-test2').at(0)).length, 1);
   });
 
@@ -62,9 +62,9 @@ describe('<FixedMenu>', function () {
           showHeight={200}
           show={false}
           always={false}
-          />
+        />
       </div>);
-    (app.find('.content').at(0)).simulate('scroll')
+    (app.find('.content').at(0)).simulate('scroll');
     assert.isTrue(onScroll.called);
   });
-})
+});

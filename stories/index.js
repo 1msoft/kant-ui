@@ -10,6 +10,6 @@ const setStoriesOf = () => {
       storiesOf(v.title, module).add(info.title, info.component);
     });
   });
-}
+};
 
 setStoriesOf();

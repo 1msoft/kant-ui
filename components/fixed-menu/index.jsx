@@ -29,15 +29,15 @@ class FixedMenu extends React.Component {
   }
 
   render(){
-    const FixMenuDom = !!this.props.freeDom ? this.props.freeDom : '';
+    const FixMenuDom = this.props.freeDom ? this.props.freeDom : '';
     return (
       <div className={`${this.sideBlockClassName} ${this.props.className}`}>
         {
-          !!this.props.freeDom ?
+          this.props.freeDom ?
             <FixMenuDom /> :
             <div className={`kant-side-block-list`}>
               <div
-                onClick={!!this.props.suggestEvent ? this.props.suggestEvent : null}
+                onClick={this.props.suggestEvent ? this.props.suggestEvent : null}
                 className={`${'kant-side-block-list-weixin'} kant-cp `}>
               </div>
               <div
@@ -71,13 +71,13 @@ class FixedMenu extends React.Component {
   // 滚动到顶部
   scrollToTop = () => {
     // speed: 速度（时间）, span 跨度(每次递减数值)
-    const animate = (speed= 10, span = 100) => {
+    const animate = (speed = 10, span = 100) => {
       setTimeout(() => {
         let pretreatment = this.scrollTop - span;
         pretreatment < 0 ? (pretreatment === 0) : animate(speed, span);
         this.setScrollTop(pretreatment);
       }, speed);
-    }
+    };
     // （时间， 跨度）
     animate(10, 100);
   }
@@ -99,11 +99,11 @@ class FixedMenu extends React.Component {
   onScroll = (e) => {
     const showHeight = this.props.showHeight || 0;
     if (this.props.always === true) {
-      this.setState({show: true})
+      this.setState({ show: true });
     } else if (!this.props.always && this.scrollTop > showHeight && !this.state.show ){
-      this.setState({ show: true })
+      this.setState({ show: true });
     } else if ( !this.props.always && this.scrollTop < showHeight && this.state.show ){
-      this.setState({ show: false })
+      this.setState({ show: false });
     }
   }
 
@@ -119,9 +119,9 @@ class FixedMenu extends React.Component {
       let args = arguments;
       if (timeout) clearTimeout(timeout);
       timeout = setTimeout(() => {
-        func.apply(context, args)
+        func.apply(context, args);
       }, wait);
-    }
+    };
   }
 }
 
@@ -131,12 +131,12 @@ FixedMenu.propTypes = {
   show: PropTypes.bool,
   always: PropTypes.bool,
   className: PropTypes.string,
-}
+};
 
 FixedMenu.defaultProps = {
   freeDom: null,
   suggestEvent: null,
   show: false,
-}
+};
 
 export default FixedMenu;
