@@ -1,6 +1,8 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import FixedMenu_ from './fixedmenu/FixedMenu';
+import InputNumber from './form/InputNumber';
+
 export default [
   {
     title: '综述',
@@ -30,6 +32,10 @@ export default [
       {
         title: '输入框',
         component: Input
+      },
+      {
+        title: 'InputNumber 数字输入框',
+        component: InputNumber,
       }
     ]
   }
