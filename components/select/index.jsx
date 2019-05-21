@@ -38,11 +38,11 @@ const useStateHook = (props) => {
    * @param {String} type 处理数据类型（value | title）
    */
   const handlerData = useCallback(({ data, type }) => {
-    const cData = _.isObject(data) ? data : { title: data, value: data };
+    const backups = _.isObject(data) ? data : { title: data, value: data };
     const format = props[`format${_.upperFirst(type)}`];
-    if (_.isString(format)){ return cData[format];}
+    if (_.isString(format)){ return backups[format];}
     if (_.isFunction(format)){return format(data);}
-    return cData[type];
+    return backups[type];
   }, [props.formatValue, props.formatTitle]);
 
   // 计算 options

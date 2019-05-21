@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { Select } from '@components/index';
 import '@components/select/style';
+import './SelectDoc.less';
 
 import {
   Row,
