@@ -1,7 +1,7 @@
 import React from 'react';
 import { Breadcrumb } from '@components/index';
 import '@components/breadcrumb/style';
-import './Breadcrumb.less';
+import './Breadcrumbs.less';
 
 const freeDom = (props) => {
   return <a  href={props.path} className="kant-a">{props.text}</a>;
