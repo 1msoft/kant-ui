@@ -28,8 +28,18 @@ module.exports = {
     "arrow-body-style": 0,
     // 注释后忽略是否加空格
     "spaced-comment": 0,
+    // 禁止出现空语句块
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    // 要求或禁止使用分号代替 ASI
+    "semi": ["error", "always"],
+    // 要求操作符周围有空格
+    "semi-spacing": "error",
+    // 强制分号之前和之后使用一致的空格
+    "space-infix-ops": ["error", { "int32Hint": false }],
     // () [] 内部两边可选是否添加空格
     "space-in-parens": 0,
+    // 禁止不必要的布尔转换
+    "no-extra-boolean-cast": "error",
     // 允许三目表达式中使用boolean类型的条件
     "no-unneeded-ternary": 0,
     // 多行时每个对象内的属性必须加上逗号结尾
@@ -40,8 +50,8 @@ module.exports = {
     "no-console": 0,
     //对象每个字段前不允许空格，字段后的空格至少为1个
     "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
-    // 数组方括号两边不对空格作限制
-    "array-bracket-spacing": 0,
+    // 强制数组方括号中使用一致的空格
+    "array-bracket-spacing": ["error", "never"],
     // 允许在函数定以前使用函数，不允许在类定义前使用类
     "no-use-before-define": [2, { "functions": false, "classes": true }],
     // 对象中的方法需要简写
@@ -52,8 +62,8 @@ module.exports = {
     "no-cond-assign": [2, "except-parens"],
     // 不强制驼峰命名
     "camelcase": 0,
-    // 允许'{'之后或者'}'之前不设置space
-    "object-curly-spacing": 0,
+    // 强制在大括号中使用一致的空格
+    "object-curly-spacing": ["error", "always"],
     // 允许switch语句的case匹配基本类型以外的值
     "no-case-declarations": 0,
     // 允许表达式直接作为语句
