@@ -25,7 +25,7 @@ const subHeaderComponent = () => {
       <span style={{ marginRight: 10 }}>加为书签</span>
       <span>收藏本站点</span>
     </div>
-  )
+  );
 };
 
 const HeaderComponent = () => {
@@ -58,14 +58,14 @@ const HeaderComponent = () => {
                 checkedChildren="是"
                 unCheckedChildren="否"
                 checked={fixed}
-                onChange={(checked) => { setFixed(checked) }} />
+                onChange={(checked) => { setFixed(checked); }} />
             </p>
             <p>是否存在子标题:
               <Switch
                 checkedChildren="是"
                 unCheckedChildren="否"
                 checked={subNav}
-                onChange={(checked) => { setSubNav(checked) }} />
+                onChange={(checked) => { setSubNav(checked); }} />
             </p>
             {
               subNav ?
@@ -75,7 +75,7 @@ const HeaderComponent = () => {
                     checkedChildren="上"
                     unCheckedChildren="下"
                     checked={placement}
-                    onChange={(checked) => { setPlacement(checked) }} />
+                    onChange={(checked) => { setPlacement(checked); }} />
                 </p> : ''
             }
           </div>

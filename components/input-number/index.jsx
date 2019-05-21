@@ -36,7 +36,7 @@ const InputNumber = (props) => {
       event.target.value = str;
       onKeyDown(event);
     }
-  }
+  };
 
   const otherProps = omit(props, [
     'theme',

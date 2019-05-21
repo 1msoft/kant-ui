@@ -27,7 +27,7 @@ const getWebHeight = () => {
     document.body.scrollHeight ||
     document.body.clientHeight
   );
-}
+};
 
 // 下拉隐藏/上拉显示 边界值计算
 const getBoundaryValue = (val) => {
