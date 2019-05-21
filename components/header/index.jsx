@@ -83,10 +83,10 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
  * @param {object}                props
  * @param {boolean}               [props.fixed=true]      是否固定在页面
  * @param {object}                [props.style]           行内样式
- * @param {boolean|string|number} [props.downHide=false]  是否固定在页面
- * @param {boolean|string|number} [props.upShow=false]    是否固定在页面
+ * @param {boolean|string|number} [props.downHide=false]  滚动条下滑时，是否隐藏头部(基于fixed)
+ * @param {boolean|string|number} [props.upShow=false]    滚动条上滑时，是否显示头部(基于downHide)
  * @param {element}               [props.subNav]          子菜单的ReactDom
- * @param {string}                [props.subNavPlacement] 子菜单向上或者向下 'up' | 'down'
+ * @param {string}                [props.subNavPlacement] 子菜单位置，位于上方 'up' , 位于下方 'down'
  */
 
 const Header = (props) => {

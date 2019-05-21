@@ -30,7 +30,7 @@ const subHeaderComponent = () => {
 
 const HeaderComponent = () => {
   const [fixed, setFixed] = useState(true);
-  const [subNav, SetSubNav] = useState(true);
+  const [subNav, setSubNav] = useState(true);
   const [placement, setPlacement] = useState(true);
   return (
     <div >
@@ -65,7 +65,7 @@ const HeaderComponent = () => {
                 checkedChildren="是"
                 unCheckedChildren="否"
                 checked={subNav}
-                onChange={(checked) => { SetSubNav(checked) }} />
+                onChange={(checked) => { setSubNav(checked) }} />
             </p>
             {
               subNav ?
