@@ -112,7 +112,7 @@ const DatePicker = (props) => {
       {renderPicker(props.type, endPickerProps)}
     </div>
   );
-}
+};
 
 /**
  * 自定义日期校验

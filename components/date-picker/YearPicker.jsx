@@ -35,7 +35,7 @@ const selectSuffixIcon = () => {
   return (
     <Icon className="kant-select-calendar-icon" type="calendar" />
   );
-}
+};
 
 // 获取下拉框props
 const getSelectProps = (props) => {
@@ -52,7 +52,7 @@ const getSelectProps = (props) => {
   props.value && (selectProps.value = moment(props.value).format('YYYY'));
   props.defaultValue && (selectProps.defaultValue = moment(props.defaultValue).format('YYYY'));
   return selectProps;
-}
+};
 
 /**
  * 年份范围输入框
