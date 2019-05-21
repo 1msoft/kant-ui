@@ -4,8 +4,8 @@ import '@components/breadcrumb/style';
 import './Breadcrumb.less';
 
 const freeDom = (props) => {
-  return <a  href={props.path} className="kant-a">{props.text}</a>
-}
+  return <a  href={props.path} className="kant-a">{props.text}</a>;
+};
 
 export default () => (
   <div>
@@ -14,8 +14,8 @@ export default () => (
       <Breadcrumb
         lightFocusClass="kant-link"
         linkRoute={freeDom}
-        breadcrumbs={[{path: '/abc', text: '菜单一', icon: 'edit'},
-          {path: '/abc1', text: '菜单二', icon: 'delete'}
+        breadcrumbs={[{ path: '/abc', text: '菜单一', icon: 'edit' },
+          { path: '/abc1', text: '菜单二', icon: 'delete' }
         ]}
       />
     </div>
