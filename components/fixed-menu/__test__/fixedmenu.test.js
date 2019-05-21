@@ -37,17 +37,21 @@ describe('<FixedMenu>', function () {
 
 
   it('是否能正确触发回到顶部事件', function () {
+    sinon.spy(FixedMenu.prototype, 'componentDidMount')
+    sinon.spy(FixedMenu.prototype, 'componentWillUnmount')
     const app = mount(
       <FixedMenu
         className={'kant-test'}
         showHeight={200}
         show={true}
       />);
+
+    FixedMenu.prototype.componentDidMount.restore();
+    FixedMenu.prototype.componentWillUnmount.restore();
     const scrollToTop = sinon.stub(app.instance(), 'scrollToTop');
     app.find('.kant-side-block-list-arrow').at(0).simulate('click');
     assert.equal(scrollToTop());
   });
-
 
 
   it('计算样式方法是否正确执行', function () {
