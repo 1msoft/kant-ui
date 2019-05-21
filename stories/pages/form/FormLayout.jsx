@@ -1,612 +1,261 @@
-import React, { useState } from "react";
-import { Form, Row, Col, Input, Button, Divider } from "antd";
-import { FormLayout, FormItem, FormItemNext } from "@components/index";
+import React from "react";
+import { Form, Input, Button, Divider } from "antd";
+import { FormLayout, FormItem, getGrid, create } from "@components/index";
 
 import 'antd/dist/antd.css';
 import "@components/form-layout/style";
-import styles from './FormLayout.less';
 
 /**
  * app
  */
 const App = () => {
   return (
-    <div style={{ margin: '24px 36px'}}>
-      <Divider orientation="left">展示表单 - flex布局</Divider>
-      <FormLayoutNext/>
-      <Divider orientation="left">输入表单 - flex布局</Divider>
-      <FormLayoutNextInput/>
-      <Divider orientation="left">查询块 - 查询按钮更随</Divider>
-      <FormLayoutOfActiveButton />
-      <Divider orientation="left">查询块 - 查询按钮固定</Divider>
-      <FormLayoutOfFixedButton />
-      <Divider orientation="left">输入表单 - horizontal布局</Divider>
-      <FormLayoutByHorizontal />
-      <Divider orientation="left">输入表单 - vertical布局</Divider>
-      <FormLayoutByVertical />
-      <Divider orientation="left">展示表单 - horizontal布局</Divider>
-      <FormLayoutViewByHorizontal />
-      <Divider orientation="left">展示表单 - inline布局</Divider>
-      <FormLayoutViewByInline />
+    <div style={{ margin: '24px 36px' }}>
+      <Divider orientation="left">展示表单 - 只读表单</Divider>
+      <ReadOnlyFormLayout />
+      <Divider orientation="left">输入表单 - 查询块</Divider>
+      <QueryFormLayout />
+      <Divider orientation="left">输入表单 - row布局</Divider>
+      <InputFormLayoutByHorizontal />
+      <Divider orientation="left">输入表单 - column布局</Divider>
+      <InputFormLayoutByVertical />
     </div>
   );
-}
+};
 
-const getGrid = (span = 0, offset = 0) => {
-  return ({ span, offset });
-}
-
-const FormLayoutOfActiveButton = Form.create({ name: 'active'})((props) => {
-  const { getFieldDecorator } = props.form;
+const ReadOnlyFormLayout = props => {
   return (
-    <Form
-      layout="inline"
-      colon={false}
+    <FormLayout
+      labelAlign="left"
+      colon={true}
     >
-      <FormLayout>
-        <FormItem
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('community')(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(8),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('building')(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(8),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('houseNo')(<Input />)}
-        </FormItem>
-        <FormItem
-            row={1}
-            span={{
-              md: getGrid(3),
-            }}
-            wrapperCol={{ span: 14, offset: 4 }}
-          >
-            <Button type="primary">查询</Button>
-          </FormItem>
-      </FormLayout>
-    </Form>
-  );
-})
-
-const FormLayoutOfFixedButton = Form.create({ name: 'active'})((props) => {
-  const { getFieldDecorator } = props.form;
-  return (
-    <Form
-      layout="inline"
-      colon={false}
-    >
-      <FormLayout>
-        <FormItem
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('community')(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(8),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('building')(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(8),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {getFieldDecorator('houseNo')(<Input />)}
-        </FormItem>
-        <FormItem
-          row={2}
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(8),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          <Button type="primary">查询</Button>
-        </FormItem>
-      </FormLayout>
-    </Form>
-  );
-})
-
-const FormLayoutByHorizontal = Form.create({ name: "input-horizontal" })(props => {
-  const { form } = props;
-  return (
-    <Form
-      colon={false}
-      layout="horizontal"
-    >
-      <FormLayout
-        gutter={{ xs: 8, sm: 16, md: 24 }}
-        // itemSpan={{ }}
-        // labelCol={{ }}
-        // wrapperSpan={{ }}
+      <FormItem
+        row={1}
+        label="小区"
+        span={8}
       >
-        <FormItem
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-        >
-          {form.getFieldDecorator("community", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "大儒世家"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          wrapperAlign="right"
-          lacationRequired="afterWrapper"
-        >
-          {form.getFieldDecorator("building", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "2号楼"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-        >
-          {form.getFieldDecorator("houseNo", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={2}
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-        >
-          <Button
-            type='primary'
-            style={{ marginRight: '12px' }}>
-            提交
-          </Button>
-          <Button>重置</Button>
-        </FormItem>
-      </FormLayout>
-    </Form>
-  );
-});
-
-const FormLayoutByVertical = Form.create({ name: "input-vertical" })(props => {
-  const { form } = props;
-  return (
-    <Form
-      colon={false}
-      layout="vertical"
-    >
-      <FormLayout
-        gutter={{ xs: 8, sm: 16, md: 24, lg: 24, xl: 48, xxl: 48 }}
+        大儒世家
+      </FormItem>
+      <FormItem
+        row={1}
+        label="楼栋"
+        span={8}
       >
-        <FormItem
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {form.getFieldDecorator("community", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "大儒世家"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            sm: getGrid(24),
-            xs: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {form.getFieldDecorator("building", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "2号楼"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          {form.getFieldDecorator("houseNo", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input />)}
-        </FormItem>
-        <FormItem
-          row={2}
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          <Button
-            type='primary'
-            style={{ marginRight: '12px' }}>
-            提交
-          </Button>
-          <Button>重置</Button>
-        </FormItem>
-      </FormLayout>
-    </Form>
-  );
-});
-
-const FormLayoutViewByHorizontal = props => {
-  return (
-    <Form
-      layout="horizontal"
-      className="layout-by-flex"
-    >
-      <FormLayout
-        gutter={{ xs: 8, sm: 16, md: 24, lg: 24, xl: 48, xxl: 48 }}
+        2号楼
+      </FormItem>
+      <FormItem
+        row={1}
+        label="单元"
+        span={8}
       >
-        <FormItem
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          大儒世家
-        </FormItem>
-        <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            sm: getGrid(24),
-            xs: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          2号楼
-        </FormItem>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(24),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          204
-        </FormItem>
-      </FormLayout>
-    </Form>
+        2单元
+      </FormItem>
+      <FormItem
+        row={2}
+        label="房号"
+        span={8}
+      >
+        304
+      </FormItem>
+      <FormItem
+        row={2}
+        label="业主"
+        span={8}
+      >
+        王大陆
+      </FormItem>
+      <FormItem
+        row={2}
+        label="身份证"
+        span={8}
+      >
+        3504251995xxxxxxxx
+      </FormItem>
+    </FormLayout>
   );
 };
 
-const FormLayoutViewByInline = props => {
-  return (
-    <Form layout="inline" className="layout-by-flex">
-      <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-        <Col md={8} sm={24}>
-          <Form.Item label="规则名称">请输入</Form.Item>
-        </Col>
-        <Col md={8} sm={24}>
-          <Form.Item label="使用状态">运行中</Form.Item>
-        </Col>
-        <Col md={8} sm={24}>
-          <Form.Item label="调用次数">调用次数</Form.Item>
-        </Col>
-      </Row>
-      <FormLayout
-      // gutter={{ xs: 8, sm: 16, md: 24, lg: 24, xl: 48, xxl: 48 }}
-      >
-        <FormItem
-          row={1}
-          label="小区"
-          colon={true}
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          大儒世家
-        </FormItem>
-        {/* <FormItem
-          row={1}
-          label="楼栋"
-          span={{
-            sm: getGrid(24),
-            xs: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          2号楼
-        </Form.Item>
-        <FormItem
-          row={1}
-          label="房屋"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6),
-          }}
-        >
-          204
-        </FormItem> */}
-      </FormLayout>
-    </Form>
-  );
-};
+const QueryFormLayout = Form.create({ name: 'query-input' })(props => {
+  const query = (e) => {
+    e.preventDefault();
+    props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log(values);
+      }
+    });
+  };
 
-const FormLayoutNext = Form.create({ name: 'flex' })(props => {
   return (
-    <Form layout="inline">
-      <FormLayout
-      gutter={{ xs: 8, sm: 16, md: 24, lg: 24, xl: 48, xxl: 48 }}
-      >
-        <FormItemNext
-          row={1}
-          label="小区"
-          labelWidth="120px"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          大儒世家
-        </FormItemNext>
-        <FormItemNext
-          row={1}
-          label="小区"
-          labelWidth="100px"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          大儒世家
-        </FormItemNext>
-        <FormItemNext
-          row={1}
-          label="小区"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          大儒世家
-        </FormItemNext>
-      </FormLayout>
-    </Form>
+    <FormLayout colon={true} inlineLabel={true}>
+      <FormItem row={1} span={getGrid(6)} label="小区">
+        {props.form.getFieldDecorator("community")(
+          <Input placeholder="小区" />
+        )}
+      </FormItem>
+      <FormItem row={1} span={getGrid(6)} label="楼栋">
+        {props.form.getFieldDecorator("building")(
+          <Input placeholder="楼栋" />
+        )}
+      </FormItem>
+      <FormItem row={1} span={getGrid(6)} label="单元">
+        {props.form.getFieldDecorator("unitNo")(
+          <Input placeholder="单元" />
+        )}
+      </FormItem>
+      <FormItem row={1} span={getGrid(6)} label="房号">
+        {props.form.getFieldDecorator("houseNo")(
+          <Input placeholder="房号" />
+        )}
+      </FormItem>
+      <FormItem row={2} span={getGrid(6)} label="业主">
+        {props.form.getFieldDecorator("houseNo")(
+          <Input placeholder="业主" />
+        )}
+      </FormItem>
+      <FormItem row={2} span={getGrid(6)} push={12} wrapperAlign="right">
+        <Button type="primary" onClick={query}>
+          查询
+        </Button>
+      </FormItem>
+    </FormLayout>
   );
 });
 
-const FormLayoutNextInput = Form.create({ name: 'flex-input' })(props => {
+const InputFormLayoutByHorizontal = create({ name: 'row-input' })(({ form }) => {
+  const submit = (e) => {
+    e.preventDefault();
+    form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log(values);
+      }
+    });
+  };
+
+  const resetFields = () => form.resetFields();
   return (
-    <Form layout="inline">
-      <FormLayout gutter={{ xs: 8, sm: 16, md: 24, lg: 24, xl: 48, xxl: 48 }}>
-        <FormItemNext
-          row={1}
-          label="小区"
-          // labelWidth="120px"
-          locationRequired="beforeLabel"
-          colon={false}
-          // direction="column"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          {props.form.getFieldDecorator("community", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input />)}
-        </FormItemNext>
-        <FormItemNext
-          row={1}
-          label="楼栋"
-          locationRequired='afterWrapper'
-          // labelWidth="120px"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          {props.form.getFieldDecorator("building", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input style={{ width: '80px' }} />)}
-        </FormItemNext>
-        <FormItemNext
-          row={2}
-          label="单元"
-          // labelWidth="120px"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          {props.form.getFieldDecorator("unitNo", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input style={{ width: '80px' }} />)}
-        </FormItemNext>
-        <FormItemNext
-          row={2}
-          label="房屋"
-          // labelWidth="120px"
-          span={{
-            xs: getGrid(24),
-            sm: getGrid(12),
-            md: getGrid(12),
-            lg: getGrid(8),
-            xl: getGrid(8),
-            xxl: getGrid(6)
-          }}
-        >
-          {props.form.getFieldDecorator("houseNo", {
-            rules: [{ required: true, message: "必填" }],
-            initialValue: "204"
-          })(<Input />)}
-        </FormItemNext>
-      </FormLayout>
-    </Form>
+    <FormLayout
+      colon={true}
+    >
+      <FormItem
+        row={1}
+        span={8}
+        label="小区"
+      >
+        {form.getFieldDecorator("community", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="小区" />)}
+      </FormItem>
+      <FormItem
+        row={1}
+        span={8}
+        label="楼栋"
+      >
+        {form.getFieldDecorator("building", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="楼栋" />)}
+      </FormItem>
+      <FormItem
+        row={2}
+        span={8}
+        label="单元"
+      >
+        {form.getFieldDecorator("unitNo", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="单元" />)}
+      </FormItem>
+      <FormItem
+        row={2}
+        span={8}
+        label="房屋"
+      >
+        {form.getFieldDecorator("houseNo", {
+          rules: [{ required: false, message: "必填" }],
+        })(<Input placeholder="单元" />)}
+      </FormItem>
+      <FormItem
+        row={3}
+        span={6}
+        push={1}
+      >
+        <Button
+          type="primary"
+          onClick={submit}
+          style={{ marginRight: '20px' }}
+        >提交</Button>
+        <Button
+          onClick={resetFields}
+        >重置</Button>
+      </FormItem>
+    </FormLayout>
+  );
+});
+
+const InputFormLayoutByVertical = create({ name: 'flex-input' })(({ form }) => {
+  const submit = (e) => {
+    e.preventDefault();
+    form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log(values);
+      }
+    });
+  };
+
+  const resetFields = () => form.resetFields();
+  return (
+    <FormLayout
+      direction="column"
+      colon={true}
+    >
+      <FormItem
+        row={1}
+        span={8}
+        label="小区"
+      >
+        {form.getFieldDecorator("community", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="小区" />)}
+      </FormItem>
+      <FormItem
+        row={1}
+        span={8}
+        label="楼栋"
+      >
+        {form.getFieldDecorator("building", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="楼栋" />)}
+      </FormItem>
+      <FormItem
+        row={2}
+        span={8}
+        label="单元"
+      >
+        {form.getFieldDecorator("unitNo", {
+          rules: [{ required: true, message: "必填" }],
+        })(<Input placeholder="单元" />)}
+      </FormItem>
+      <FormItem
+        row={2}
+        span={8}
+        label="房屋"
+      >
+        {form.getFieldDecorator("houseNo", {
+          rules: [{ required: false, message: "必填" }],
+        })(<Input placeholder="单元" />)}
+      </FormItem>
+      <FormItem
+        row={3}
+        span={6}
+      >
+        <Button
+          type="primary"
+          onClick={submit}
+          style={{ marginRight: '20px' }}
+        >提交</Button>
+        <Button
+          onClick={resetFields}
+        >重置</Button>
+      </FormItem>
+    </FormLayout>
   );
 });
 

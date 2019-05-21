@@ -1,21 +1,14 @@
 
 .kant-form-item {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   min-height: 40px;
   height: 100%;
-  margin-bottom: 24px;
   padding-right: 12px;
   flex-direction: row;
 
-  // & .kant-required {
-  //   position: absolute;
-  //   color: red;
-  //   text-align: center;
-  // }
-
   & .kant-label-container {
-    min-width: 80px;
+    // min-width: 80px;
     min-height: 40px;
     height: 100%;
     padding-right: 12px;
@@ -27,14 +20,13 @@
     & .kant-label {
       position: relative;
       font-size: 14px;
-      padding-left: 12px;
-      // & .kant-required-before-label {
-      //   top: 1px;
-      //   left: 4px;
-      // }
     }
 
     /********** 必填标示（locationRequired） beforeLabel | afterLabel | afterWrapper *******/
+    & .kant-label-required-before-label {
+      padding-left: 12px;
+    }
+
     & .kant-label-required-before-label:before {
       position: absolute;
       left: 4px;
@@ -61,10 +53,10 @@
       content: " : ";
       display: inline-block;
     }
+  }
 
-    & .kant-label-colon-hide:after {
-      content: "";
-    }
+  & .kant-label-container-inline {
+    width: auto !important;
   }
 
   /*********** label布局方向（labelAlign） left | center | right ****************/
@@ -76,15 +68,34 @@
     justify-content: center;
   }
 
-  // & .kant-required-after-wrapper {
-  //   right: 14px;
-  //   top: 10px;
-  // }
-
   & .kant-wrapper-container {
     flex: 1;
     position: relative;
+    margin-bottom: 24px;
+    padding-bottom: 0;
 
+    & .ant-form-item-control {
+      line-height: 40px;
+    }
+  }
+
+  /*********** wrapper布局方向（wrapperAlign） left | center | right ****************/
+  & .kant-wrapper-container-left {
+    & .ant-form-item-control {
+      text-align: left;
+    }
+  }
+
+  & .kant-wrapper-container-right {
+    & .ant-form-item-control {
+      text-align: right;
+    }
+  }
+
+  & .kant-wrapper-container-center {
+    & .ant-form-item-control {
+      text-align: center;
+    }
   }
 
   /********** 必填标示（locationRequired） beforeLabel | afterLabel | afterWrapper *******/

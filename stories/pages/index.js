@@ -29,7 +29,7 @@ export default [
         component: InputNumber,
       },
       {
-        title: '表单 FormLayout',
+        title: 'FormLayout 表单',
         component: FormLayout,
       }
     ]
