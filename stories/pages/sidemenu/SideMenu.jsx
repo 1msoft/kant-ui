@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SideMenu } from '@components/index';
 import { Switch, Button, Icon } from 'antd';
 import '@components/side-menu/style';
-import './style.less';
+import './SideMenu.less';
 
 
 const SideBlock = () => {
