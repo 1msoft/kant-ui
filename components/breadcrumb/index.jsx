@@ -13,8 +13,8 @@ import omit from 'omit.js';
  * @param {object}   [props.breadcrumbs.props]      特定的属性
  * @param {function} [props.itemRender]             链接路由函数
  * @param {string}   [props.targetItemClass ]       当前路由高亮等自定义样式
- * @param {object}   [props.BreadcrumbProps]        breadcrumb组件的api
- * @param {object}   [props.BreadcrumbItemProps]    BreadcrumbItem的api
+ * @param {object}   [props.breadcrumbProps]        breadcrumb组件的api
+ * @param {object}   [props.breadcrumbItemProps]    BreadcrumbItem的api
  */
 const Breadcrumb = (props) => {
   let filterArr = [
@@ -24,16 +24,16 @@ const Breadcrumb = (props) => {
     'params',
     'routes',
     'href'];
-  const BreadcrumbProps = omit(props.BreadcrumbProps, filterArr);
-  const BreadcrumbItemProps = omit(props.BreadcrumbItemProps, filterArr);
+  const breadcrumbProps = omit(props.breadcrumbProps, filterArr);
+  const breadcrumbItemProps = omit(props.breadcrumbItemProps, filterArr);
   return (
-    <AntBreadcrumb {...BreadcrumbProps}>
+    <AntBreadcrumb {...breadcrumbProps}>
       {
         props.breadcrumbs.map( (item, idx, array) => {
           if (idx === array.length - 1 || !item.path) {
             return (
               <AntBreadcrumb.Item key={idx} className={props.targetItemClass }
-                {...BreadcrumbItemProps}
+                {...breadcrumbItemProps}
                 {...item.props}
               >
                 {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
@@ -42,7 +42,7 @@ const Breadcrumb = (props) => {
           } else {
             return (
               <AntBreadcrumb.Item key={idx}
-                {...BreadcrumbItemProps}
+                {...breadcrumbItemProps}
                 {...item.props}
               >
                 {

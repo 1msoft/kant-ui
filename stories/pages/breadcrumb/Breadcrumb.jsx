@@ -4,7 +4,7 @@ import '@components/breadcrumb/style';
 import './Breadcrumb.less';
 
 const freeDom = (props) => {
-  return <a  href={props.path} className="kant-a">{props.text}111</a>;
+  return <a  href={props.path} className="kant-a">{props.text}</a>;
 };
 
 export default () => (
