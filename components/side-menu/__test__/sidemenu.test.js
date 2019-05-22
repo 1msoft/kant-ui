@@ -52,51 +52,18 @@ describe('侧边栏菜单', function () {
       dataSource[0].child[0].child[0].child[0].title);
   });
 
-  it('自定义dom能否正确接收，并接受事件', function () {
-    const onClick = sinon.fake();
-    const testButtonDom = (props) => (
-      <Button type="primary"
-        className="kant-button"
-        onClick={onClick}
-        style={{ marginBottom: 16, width: '50px' }}>
-        <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />点击
-      </Button>
-    );
-    const wrapper = mount(
-      <SideMenu isCollapsed={true}
-        retractMode={'half'}
-        openChildMode={'vertical'}
-        collapsedDom={testButtonDom}/>
-    );
-    assert.equal(wrapper.find('.ant-btn').at(0).text(), '点击');
-    (wrapper.find('.ant-btn').at(0)).simulate('click');
-    assert.isTrue(onClick.called);
-  });
-
   it ('接收头部低部Dom', function () {
-    const onClick = sinon.fake();
     const testDom = (props) => (
       <div className="kant-div"></div>
     );
-    const testButtonDom = (props) => (
-      <Button type="primary"
-        className="kant-button"
-        onClick={onClick}
-        style={{ marginBottom: 16, width: '50px' }}>
-        <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />点击
-      </Button>
-    );
     const wrapper = mount(
       <SideMenu isCollapsed={true}
         retractMode={'half'}
-        collapsedDom={testButtonDom}
         header={testDom}
         footer={testDom}>
       </SideMenu>
     );
     assert.equal(wrapper.find('.kant-div').length, 2);
-    (wrapper.find('.ant-btn').at(0)).simulate('click');
-    assert.equal(wrapper.find('kant-div').length, 0);
   });
 
   it ('打开菜单事件触发', function () {
@@ -147,8 +114,8 @@ describe('侧边栏菜单', function () {
         dataSource={dataSource}
         onClick={onClick}
         inlineOpenStyle={'hideOther'}
-        openKeysArr={['678']}
-        selectKeysArr={['3456']}
+        openKeys={['678']}
+        selectKeys={['3456']}
         showChildMenu={true}
       />
     );

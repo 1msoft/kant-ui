@@ -27,15 +27,6 @@ const SideBlock = () => {
     setShowChildMenu(value ? false : true);
   };
 
-  const testButtonDom = (props) => (
-    <Button type="primary"
-      className="kant-testButton"
-      onClick={props.onClick}
-      style={{ marginBottom: 16, width: '50px' }}>
-      <Icon type={props.collapsed ? 'menu-unfold' : 'menu-fold'} />
-    </Button>
-  );
-
   const testDom = (props) => (
     <div style={{ height: '100px', border: '1px solid black' }}></div>
   );
@@ -72,11 +63,11 @@ const SideBlock = () => {
         footer={testDom}
         halfRetractHeader={test1Dom}
         halfRetractFooter={test1Dom}
-        collapsedDom={testButtonDom}
         theme="light"
         retractMode={retractMode}
         openChildMode={openChildMode}
         isCollapsed={isCollapsed}
+        // collapsed={true}
         dataSource={[{ key: '123', title: '菜单1', url: '/abc', icon: 'delete',
           child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
             child: [
