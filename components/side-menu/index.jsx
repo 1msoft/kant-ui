@@ -337,6 +337,10 @@ SideMenu.propTypes = {
   openKeys: PropTypes.array,
   onLink: PropTypes.func,
   menuListDom: PropTypes.func,
+  sideProps: PropTypes.object,
+  menuProps: PropTypes.object,
+  menuItemProps: PropTypes.object,
+  menuSubmenuProps: PropTypes.object,
 };
 
 SideMenu.defaultProps = {
