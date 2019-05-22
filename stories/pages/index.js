@@ -22,15 +22,6 @@ export default [
     ]
   },
   {
-    title: '菜单',
-    parents: [
-      {
-        title: '侧边栏',
-        component: SideMenu
-      }
-    ]
-  },
-  {
     title: '表单',
     parents: [
       {
@@ -53,6 +44,10 @@ export default [
       {
         title: 'Header 头部导航栏',
         component: HeaderComponent,
+      },
+      {
+        title: 'SideMenu 侧边栏',
+        component: SideMenu
       }
     ]
   }
