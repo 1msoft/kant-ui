@@ -6,15 +6,21 @@ import omit from 'omit.js';
 /**
  * 面包屑导航通用组件
  * @param {object}   props
- * @param {array}    [props.breadcrumbs = [{icon: '', text: '', path: ''}]] 面包屑路由
- * @param {function} [props.linkRoute]             链接路由函数
- * @param {string}   [props.lightFocusClass]       当前路由高亮等自定义样式
+ * @param {array}    props.breadcrumbs = []         面包屑路由
+ * @param {string}   [props.breadcrumbs.icon]       图标
+ * @param {string}   [props.breadcrumbs.text]       内容
+ * @param {string}   [props.breadcrumbs.path]       路由链接
+ * @param {function} [props.itemRender]              链接路由函数
+ * @param {string}   [props.targetItemClass ]       当前路由高亮等自定义样式
  */
 const Breadcrumb = (props) => {
   const otherProps = omit(props, [
     'breadcrumbs',
-    'linkRoute',
-    'lightFocusClass',
+    'itemRender',
+    'targetItemClass',
+    'params',
+    'routes',
+    'href',
   ]);
   return (
     <AntBreadcrumb {...otherProps}>
@@ -22,7 +28,7 @@ const Breadcrumb = (props) => {
         props.breadcrumbs.map( (item, idx, array) => {
           if (idx === array.length - 1 || !item.path) {
             return (
-              <AntBreadcrumb.Item key={idx} className={props.lightFocusClass}
+              <AntBreadcrumb.Item key={idx} className={props.targetItemClass }
                 {...otherProps}
               >
                 {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
@@ -34,8 +40,8 @@ const Breadcrumb = (props) => {
                 {...otherProps}
               >
                 {
-                  props.linkRoute ?
-                    props.linkRoute(item)
+                  props.itemRender ?
+                    props.itemRender(item)
                     :
                     <a href={item.path}>{item.icon ? <Icon type={item.icon}/> : ''}{item.text}</a>
                 }
@@ -56,13 +62,13 @@ Breadcrumb.propTypes = {
       path: PropTypes.string,
     })
   ),
-  linkRoute: PropTypes.func,
-  lightFocusClass: PropTypes.string,
+  itemRender: PropTypes.func,
+  targetItemClass: PropTypes.string,
 };
 
 Breadcrumb.defaultProps = {
   breadcrumbs: [],
-  linkRoute: null,
+  itemRender: null,
 };
 
 export default Breadcrumb;

@@ -17,7 +17,7 @@ describe('<Breadcrumb />', function() {
       { path: '/abcd', text: '测试2', icon: 'delete' }
     ];
     const app = mount(<Breadcrumb
-      lightFocusClass="kant-link"
+      targetItemClass="kant-link"
       breadcrumbs={breadcrumbs}
     />);
 
@@ -37,9 +37,9 @@ describe('<Breadcrumb />', function() {
       return <a  href={props.path} className="kant-a">{props.text}</a>;
     };
     const app = mount(<Breadcrumb
-      lightFocusClass="kant-link"
+      targetItemClass="kant-link"
       breadcrumbs={breadcrumbs}
-      linkRoute={freeDom}
+      itemRender={freeDom}
     />);
 
     assert.equal(app.find('.kant-a').at(0).text().trim(),
