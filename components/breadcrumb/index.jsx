@@ -10,7 +10,8 @@ import omit from 'omit.js';
  * @param {string}   [props.breadcrumbs.icon]       图标
  * @param {string}   [props.breadcrumbs.text]       内容
  * @param {string}   [props.breadcrumbs.path]       路由链接
- * @param {function} [props.itemRender]              链接路由函数
+ * @param {object}   [props.breadcrumbs.props]      特定的属性
+ * @param {function} [props.itemRender]             链接路由函数
  * @param {string}   [props.targetItemClass ]       当前路由高亮等自定义样式
  */
 const Breadcrumb = (props) => {
@@ -30,6 +31,7 @@ const Breadcrumb = (props) => {
             return (
               <AntBreadcrumb.Item key={idx} className={props.targetItemClass }
                 {...otherProps}
+                {...item.props}
               >
                 {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
               </AntBreadcrumb.Item>
@@ -38,6 +40,7 @@ const Breadcrumb = (props) => {
             return (
               <AntBreadcrumb.Item key={idx}
                 {...otherProps}
+                {...item.props}
               >
                 {
                   props.itemRender ?
