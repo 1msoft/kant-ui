@@ -117,7 +117,7 @@ const getLabelWidth = (value) => {
  * @param {string|number} [props.labelWidth='80px']       label标签的宽度
  * @param {boolean} [props.inlineLabel=false]             label标签宽度自适应
  * @param {string} [props.labelAlign]                     label文本对齐方式   left | center | right
- * @param {string} [props.wrapperAlign]                   label文本对齐方式  left | center | right
+ * @param {string} [props.wrapperAlign]                   wrapper块对齐方式  left | center | right
  * @param {number} props.row                              当前项所在行
  * @param {number} props.span                             栅格配置参数
  * span={8} | span={{ xs: 8 }} | span={getGrid(8, 2)}
@@ -134,6 +134,7 @@ const getLabelWidth = (value) => {
 const FormItem = (props) => {
   const otherProps = omit(props, COMMON_OMIT_FIELDS);
 
+  // 遍历FormItem子集，获取存在【data-__meta】属性的子级
   const getControls = (children, recursively) => {
     let controls = [];
     const childrenArray = React.Children.toArray(children);
@@ -163,6 +164,7 @@ const FormItem = (props) => {
     return controls;
   };
 
+  // 获取首个存在校验器validate（存在【data-__meta】属性）的子级
   const getOnlyControl = () => {
     const child = getControls(props.children, false)[0];
     return child !== undefined ? child : null;
