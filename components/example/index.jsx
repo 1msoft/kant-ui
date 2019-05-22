@@ -10,6 +10,6 @@ const com = () => {
       </div>
     </div>
   );
-}
+};
 
 export default com;
