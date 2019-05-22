@@ -70,6 +70,8 @@ Breadcrumb.propTypes = {
   ),
   itemRender: PropTypes.func,
   targetItemClass: PropTypes.string,
+  breadcrumbProps: PropTypes.object,
+  breadcrumbItemProps: PropTypes.object,
 };
 
 Breadcrumb.defaultProps = {
