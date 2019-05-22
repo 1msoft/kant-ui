@@ -84,7 +84,7 @@ const SideMenu = (props) => {
             key={item.key}
             title={
               <span>
-                {item.icon ? <Icon type={item.icon} /> : ''}
+                {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
                 <span>{item.title}</span>
               </span>
             }
@@ -103,7 +103,7 @@ const SideMenu = (props) => {
             {
               item.url ? (props.onLink ? props.onLink(item) :
                 <a href={item.url} className='kant-menu-link'>
-                  {item.icon ? <Icon type={item.icon} /> : ''}
+                  {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
                   <span>
                     {item.title}
                   </span>
