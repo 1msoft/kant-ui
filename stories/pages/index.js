@@ -22,15 +22,6 @@ export default [
     ]
   },
   {
-    title: '菜单',
-    parents: [
-      {
-        title: '悬停菜单',
-        component: FixedMenu_
-      }
-    ]
-  },
-  {
     title: '表单',
     parents: [
       {
@@ -53,6 +44,10 @@ export default [
       {
         title: 'Header 头部导航栏',
         component: HeaderComponent,
+      },
+      {
+        title: 'FixedMenu 悬停菜单',
+        component: FixedMenu_
       }
     ]
   }
