@@ -116,12 +116,14 @@ const getLabelWidth = (value) => {
  * @param {string} [props.label]                          label标签的文本
  * @param {string|number} [props.labelWidth='80px']       label标签的宽度
  * @param {boolean} [props.inlineLabel=false]             label标签宽度自适应
- * @param {string} props.labelAlign]                      label文本对齐方式   left | center | right
- * @param {string} props.wrapperAlign]                    label文本对齐方式  left | center | right
+ * @param {string} [props.labelAlign]                     label文本对齐方式   left | center | right
+ * @param {string} [props.wrapperAlign]                   label文本对齐方式  left | center | right
  * @param {number} props.row                              当前项所在行
- * @param {number} props.span           栅格配置参数 span={8} | span={{ xs: 8 }} | span={getGrid(8, 2)}
+ * @param {number} props.span                             栅格配置参数
+ * span={8} | span={{ xs: 8 }} | span={getGrid(8, 2)}
  * @param {boolean} [props.colon=false]                   显示冒号
- * @param {string} [props.locationRequired]     必填标示位置 beforeLabel afterLabel afterWrapper
+ * @param {string} [props.locationRequired='beforeLabel'] 必填标示位置
+ * beforeLabel afterLabel afterWrapper
  * @param {string} [props.className]                      容器的className
  * @param {string} [props.labelClassName]                 label的className
  * @param {string} [props.wrapperClassName]               wrapper的calssName
