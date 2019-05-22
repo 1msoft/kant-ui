@@ -29,13 +29,18 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {object}   [siderStyle]                           侧边栏样式覆盖
  * @param {string}   [inlineOpenStyle='normal' | 'hideOther'] mode=inline时的子菜单展开方式
  * @param {boolean}  [showChildMenu=true]                   关闭菜单是否收缩子菜单
- * @param {array}    [selectKeys=[]]                     当前selectKeys的数据
- * @param {array}    [openKeys=[]]                       当前openKeys的数据
+ * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
+ * @param {array}    [openKeys=[]]                          当前openKeys的数据
  * @param {function} [onLink]                               处理menuItem链接的函数
  * @param {function} [menuListDom]                          自定义的DOM处理菜单
+ * @param {obeject}  [props.sideProps]                      layout.sider的api
+ * @param {obeject}  [props.menuProps]                      menu的api
+ * @param {object}   [props.menuItemProps]                  menuItem的api
+ * @param {object}   [props.menuSubmenuProps]               menuSubmenu的api
  */
 const SideMenu = (props) => {
-  const otherProps = omit(props, [
+
+  const filterArr = [
     'dataSource',
     'isCollapsed',
     'collapsed',
@@ -52,7 +57,12 @@ const SideMenu = (props) => {
     'openKeys',
     'onLink',
     'menuListDom',
-  ]);
+  ];
+
+  const sideProps = omit(props.sideProps, filterArr);
+  const menuProps = omit(props.menuProps, filterArr);
+  const menuItemProps = omit(props.menuItemProps, filterArr);
+  const menuSubmenuProps = omit(props.menuSubmenuProps, filterArr);
 
   //定义hook state
   const [collapsed, setCollapsed] = useState(false);
@@ -78,7 +88,7 @@ const SideMenu = (props) => {
                 <span>{item.title}</span>
               </span>
             }
-            {...otherProps}
+            {...menuSubmenuProps}
           >
             {menuElement(item.child)}
           </AntSubMenu>
@@ -88,7 +98,7 @@ const SideMenu = (props) => {
           <Menu.Item
             style={item.style ? { ...item.style } : ''}
             key={item.key}
-            {...otherProps}
+            {...menuItemProps}
           >
             {
               item.url ? (props.onLink ? props.onLink(item) :
@@ -269,7 +279,7 @@ const SideMenu = (props) => {
         collapsed={props.isCollapsed ? collapsed : false}
         trigger={null}
         {...toggelRetractMode(props.retractMode, {})}
-        {...otherProps}
+        {...sideProps}
       >
         {
           props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
@@ -280,7 +290,7 @@ const SideMenu = (props) => {
         <Menu
           onSelect={onSelect}
           selectedKeys={selectedKeysState}
-          {...toogelOpenChildMode(props.openChildMode, otherProps)}
+          {...toogelOpenChildMode(props.openChildMode, menuProps)}
         >
           {
             props.retractMode === 'half'

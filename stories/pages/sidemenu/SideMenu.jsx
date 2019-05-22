@@ -63,7 +63,12 @@ const SideBlock = () => {
         footer={testDom}
         halfRetractHeader={test1Dom}
         halfRetractFooter={test1Dom}
-        theme="light"
+        sideProps={{
+          theme: "light"
+        }}
+        menuProps={{
+          theme: "dark"
+        }}
         retractMode={retractMode}
         openChildMode={openChildMode}
         isCollapsed={isCollapsed}
