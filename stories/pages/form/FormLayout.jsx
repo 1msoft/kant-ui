@@ -2,7 +2,6 @@ import React from "react";
 import { Form, Input, Button, Divider } from "antd";
 import { FormLayout, FormItem, getGrid, create } from "@components/index";
 
-import 'antd/dist/antd.css';
 import "@components/form-layout/style";
 
 /**
@@ -108,7 +107,7 @@ const QueryFormLayout = Form.create({ name: 'query-input' })(props => {
         )}
       </FormItem>
       <FormItem row={2} span={getGrid(6)} label="业主">
-        {props.form.getFieldDecorator("houseNo")(
+        {props.form.getFieldDecorator("owner")(
           <Input placeholder="业主" />
         )}
       </FormItem>
