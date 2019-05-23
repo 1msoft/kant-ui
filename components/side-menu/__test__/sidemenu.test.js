@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import sinon from 'sinon';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import SideMenu from '../index.jsx';
 import { Button, Icon } from 'antd';
@@ -33,16 +33,17 @@ describe('侧边栏菜单', function () {
 
   it('给入数据源是否正确渲染数据', function () {
 
-    const testDom = (props) => (
-      <div style={{ height: '100px', border: '1px solid red' }}></div>
-    );
+    const testDom = (props) => {
+      return (
+        <div style={{ height: '100px', border: '1px solid red' }}></div>
+      );
+    }
     const wrapper = mount(
       <SideMenu dataSource={dataSource}
-        header={testDom}
-        collapsedDom={testDom}
-        halfRetractHeader={testDom}
-        halfRetractFooter={testDom}
-        footer={testDom} />
+        header={testDom()}
+        halfRetractHeader={testDom()}
+        halfRetractFooter={testDom()}
+        footer={testDom()} />
     );
     assert.equal(wrapper.find('.kant-menu-link span').at(0).length, 1);
     assert.equal(wrapper.find('.ant-menu-item').length, 6);
@@ -53,26 +54,29 @@ describe('侧边栏菜单', function () {
   });
 
   it ('接收头部低部Dom', function () {
-    const testDom = (props) => (
-      <div className="kant-div"></div>
-    );
+    const testDom = (props) => {
+      return (
+          <div className="kant-div"></div>
+      );
+    }
     const wrapper = mount(
       <SideMenu isCollapsed={true}
         retractMode={'half'}
-        header={testDom}
-        footer={testDom}>
+        header={testDom()}
+        footer={testDom()}>
       </SideMenu>
     );
     assert.equal(wrapper.find('.kant-div').length, 2);
   });
 
   it ('打开菜单事件触发', function () {
-    const onClick = sinon.fake();
+    const onClick = sinon.spy();
 
     const wrapper = mount(
-      <SideMenu dataSource={dataSource} onClick={onClick}/>
+      <SideMenu dataSource={dataSource}
+        menuItemProps={{onClick:onClick}}
+      />
     );
-
     (wrapper.find('.kant-menu-link').at(0)).simulate('click');
     assert.isTrue(onClick.called);
     (wrapper.find('.ant-menu-submenu-title').at(0)).simulate('click');
@@ -89,7 +93,8 @@ describe('侧边栏菜单', function () {
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
-        onClick={onClick}
+        menuItemProps={{onClick:onClick}}
+        menuSubmenuProps={{onClick:onClick}}
         onLink={onLink}
         retractMode={'all'}
         showChildMenu={false}
@@ -112,7 +117,7 @@ describe('侧边栏菜单', function () {
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
-        onClick={onClick}
+        sideProps={{onClick:onClick}}
         inlineOpenStyle={'hideOther'}
         openKeys={['678']}
         selectKeys={['3456']}

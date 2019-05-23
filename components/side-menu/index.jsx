@@ -258,11 +258,11 @@ const SideMenu = (props) => {
     return otherProps;
   };
 
-  const HalfRetractHeaderDom = props.halfRetractHeader ? props.halfRetractHeader : '';
-  const HalfRetractFooterDom = props.halfRetractFooter ? props.halfRetractFooter : '';
-  const HeaderDom = props.header ? props.header : '';
-  const FooterDom = props.footer ? props.footer : '';
-  const MenuListDom = props.menuListDom ? props.menuListDom : '';
+  const halfRetractHeaderDom = props.halfRetractHeader ? props.halfRetractHeader : null;
+  const halfRetractFooterDom = props.halfRetractFooter ? props.halfRetractFooter : null;
+  const headerDom = props.header ? props.header : null;
+  const footerDom = props.footer ? props.footer : null;
+  const menuListDom = props.menuListDom ? props.menuListDom : null;
 
   useEffect( () => {
     if (props.dataSource.length !== 0) {
@@ -283,9 +283,9 @@ const SideMenu = (props) => {
       >
         {
           props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
-            <HalfRetractHeaderDom />
+            halfRetractHeaderDom
             :
-            (props.header ? <HeaderDom /> : '')
+            (props.header ? headerDom : '')
         }
         <Menu
           onSelect={onSelect}
@@ -295,16 +295,16 @@ const SideMenu = (props) => {
           {
             props.retractMode === 'half'
               && collapsed === true
-              && MenuListDom ?
-              <MenuListDom />
+              && menuListDom ?
+              menuListDom
               :
               menuNode(props.dataSource) }
         </Menu>
         {
           props.retractMode === 'half' && collapsed && props.halfRetractFooter ?
-            <HalfRetractFooterDom />
+            halfRetractFooterDom
             :
-            (props.footer ? <FooterDom /> : '')
+            (props.footer ? footerDom : '')
         }
       </AntSider>
     </Layout>
@@ -326,17 +326,17 @@ SideMenu.propTypes = {
   collapsed: PropTypes.bool,
   retractMode: PropTypes.string,
   openChildMode: PropTypes.string,
-  header: PropTypes.func,
-  footer: PropTypes.func,
-  halfRetractHeader: PropTypes.func,
-  halfRetractFooter: PropTypes.func,
+  header: PropTypes.object,
+  footer: PropTypes.object,
+  halfRetractHeader: PropTypes.object,
+  halfRetractFooter: PropTypes.object,
   siderStyle: PropTypes.object,
   inlineOpenStyle: PropTypes.string,
   showChildMenu: PropTypes.bool,
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
   onLink: PropTypes.func,
-  menuListDom: PropTypes.func,
+  menuListDom: PropTypes.object,
   sideProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,

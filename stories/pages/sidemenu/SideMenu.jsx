@@ -27,13 +27,18 @@ const SideBlock = () => {
     setShowChildMenu(value ? false : true);
   };
 
-  const testDom = (props) => (
-    <div style={{ height: '100px', border: '1px solid black' }}></div>
-  );
+  const testDom = (props) => {
+    return (
+      <div style={{ height: '100px', border: '1px solid green' }}></div>
+    );
+  };
 
-  const test1Dom = (props) => (
-    <div style={{ height: '100px', border: '1px solid red' }}></div>
-  );
+  const test1Dom = (props) => {
+    return (
+      <div style={{ height: '100px', border: '1px solid red' }}></div>
+    );
+  };
+
 
   const siderStyle = {
     overflow: 'auto',
@@ -55,14 +60,14 @@ const SideBlock = () => {
       ></div>
       <SideMenu
         onLink={onLink}
-        menuListDom={testDom}
+        menuListDom={testDom()}
         inlineOpenStyle={inlineStyle}
         siderStyle={siderStyle}
         showChildMenu={showChildMenu}
-        header={testDom}
-        footer={testDom}
-        halfRetractHeader={test1Dom}
-        halfRetractFooter={test1Dom}
+        header={testDom()}
+        footer={testDom()}
+        halfRetractHeader={test1Dom()}
+        halfRetractFooter={test1Dom()}
         sideProps={{
           theme: "light"
         }}
