@@ -2,3 +2,71 @@ div .kant-test {
   left: 100px;
   top: 30px;
 }
+
+div .kant-test1 {
+  left: 427px;
+  top: 351px;
+}
+div .kant-test1 .kant-side-block-list {
+  position: relative;
+}
+
+div .kant-test1 .kant-side-block-list-arrow {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  box-shadow:0px 2px 14px 0px rgba(40,40,40,0.2);
+  position: relative;
+}
+.kant-side-block-list-arrow:hover {
+
+}
+
+div .kant-test1 .kant-side-block-list-weixin {
+  width: 46px;
+  height: 0px;
+  border-radius: 23px;
+  display: block;
+  box-shadow:0px 2px 14px 0px rgba(26,26,26,0.15);
+  margin: 0 4px;
+  position: absolute;
+  top: 30px;
+  transition:top 2s, height 2s;
+  z-index: -1;
+  // background-color: red;
+}
+
+.kant-side-block-list:hover .kant-side-block-list-weixin {
+  // background-color: red;
+  top: -43px;
+  height: 90px;
+}
+
+div .kant-test1 .kant-changetop {
+  width: 46px;
+  height: 0px;
+  border-radius: 23px;
+  display: block;
+  box-shadow:0px 2px 14px 0px rgba(26,26,26,0.15);
+  margin: 0 4px;
+  position: absolute;
+  top: 30px;
+  transition:top 2s, height 2s;
+  z-index: -1;
+  // background-color: black;
+}
+
+.kant-changeBottom {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  // background: green;
+  box-shadow:0px 2px 14px 0px rgba(40,40,40,0.2);
+  position: relative;
+}
+
+.kant-side-block-list:hover .kant-changetop {
+  // background-color: black;
+  top: -43px;
+  height: 90px;
+}

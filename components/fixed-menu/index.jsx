@@ -12,6 +12,9 @@ import PropTypes from 'prop-types';
  * @param {string}   [className]               悬停菜单盒子的类名
  * @param {string}   [topClassName]            悬停菜单上部盒子类名
  * @param {string}   [bottomClassName]         悬停菜单底部盒子类名
+ * @param {function} [topDom]                  悬停菜单顶部传入自定义dom
+ * @param {function} [bottomDom]               悬停菜单底部传入自定义dom
+ * @param {function} [props.arrowEvent]        回到顶部框自定义事件
  */
 class FixedMenu extends React.Component {
   constructor(props){
@@ -30,25 +33,33 @@ class FixedMenu extends React.Component {
   }
 
   render(){
-    const FixMenuDom = this.props.freeDom ? this.props.freeDom : '';
+    const fixMenuDom = this.props.freeDom ? this.props.freeDom : null;
+    const topDom = this.props.topDom ? this.props.topDom : null;
+    const bottomDom = this.props.bottomDom ? this.props.bottomDom : null;
     return (
       <div className={`${this.sideBlockClassName} ${this.props.className}`}>
         {
           this.props.freeDom ?
-            <FixMenuDom /> :
+            fixMenuDom :
             <div className={`kant-side-block-list`}>
               <div
-                onClick={(e) => {this.props.suggestEvent ? this.props.suggestEvent() : null;
-                  e.stopPropagation();}}
+                onClick={(e) => {this.props.suggestEvent
+                  ? this.props.suggestEvent() : null;
+                e.stopPropagation();}}
                 className={`${'kant-side-block-list-weixin'}
                   ${this.props.topClassName}
                   kant-cp `}>
+                {topDom}
               </div>
               <div
-                onClick={(e) => {this.scrollToTop(); e.stopPropagation();}}
+                onClick={(e) => {
+                  this.props.arrowEvent ? this.props.arrowEvent()
+                    : this.scrollToTop(); e.stopPropagation();
+                }}
                 className={`${'kant-side-block-list-arrow'}
                   ${this.props.bottomClassName}
                   kant-cp `}>
+                {bottomDom}
               </div>
             </div>
         }
@@ -76,7 +87,6 @@ class FixedMenu extends React.Component {
 
   // 滚动到顶部
   scrollToTop = () => {
-    console.log('触发了这个事件');
     // speed: 速度（时间）, span 跨度(每次递减数值)
     const animate = (speed = 10, span = 100) => {
       setTimeout(() => {
@@ -133,19 +143,25 @@ class FixedMenu extends React.Component {
 }
 
 FixedMenu.propTypes = {
-  freeDom: PropTypes.func,
+  freeDom: PropTypes.object,
   suggestEvent: PropTypes.func,
   show: PropTypes.bool,
   always: PropTypes.bool,
   className: PropTypes.string,
   topClassName: PropTypes.string,
   bottomClassName: PropTypes.string,
+  topDom: PropTypes.object,
+  bottom: PropTypes.object,
+  arrowEvent: PropTypes.func,
 };
 
 FixedMenu.defaultProps = {
   freeDom: null,
   suggestEvent: null,
+  arrowEvent: null,
   show: false,
+  bottomDom: null,
+  topDom: null,
 };
 
 export default FixedMenu;
