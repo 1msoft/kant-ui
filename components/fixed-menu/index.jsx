@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
  * @param {boolean}  [props.show]              初始是否默认显示悬停菜单
  * @param {boolean}  [props.always]            悬停菜单栏是否一直存在
  * @param {string}   [className]               悬停菜单盒子的类名
- *
+ * @param {string}   [topClassName]            悬停菜单上部盒子类名
+ * @param {string}   [bottomClassName]         悬停菜单底部盒子类名
  */
 class FixedMenu extends React.Component {
   constructor(props){
@@ -37,12 +38,17 @@ class FixedMenu extends React.Component {
             <FixMenuDom /> :
             <div className={`kant-side-block-list`}>
               <div
-                onClick={this.props.suggestEvent ? this.props.suggestEvent : null}
-                className={`${'kant-side-block-list-weixin'} kant-cp `}>
+                onClick={(e) => {this.props.suggestEvent ? this.props.suggestEvent() : null;
+                  e.stopPropagation();}}
+                className={`${'kant-side-block-list-weixin'}
+                  ${this.props.topClassName}
+                  kant-cp `}>
               </div>
               <div
-                onClick={this.scrollToTop}
-                className={`${'kant-side-block-list-arrow'} kant-cp `}>
+                onClick={(e) => {this.scrollToTop(); e.stopPropagation();}}
+                className={`${'kant-side-block-list-arrow'}
+                  ${this.props.bottomClassName}
+                  kant-cp `}>
               </div>
             </div>
         }
@@ -70,6 +76,7 @@ class FixedMenu extends React.Component {
 
   // 滚动到顶部
   scrollToTop = () => {
+    console.log('触发了这个事件');
     // speed: 速度（时间）, span 跨度(每次递减数值)
     const animate = (speed = 10, span = 100) => {
       setTimeout(() => {
@@ -131,6 +138,8 @@ FixedMenu.propTypes = {
   show: PropTypes.bool,
   always: PropTypes.bool,
   className: PropTypes.string,
+  topClassName: PropTypes.string,
+  bottomClassName: PropTypes.string,
 };
 
 FixedMenu.defaultProps = {
