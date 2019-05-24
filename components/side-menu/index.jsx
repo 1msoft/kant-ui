@@ -17,6 +17,7 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {string}   props.dataSource.url                   跳转链接
  * @param {array}    props.dataSource.child                 子级路由
  * @param {string}   props.dataSource.icon                  图标
+ * @param {string}   props.dataSource.className             类名
  * @param {boolean}  [props.isCollapsed=false]              是否收缩菜单栏
  * @param {boolean}  [props.collapsed=false]                菜单是否收缩
  * @param {string}   [props.retractMode=('half' | 'all')]   收缩模式
@@ -83,6 +84,7 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
+            className={ item.className ? `${item.className}` : '' }
             key={item.key}
             title={
               props.submenuTitleDom ? props.submenuTitleDom(item)
@@ -99,6 +101,7 @@ const SideMenu = (props) => {
       } else {
         return (
           <Menu.Item
+            className={ item.className ? `${item.className}` : '' }
             style={item.style ? { ...item.style } : ''}
             key={item.key}
             {...menuItemProps}
