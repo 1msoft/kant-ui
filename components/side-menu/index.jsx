@@ -37,6 +37,7 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
  * @param {object}   [props.menuSubmenuProps]               menuSubmenu的api
+ * @param {function} [props.submenuTitleDom]                submenu标题内自定义dom
  */
 const SideMenu = (props) => {
 
@@ -57,6 +58,7 @@ const SideMenu = (props) => {
     'openKeys',
     'onLink',
     'menuListDom',
+    'submenuTitleDom',
   ];
 
   const sideProps = omit(props.sideProps, filterArr);
@@ -83,10 +85,11 @@ const SideMenu = (props) => {
           <AntSubMenu
             key={item.key}
             title={
-              <span>
-                {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
-                <span>{item.title}</span>
-              </span>
+              props.submenuTitleDom ? props.submenuTitleDom(item)
+                : <span>
+                  {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
+                  <span>{item.title}</span>
+                </span>
             }
             {...menuSubmenuProps}
           >
@@ -101,14 +104,13 @@ const SideMenu = (props) => {
             {...menuItemProps}
           >
             {
-              item.url ? (props.onLink ? props.onLink(item) :
+              props.onLink ? props.onLink(item) :
                 <a href={item.url} className='kant-menu-link'>
                   {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
                   <span>
                     {item.title}
                   </span>
-                </a>)
-                : <span>{item.title}</span>
+                </a>
             }
           </Menu.Item>
         );
@@ -341,6 +343,7 @@ SideMenu.propTypes = {
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
   menuSubmenuProps: PropTypes.object,
+  submenuTitleDom: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
@@ -359,6 +362,7 @@ SideMenu.defaultProps = {
   footer: null,
   halfRetractHeader: null,
   halfRetractFooter: null,
+  submenuTitleDom: null,
 };
 
 export default SideMenu;
