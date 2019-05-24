@@ -68,7 +68,6 @@ const SideMenu = (props) => {
   const menuSubmenuProps = omit(props.menuSubmenuProps, filterArr);
 
   //定义hook state
-  const [collapsed, setCollapsed] = useState(false);
   const [selectedKeysState, setSelectedKeys] = useState([]);
   const [openKeysState, setOpenKeys] = useState([]);
 
@@ -120,11 +119,6 @@ const SideMenu = (props) => {
       }
     });
     return menuElement(data);
-  };
-
-  //点击显示/隐藏菜单
-  const toggleCollapsed = () => {
-    setCollapsed(props.collapsed);
   };
 
   //收缩模式insetProps
@@ -253,11 +247,11 @@ const SideMenu = (props) => {
   //展开的子级的方式
   const toogelOpenChildMode = (mark, otherProps) => {
     /**根据子级方式来确定选择完菜单栏的聚焦形式 */
-    if (!collapsed && mark === 'inline') {
+    if (!props.collapsed && mark === 'inline') {
       otherProps.onOpenChange = onOpenChange;
       otherProps.openKeys = openKeysState;
       otherProps.mode = mark;
-    } else if (collapsed && mark === 'inline') {
+    } else if (props.collapsed && mark === 'inline') {
       otherProps.mode = 'vertical';
     }
     return otherProps;
@@ -274,20 +268,19 @@ const SideMenu = (props) => {
       resetMenuKeys();
       cascadeKeys();
     }
-    toggleCollapsed();
   }, []);
 
   return (
     <Layout>
       <AntSider
         style={props.siderStyle}
-        collapsed={props.isCollapsed ? collapsed : false}
+        collapsed={props.isCollapsed ? props.collapsed : false}
         trigger={null}
         {...toggelRetractMode(props.retractMode, {})}
         {...sideProps}
       >
         {
-          props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
+          props.retractMode === 'half' && props.collapsed && props.halfRetractHeader ?
             halfRetractHeaderDom
             :
             (props.header ? headerDom : '')
@@ -299,14 +292,14 @@ const SideMenu = (props) => {
         >
           {
             props.retractMode === 'half'
-              && collapsed === true
+              && props.collapsed === true
               && menuListDom ?
               menuListDom
               :
               menuNode(props.dataSource) }
         </Menu>
         {
-          props.retractMode === 'half' && collapsed && props.halfRetractFooter ?
+          props.retractMode === 'half' && props.collapsed && props.halfRetractFooter ?
             halfRetractFooterDom
             :
             (props.footer ? footerDom : '')
