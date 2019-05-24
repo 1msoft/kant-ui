@@ -1,6 +1,6 @@
 {
-  "name": "em-component",
-  "version": "0.1.6",
+  "name": "@1msoft/kant-ui",
+  "version": "0.0.2",
   "private": false,
   "files": [
     "lib",
@@ -14,9 +14,7 @@
     "antd": "^3.17.0",
     "moment": "^2.24.0",
     "omit.js": "^1.0.2",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "prop-types": "^15.7.2"
   },
   "scripts": {
     "start": "npm run storybook",
@@ -35,6 +33,10 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "browserslist": {
     "production": [
@@ -106,7 +108,9 @@
     "karma-webpack": "^3.0.5",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.6.0",
     "mocha": "^6.1.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "progress-bar-webpack-plugin": "^1.12.1",
     "rimraf": "^2.6.3",
