@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 const { Sider: AntSider } = Layout;
 const { SubMenu: AntSubMenu } = Menu;
+const MenuItemGroup = Menu.ItemGroup;
 
 /**
  * 侧边栏
@@ -33,12 +34,13 @@ const { SubMenu: AntSubMenu } = Menu;
  * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
  * @param {array}    [openKeys=[]]                          当前openKeys的数据
  * @param {function} [onLink]                               处理menuItem链接的函数
- * @param {function} [menuListDom]                          自定义的DOM处理菜单
+ * @param {object}   [menuListDom]                          自定义的DOM处理菜单
  * @param {obeject}  [props.sideProps]                      layout.sider的api
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
  * @param {object}   [props.menuSubmenuProps]               menuSubmenu的api
  * @param {function} [props.submenuTitleDom]                submenu标题内自定义dom
+ * @param {function} [props.menuItemGroup]                  menuItemGroup标题内自定义dom
  */
 const SideMenu = (props) => {
 
@@ -60,6 +62,7 @@ const SideMenu = (props) => {
     'onLink',
     'menuListDom',
     'submenuTitleDom',
+    'menuItemGroup',
   ];
 
   const sideProps = omit(props.sideProps, filterArr);
@@ -83,7 +86,7 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
-            className={ item.className ? `${item.className}` : '' }
+            className={ ` ant-menu-submenu-active ${item.className ? `${item.className}` : ''}` }
             key={item.key}
             title={
               props.submenuTitleDom ? props.submenuTitleDom(item)
@@ -94,7 +97,17 @@ const SideMenu = (props) => {
             }
             {...menuSubmenuProps}
           >
-            {menuElement(item.child)}
+            {
+              props.retractMode === 'half'
+                && props.collapsed === true ?
+                <MenuItemGroup
+                  title={
+                    props.menuItemGroup ? props.menuItemGroup(item)
+                      : <span>{item.title}</span>
+                  }>
+                  {menuElement(item.child)}
+                </MenuItemGroup> : menuElement(item.child)
+            }
           </AntSubMenu>
         );
       } else {
@@ -291,12 +304,8 @@ const SideMenu = (props) => {
           {...toogelOpenChildMode(props.openChildMode, menuProps)}
         >
           {
-            props.retractMode === 'half'
-              && props.collapsed === true
-              && menuListDom ?
-              menuListDom
-              :
-              menuNode(props.dataSource) }
+            menuNode(props.dataSource)
+          }
         </Menu>
         {
           props.retractMode === 'half' && props.collapsed && props.halfRetractFooter ?
@@ -340,6 +349,7 @@ SideMenu.propTypes = {
   menuItemProps: PropTypes.object,
   menuSubmenuProps: PropTypes.object,
   submenuTitleDom: PropTypes.func,
+  menuItemGroup: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
@@ -359,6 +369,7 @@ SideMenu.defaultProps = {
   halfRetractHeader: null,
   halfRetractFooter: null,
   submenuTitleDom: null,
+  menuItemGroup: null,
 };
 
 export default SideMenu;

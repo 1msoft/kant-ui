@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { SideMenu } from '@components/index';
-import { Switch, Button, Icon } from 'antd';
+import { Switch, Icon, Menu } from 'antd';
 import '@components/side-menu/style';
 import './SideMenu.less';
 
+const { SubMenu: AntSubMenu } = Menu;
 
 const SideBlock = () => {
   const [retractMode, setRetractMode] = useState('half');
@@ -76,8 +77,8 @@ const SideBlock = () => {
         }}
         retractMode={retractMode}
         openChildMode={openChildMode}
-        isCollapsed={isCollapsed}
-        // collapsed={true}
+        isCollapsed={true}
+        collapsed={openChildMode}
         dataSource={[{ key: '123', title: '菜单1', url: '/abc', icon: 'delete',
           child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
             child: [
@@ -108,6 +109,98 @@ const SideBlock = () => {
   );
 };
 
+const MenuBlock = () => {
+
+  const [collapsed, setCollapsed] = useState(false);
+
+  const dataSource = [
+    { key: '123', title: '菜单1', url: '/abc', icon: 'delete', className: 'abccccc',
+      child: [{ key: '7895', title: '菜单63', url: '/abcdhds' }]
+    },
+    { key: '798', title: '菜单4', url: '/abcde', icon: 'delete' },
+    { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
+      child: [{ key: '3456', title: '菜单62', url: '/abcdh' }]
+    },
+    { key: '789', title: '菜单5', url: '/abcde', icon: 'delete' },
+    { key: '978', title: '菜单6', url: '/abcde', icon: 'delete' }
+  ];
+
+  const headDom = () => {
+    return (
+      <div className="kant-menu-head">
+        <span className="kant-head-icon"
+          onClick={ () => { setCollapsed(!collapsed); } }
+        >
+          <Icon type="swap"></Icon>
+        </span>
+      </div>
+    );
+  };
+
+  const titleDom = (props) => (
+    <div className="kant-submenu-title">
+      <span className="kant-sub-icon"><Icon type={props.icon}></Icon>
+      </span>
+      <span className="kant-sub-text">{props.title}</span>
+    </div>
+  );
+
+  const menuItemGroupTitleDom = (props) => (
+    <div className="kant-itemgroup-title">
+      <span className="kant-itemgroup-icon"><Icon type={props.icon}></Icon>
+      </span>
+      <span className="kant-itemgroup-text">{props.title}</span>
+    </div>
+  );
+
+  const onLink = (props) => (
+    <div className="kant-menuitem-title">
+      <a href={'javascript:;'}>
+        {
+          props.icon ?
+            <span className="kant-menuitem-icon"><Icon type={props.icon}></Icon></span>
+            : ''
+        }
+        <span className="kant-menuitem-text">{props.title}</span>
+      </a>
+    </div>
+  );
+
+  //以下是列表栏目的处理
+  const test1Dom = (props) => {
+    if ( collapsed ) {
+      return (
+        <div style={{ width: '100%', height: '200px' }}></div>
+      );
+    } else {
+      return null;
+    }
+  };
+  return (
+    <div style={{ height: '700px', width: '800px', border: '1px solid black' }}>
+      <SideMenu
+        dataSource={dataSource}
+        header={headDom()}
+        submenuTitleDom={titleDom}
+        onLink={onLink}
+        sideProps={{
+          theme: 'light',
+        }}
+        menuProps={{
+        }}
+        isCollapsed={true}
+        collapsed={collapsed}
+        inlineOpenStyle="normal"
+        menuListDom={test1Dom()}
+        menuItemGroup={menuItemGroupTitleDom}
+      />
+    </div>
+  );
+};
+
 export default () => (
-  <SideBlock />
+  <div>
+    {/* <SideBlock /> */}
+    <MenuBlock />
+  </div>
 );
