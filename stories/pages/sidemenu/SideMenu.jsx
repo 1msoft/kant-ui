@@ -181,8 +181,8 @@ const MenuBlock = () => {
       <SideMenu
         dataSource={dataSource}
         header={headDom()}
-        submenuTitleDom={titleDom}
-        onLink={onLink}
+        // submenuTitleDom={titleDom}
+        // onLink={onLink}
         sideProps={{
           theme: 'light',
         }}
@@ -191,8 +191,8 @@ const MenuBlock = () => {
         isCollapsed={true}
         collapsed={collapsed}
         inlineOpenStyle="normal"
-        menuListDom={test1Dom()}
-        menuItemGroup={menuItemGroupTitleDom}
+        // menuListDom={test1Dom()}
+        // menuItemGroup={menuItemGroupTitleDom}
       />
     </div>
   );

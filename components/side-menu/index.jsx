@@ -88,10 +88,13 @@ const SideMenu = (props) => {
             key={item.key}
             title={
               props.submenuTitleDom ? props.submenuTitleDom(item)
-                : <span>
-                  {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
-                  <span>{item.title}</span>
-                </span>
+                :
+                <div className="kant-submenu-title">
+                  <span className={`kant-sub-icon iconfont ${item.icon}`}>
+                    &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                  </span>
+                  <span className="kant-sub-text">{item.title}</span>
+                </div>
             }
             {...menuSubmenuProps}
           >
@@ -101,7 +104,13 @@ const SideMenu = (props) => {
                 <MenuItemGroup
                   title={
                     props.menuItemGroup ? props.menuItemGroup(item)
-                      : <span>{item.title}</span>
+                      :
+                      <div className="kant-itemgroup-title">
+                        <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
+                          &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                        </span>
+                        <span className="kant-itemgroup-text">{item.title}</span>
+                      </div>
                   }>
                   {menuElement(item.child)}
                 </MenuItemGroup> : menuElement(item.child)
@@ -118,12 +127,18 @@ const SideMenu = (props) => {
           >
             {
               props.onLink ? props.onLink(item) :
-                <a href={item.url} className='kant-menu-link'>
-                  {item.icon ? <span className={`iconfont ${item.icon}`}></span> : ''}
-                  <span>
-                    {item.title}
-                  </span>
-                </a>
+                <div className="kant-menuitem-title">
+                  <a href={'javascript:;'}>
+                    {
+                      item.icon ?
+                        <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
+                          &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                        </span>
+                        : ''
+                    }
+                    <span className="kant-menuitem-text">{item.title}</span>
+                  </a>
+                </div>
             }
           </Menu.Item>
         );
