@@ -17,10 +17,8 @@ const FixedMenus = () => {
     );
   };
 
-  const toogelStyleChange = () => {
+  const toogels = () => {
     console.log('我点了上部');
-    setIsChange(!isChange);
-    console.log(isChange, '0000');
   };
 
   const iconDom = (isChange ,mark) => {
@@ -54,15 +52,12 @@ const FixedMenus = () => {
             height: '300px', width: '300px' }}
         >
           <FixedMenu
-            suggestEvent={() => {toogelStyleChange();}}
-            className={'kant-test1'}
-            topClassName={ isChange ? 'kant-changetop' : 'kant-side-block-list-weixin' }
-            bottomClassName={ isChange ? 'kant-changeBottom' : 'kant-side-block-list-arrow' }
+            suggestEvent={() => {toogels();}}
             show={true}
             always={true}
-            arrowEvent={ isChange ? () => { console.log('全屏事件'); } : null}
-            topDom={iconDom(isChange, 'top')}
-            bottomDom={iconDom(isChange, 'bottom')}
+            arrowEvent={ () => { console.log('全屏事件'); } }
+            bottomIcon="arrow-up"
+            topIcon="fullscreen-exit"
           />
 
         </div>

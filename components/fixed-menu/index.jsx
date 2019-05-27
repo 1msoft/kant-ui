@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'antd';
 
 /**
  * 悬停菜单栏
@@ -15,15 +16,17 @@ import PropTypes from 'prop-types';
  * @param {function} [topDom]                  悬停菜单顶部传入自定义dom
  * @param {function} [bottomDom]               悬停菜单底部传入自定义dom
  * @param {function} [props.arrowEvent]        回到顶部框自定义事件
+ * @param {string}   [props.topIcon]           上半部分初始图标
+ * @param {string}   [props.bottomIcon]        下半部分初始图标
  */
 class FixedMenu extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       show: this.props.show || false,
+      isChange: false,
     };
   }
-
   componentDidMount(){
     document.addEventListener('scroll', this.debounce(this.onScroll, 50));
   }
@@ -32,40 +35,63 @@ class FixedMenu extends React.Component {
     document.removeEventListener('scroll', this.onScroll);
   }
 
+  toogelStyleChange = () => {
+    const isChange = !this.state.isChange;
+    this.setState({ isChange });
+  };
+
   render(){
     const fixMenuDom = this.props.freeDom ? this.props.freeDom : null;
     const topDom = this.props.topDom ? this.props.topDom : null;
     const bottomDom = this.props.bottomDom ? this.props.bottomDom : null;
+    const isChange = this.state.isChange;
     return (
-      <div className={`${this.sideBlockClassName} ${this.props.className}`}>
+      <div className={`${this.sideBlockClassName} kant-fixedmenu-content ${this.props.className}`}>
         {
           this.props.freeDom ?
             fixMenuDom :
             <div className={`kant-side-block-list`}>
               <div
-                onClick={(e) => {this.props.suggestEvent
-                  ? this.props.suggestEvent() : null;
-                e.stopPropagation();}}
-                className={`${'kant-side-block-list-weixin'}
+                onClick={ this.props.suggestEvent
+                  ? () => {this.props.suggestEvent(); this.toogelStyleChange();}
+                  : this.toogelStyleChange
+                }
+                className={ isChange ? `kant-changetop  ${this.props.topClassName} kant-cp`
+                  : `${'kant-side-block-list-weixin'}
                   ${this.props.topClassName}
                   kant-cp `}>
-                {topDom}
+                {topDom ? topDom : this.iconDom(this.state.isChange, 'top')}
               </div>
               <div
                 onClick={(e) => {
-                  this.props.arrowEvent ? this.props.arrowEvent()
+                  this.props.arrowEvent && this.state.isChange ? this.props.arrowEvent()
                     : this.scrollToTop(); e.stopPropagation();
                 }}
-                className={`${'kant-side-block-list-arrow'}
+                className={ isChange ? `kant-changeBottom ${this.props.bottomClassName}
+                kant-cp ` : `${'kant-side-block-list-arrow'}
                   ${this.props.bottomClassName}
                   kant-cp `}>
-                {bottomDom}
+                {bottomDom ? bottomDom : this.iconDom(this.state.isChange, 'bottom')}
               </div>
             </div>
         }
       </div>
     );
   }
+
+  iconDom = (isChange ,mark) => {
+    if (mark === 'bottom') {
+      let icon = !isChange ? this.props.bottomIcon : this.props.topIcon;
+      return icon ? <span className={`kant-bottomIcon iconfont ${icon}`}>
+        &nbsp;
+      </span> : null;
+    } else if (mark === 'top') {
+      let icon = !isChange ? this.props.topIcon : this.props.bottomIcon;
+      return icon ? <span className={`kant-topIcon iconfont ${icon}`}>
+        &nbsp;
+      </span> : null;
+    }
+  };
 
   // 获取 document.scrollTop
   get scrollTop(){
@@ -165,3 +191,4 @@ FixedMenu.defaultProps = {
 };
 
 export default FixedMenu;
+
