@@ -1,6 +1,7 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import InputNumber from './form/InputNumber';
+import ImgPreviewer from './form/ImgPreviewer'
 
 export default [
   {
@@ -26,6 +27,10 @@ export default [
       {
         title: 'InputNumber 数字输入框',
         component: InputNumber,
+      },
+      {
+        title: 'ImagePreviewer 图片预览',
+        component: ImgPreviewer
       }
     ]
   }

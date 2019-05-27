@@ -1,0 +1,79 @@
+.em-image-previewer-mask {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  filter: alpha(opacity=50);
+}
+
+.em-image-previewer-mask-none {
+  display: none;
+}
+
+.em-image-previewer-header {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  z-index: 1001;
+  background-color: rgba(0, 0, 0, 0.1)
+}
+
+.em-image-previewer-quit {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 56px;
+  height: 56px;
+  z-index: 1003;
+  text-align: center;
+  line-height: 56px;
+}
+
+.em-image-previewer-body {
+  display: inline-block;
+  z-index: 1001;
+  height: 100%;
+  width: 100%;
+}
+
+.em-image-previewer-container {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1001;
+}
+
+.em-image-previewer-img {
+  width: 100%;
+}
+
+.em-image-previewer-prev {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  top: 50%;
+  line-height: 70px;
+  text-align: center;
+  z-index: 1003;
+  background-color: rgba(200 ,200, 200, 0.2);
+}
+
+.em-image-previewer-next {
+  .em-image-previewer-prev;
+  right: 0%;
+}
+
+.em-image-previewer-prev:hover,
+.em-image-previewer-next:hover,
+.em-image-previewer-quit:hover{
+  background-color: rgba(200 ,200, 200, 0.6);
+}
