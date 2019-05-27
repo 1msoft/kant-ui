@@ -35,7 +35,7 @@ export default [
         title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
       }
-    ] 
+    ]
   },
   {
     title: '布局',
