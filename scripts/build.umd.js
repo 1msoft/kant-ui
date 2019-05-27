@@ -112,7 +112,6 @@ const config = {
         parallel: true,
         uglifyOptions: {
           compress: {
-            // warnings: false,
             drop_debugger: true,
             drop_console: false
           },
