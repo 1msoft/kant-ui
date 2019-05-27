@@ -34,7 +34,6 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
  * @param {array}    [openKeys=[]]                          当前openKeys的数据
  * @param {function} [onLink]                               处理menuItem链接的函数
- * @param {object}   [menuListDom]                          自定义的DOM处理菜单
  * @param {obeject}  [props.sideProps]                      layout.sider的api
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
@@ -60,7 +59,6 @@ const SideMenu = (props) => {
     'selectKeys',
     'openKeys',
     'onLink',
-    'menuListDom',
     'submenuTitleDom',
     'menuItemGroup',
   ];
@@ -274,7 +272,6 @@ const SideMenu = (props) => {
   const halfRetractFooterDom = props.halfRetractFooter ? props.halfRetractFooter : null;
   const headerDom = props.header ? props.header : null;
   const footerDom = props.footer ? props.footer : null;
-  const menuListDom = props.menuListDom ? props.menuListDom : null;
 
   useEffect( () => {
     if (props.dataSource.length !== 0) {
@@ -343,7 +340,6 @@ SideMenu.propTypes = {
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
   onLink: PropTypes.func,
-  menuListDom: PropTypes.object,
   sideProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
@@ -363,7 +359,6 @@ SideMenu.defaultProps = {
   selectKeys: [],
   openKeys: [],
   onLink: null,
-  menuListDom: null,
   header: null,
   footer: null,
   halfRetractHeader: null,
