@@ -23,7 +23,6 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {boolean}  [props.collapsed=false]                菜单是否收缩
  * @param {string}   [props.retractMode=('half' | 'all')]   收缩模式
  * @param {string}   [props.openChildMode=('vertical' | 'inline')] 展开子级的方式
- * @param {object}   [props.lightHeightstyle: {}]           当前选中菜单的高亮样式
  * @param {function} [header]                               未收缩头部组件
  * @param {function} [footer]                               未收缩底部组件
  * @param {function} [halfRetractHeader]                    半收缩头部组件
@@ -75,12 +74,7 @@ const SideMenu = (props) => {
   //loop菜单
   const menuNode = (data) => {
     const menuElement = menu => menu.map(item => {
-      if (selectedKeysState.length === 1
-        && selectedKeysState[0] === item.key) {
-        item.style = props.lightHeightstyle;
-      } else {
-        item.style = {};
-      }
+
       if (item.child) {
         return (
           <AntSubMenu
@@ -91,7 +85,7 @@ const SideMenu = (props) => {
                 :
                 <div className="kant-submenu-title">
                   <span className={`kant-sub-icon iconfont ${item.icon}`}>
-                    &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                    &nbsp;
                   </span>
                   <span className="kant-sub-text">{item.title}</span>
                 </div>
@@ -107,7 +101,7 @@ const SideMenu = (props) => {
                       :
                       <div className="kant-itemgroup-title">
                         <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
-                          &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                          &nbsp;
                         </span>
                         <span className="kant-itemgroup-text">{item.title}</span>
                       </div>
@@ -121,7 +115,6 @@ const SideMenu = (props) => {
         return (
           <Menu.Item
             className={ item.className ? `${item.className}` : '' }
-            style={item.style ? { ...item.style } : ''}
             key={item.key}
             {...menuItemProps}
           >
@@ -132,7 +125,7 @@ const SideMenu = (props) => {
                     {
                       item.icon ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
-                          &nbsp;{/* <Icon type={item.icon}></Icon> */}
+                          &nbsp;
                         </span>
                         : ''
                     }
