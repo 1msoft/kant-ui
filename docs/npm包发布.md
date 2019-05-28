@@ -26,7 +26,7 @@ npm config set registry http://registry.npmjs.org
 npm login
 
 # 3. 发布包
-npm publish
+npm publish --access public
 
 # 4. 如果需要则切换回淘宝源
 npm config set registry https://registry.npm.taobao.org/
