@@ -8,6 +8,7 @@
 import React, {
   useMemo,
   Fragment,
+  useState,
   useCallback,
 } from 'react';
 import _ from 'lodash';
@@ -32,6 +33,7 @@ const LOADING_TYPE = {
 };
 
 const useStateHook = (props) => {
+  const [open, setOpen] = useState(false);
   /**
    * 处理数据方法： value、title
    * @param {Object | String | number} data 待处理数据
@@ -87,21 +89,59 @@ const useStateHook = (props) => {
       [LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
     ].every(v => v);
     const render = (
-      loading
-        ? <Spin spinning={loading} {...props.spin}> {menuNode}</Spin>
-        : menuNode
+      <div className="kant-menu">
+        <div className="kant-menu-wrapper">
+          { loading
+            ? <Spin spinning={loading} {...props.spin}> {menuNode}</Spin>
+            : menuNode
+          }
+        </div>
+      </div>
     );
     return (props.dropdownRender ? props.dropdownRender(render, currProps) : render);
   }, [props.loading, props.loadingType, props.dropdownRender, props.spin]);
 
   // 计算其余 props
   const otherProps = useMemo(() => {
-    const filter = ['dropdownRender', 'onPopupScroll'];
+    const filter = [
+      'onPopupScroll',
+      'dropdownRender',
+      'dropdownClassName',
+      'onDropdownVisibleChange',
+    ];
     if (props.loadingType === LOADING_TYPE.MENU){filter.push('loading');}
     return omit(props, filter);
   });
 
-  return { options, onPopupScroll, dropdownRender, otherProps };
+  // 下拉菜单容器 className
+  const dropdownClassName = useMemo(() => {
+    return (`
+      ${props.dropdownClassName ? props.dropdownClassName : ''}
+      ${open ? 'dropdown-show' : 'dropdown-hidden'}
+    `);
+  }, [props.dropdownClassName, open]);
+
+  // 下拉框切换 change 事件
+  const onDropdownVisibleChange = useCallback((value) => {
+    props.onDropdownVisibleChange && props.onDropdownVisibleChange(value);
+    if (value === open){ return false; }
+    if (!open){
+      setOpen(value);
+    } else {
+      setTimeout(() => {
+        setOpen(value);
+      }, 5000);
+    }
+  }, [open]);
+
+  return {
+    options,
+    otherProps,
+    onPopupScroll,
+    dropdownRender,
+    dropdownClassName,
+    onDropdownVisibleChange,
+  };
 };
 
 /**
@@ -130,6 +170,8 @@ const Select = (props) => {
     <AntSelect
       onPopupScroll={state.onPopupScroll}
       dropdownRender={state.dropdownRender}
+      dropdownClassName={state.dropdownClassName}
+      onDropdownVisibleChange={state.onDropdownVisibleChange}
       {...state.otherProps}
     >
       {state.options}
