@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
 
@@ -18,7 +19,7 @@ export default [
       {
         title: '欢迎页面111',
         component: Welcome
-      }
+      },
     ]
   },
   {
@@ -36,7 +37,7 @@ export default [
         title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
       }
-    ] 
+    ]
   },
   {
     title: '布局',
@@ -44,7 +45,11 @@ export default [
       {
         title: 'Header 头部导航栏',
         component: HeaderComponent,
-      }
+      },
+      {
+        title: 'Breadcrumb 面包屑导航',
+        component: Breadcrumb,
+      },
     ]
   },
   {

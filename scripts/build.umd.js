@@ -22,12 +22,12 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 const { version, name, description } = require("../package.json");
 
 const LOGO = `
-              __                    _ 
+              __                    _
   _______  __/ /_____        __  __(_)
- / ___/ / / / //_/ _ \\______/ / / / / 
-/ /__/ /_/ / ,< /  __/_____/ /_/ / /  
-\\___/\\__,_/_/|_|\\___/     \\__,_/_/   
-                                      
+ / ___/ / / / //_/ _ \\______/ / / / /
+/ /__/ /_/ / ,< /  __/_____/ /_/ / /
+\\___/\\__,_/_/|_|\\___/     \\__,_/_/
+
 `
 
 const config = {
@@ -112,7 +112,6 @@ const config = {
         parallel: true,
         uglifyOptions: {
           compress: {
-            warnings: false,
             drop_debugger: true,
             drop_console: false
           },
