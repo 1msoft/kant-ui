@@ -36,9 +36,11 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {obeject}  [props.sideProps]                      layout.sider的api
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
- * @param {object}   [props.menuSubmenuProps]               menuSubmenu的api
+ * @param {object}   [props.menuSubMenuProps]               menuSubmenu的api
  * @param {function} [props.submenuTitleDom]                submenu标题内自定义dom
  * @param {function} [props.menuItemGroup]                  menuItemGroup标题内自定义dom
+ * @link 更多参数参考  [antd 官网](https://ant.design/components/layout-cn/#API)
+ * @link 更多参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)
  */
 const SideMenu = (props) => {
 
@@ -65,7 +67,7 @@ const SideMenu = (props) => {
   const sideProps = omit(props.sideProps, filterArr);
   const menuProps = omit(props.menuProps, filterArr);
   const menuItemProps = omit(props.menuItemProps, filterArr);
-  const menuSubmenuProps = omit(props.menuSubmenuProps, filterArr);
+  const menuSubMenuProps = omit(props.menuSubMenuProps, filterArr);
 
   //定义hook state
   const [selectedKeysState, setSelectedKeys] = useState([]);
@@ -90,7 +92,7 @@ const SideMenu = (props) => {
                   <span className="kant-sub-text">{item.title}</span>
                 </div>
             }
-            {...menuSubmenuProps}
+            {...menuSubMenuProps}
           >
             {
               props.retractMode === 'half'
@@ -351,7 +353,7 @@ SideMenu.propTypes = {
   sideProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
-  menuSubmenuProps: PropTypes.object,
+  menuSubMenuProps: PropTypes.object,
   submenuTitleDom: PropTypes.func,
   menuItemGroup: PropTypes.func,
 };
