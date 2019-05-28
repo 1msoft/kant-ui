@@ -5,6 +5,7 @@ import Breadcrumb from './breadcrumb/Breadcrumb';
 import HeaderComponent from './layout/HeaderComponent';
 
 import InputNumber from './form/InputNumber';
+import FormLayout from './form/FormLayout';
 import DatePickerComponent from './form/DatePicker';
 
 export default [
@@ -31,6 +32,10 @@ export default [
       {
         title: 'InputNumber 数字输入框',
         component: InputNumber,
+      },
+      {
+        title: 'FormLayout 表单',
+        component: FormLayout,
       },
       {
         title: 'DatePicker 日期范围选择器',
