@@ -6,12 +6,11 @@ import omit from 'omit.js';
 /**
  * 文本输入框
  * @param {object} props
- * @param {object} [props.inputProps] antd 文本框api
  * @param {string} [props.className]  传入className
  */
 const Input = (props) => {
   const filterArr = [];
-  const inputProps = omit(props.inputProps, filterArr);
+  const inputProps = omit(props, filterArr);
   return (
     <AntInput
       className={props.className}
@@ -21,8 +20,12 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
-  inputProps: PropTypes.object,
   className: PropTypes.string,
 };
+
+Input.TextArea = AntInput.TextArea;
+Input.Search = AntInput.Search;
+Input.Group = AntInput.Group;
+Input.Password = AntInput.Password;
 
 export default Input;
