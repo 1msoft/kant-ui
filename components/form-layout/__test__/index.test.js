@@ -2,9 +2,10 @@ import React from 'react';
 import { expect, assert } from 'chai';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Form } from 'antd';
-import { FormLayout, FormItem, create, getGrid } from '../index';
+import { Form, FormLayout, FormItem } from '../index';
+
 const { mount } = Enzyme;
+const getGrid = FormItem.getGrid;
 
 // 为 Enzyme 配置适配器
 Enzyme.configure({ adapter: new Adapter() });
@@ -149,7 +150,7 @@ describe('LayoutForm 组件 & FormItem 组件', () => {
 
   it ('FormItem 表单校验', () => {
     let myForm;
-    const FormLayout = create()(({ form }) => {
+    const FormLayout = Form.create()(({ form }) => {
       myForm = form;
       return (
         <Form>

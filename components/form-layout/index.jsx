@@ -16,7 +16,6 @@ import {
   isString,
 } from 'lodash';
 
-const create = Form.create;
 const AntFormItem = Form.Item;
 const FIELD_META_PROP = 'data-__meta';
 
@@ -394,6 +393,8 @@ const FormLayout = (props) => {
   );
 };
 
+FormItem.getGrid = getGrid;
+
 FormLayout.propTypes = {
   ...COMMON_PARAMS_TYPES,
   gutter: PropTypes.oneOfType([
@@ -426,9 +427,10 @@ FormLayout.defaultProps = {
   },
 };
 
+export { Form } from 'antd';
+
 export {
-  create,
-  getGrid,
   FormItem,
   FormLayout,
+  AntFormItem,
 };

@@ -1,9 +1,10 @@
 import React from "react";
-import { Form, Input, Button, Divider } from "antd";
-import { FormLayout, FormItem, getGrid, create } from "@components/index";
+import { Input, Button, Divider } from "antd";
+import { Form, FormLayout, FormItem } from "@components/index";
 
 import "@components/form-layout/style";
 
+const getGrid = FormItem.getGrid;
 /**
  * app
  */
@@ -120,7 +121,7 @@ const QueryFormLayout = Form.create({ name: 'query-input' })(props => {
   );
 });
 
-const InputFormLayoutByHorizontal = create({ name: 'row-input' })(({ form }) => {
+const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }) => {
   const submit = (e) => {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
@@ -189,7 +190,7 @@ const InputFormLayoutByHorizontal = create({ name: 'row-input' })(({ form }) => 
   );
 });
 
-const InputFormLayoutByVertical = create({ name: 'flex-input' })(({ form }) => {
+const InputFormLayoutByVertical = Form.create({ name: 'flex-input' })(({ form }) => {
   const submit = (e) => {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {

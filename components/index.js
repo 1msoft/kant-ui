@@ -6,5 +6,5 @@ export { default as Breadcrumb } from './breadcrumb';
 export { default as Header } from './header';
 
 export { default as InputNumber } from './input-number';
-export { FormLayout, FormItem, create, getGrid } from './form-layout';
+export { Form, FormLayout, FormItem, AntFormItem } from './form-layout';
 export { default as DatePicker } from './date-picker';
