@@ -1,6 +1,7 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import FixedMenu_ from './fixedmenu/FixedMenu';
+import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
 
@@ -18,7 +19,7 @@ export default [
       {
         title: '欢迎页面111',
         component: Welcome
-      }
+      },
     ]
   },
   {
@@ -48,7 +49,11 @@ export default [
       {
         title: 'FixedMenu 悬停菜单',
         component: FixedMenu_
-      }
+      },
+      {
+        title: 'Breadcrumb 面包屑导航',
+        component: Breadcrumb,
+      },
     ]
   }
 ];
