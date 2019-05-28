@@ -7,6 +7,7 @@ import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
 import FormLayout from './form/FormLayout';
 import DatePickerComponent from './form/DatePicker';
+import Context from './other/Context';
 
 export default [
   {
@@ -57,6 +58,15 @@ export default [
         title: 'Breadcrumb 面包屑导航',
         component: Breadcrumb,
       },
+    ]
+  },
+  {
+    title: '其他',
+    parents: [
+      {
+        title: 'Context 上下文',
+        component: Context,
+      }
     ]
   }
 ];

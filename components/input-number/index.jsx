@@ -3,7 +3,7 @@
  * @author jfj
  * @module InputNumber
  */
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 
 import omit from 'omit.js';
@@ -13,6 +13,7 @@ import {
   isFunction,
 } from 'lodash';
 import classNames from 'classnames';
+import Context from '../context';
 import { InputNumber as AntInputNumber } from "antd";
 
 /**
@@ -57,10 +58,11 @@ const InputNumber = (props) => {
     'controls',
     'className',
   ]);
-
+  const kantContext = useContext(Context);
+  const theme = props.theme || kantContext.theme || 'box';
   const className = classNames(
     'kant-input-number',
-    `kant-input-number-theme-${props.theme}`,
+    `kant-input-number-theme-${theme}`,
     props.className,
     { 'kant-input-number-handler-hide': props.controls },
   );
@@ -88,7 +90,6 @@ InputNumber.propTypes = {
 };
 
 InputNumber.defaultProps = {
-  theme: "box",
   autoFocus: false,
   controls: true,
   prefix: "",
