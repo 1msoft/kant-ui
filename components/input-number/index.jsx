@@ -7,13 +7,19 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import omit from 'omit.js';
+import {
+  isEqual,
+  isEmpty,
+  isFunction,
+} from 'lodash';
+import classNames from 'classnames';
 import { InputNumber as AntInputNumber } from "antd";
 
 /**
  * 数字输入框
  * @param {object}  props
  * @param {string}  [props.theme='box']            不同风格   'box' 'underline'
- * @param {string}  [props.label]                  信息
+ * @param {string}  [props.label]                  label的标签文本(预留)
  * @param {string}  [props.className='']           附加类名
  * @param {boolean} [props.autoFocus=false]        自动获焦
  * @param {boolean} [props.controls=true]          是否显示控制器按钮
@@ -24,12 +30,16 @@ import { InputNumber as AntInputNumber } from "antd";
  * @see {@link https://ant.design/components/input-number-cn/#API 更多参数详见 antd 数字输入框 InputNumber 文档}
  */
 const InputNumber = (props) => {
-  const regex = new RegExp(`\\${props.prefix}\s+?|${props.suffix}|(,*)`, "g");
+  const regex = new RegExp(`\\${props.prefix}\s?|${props.suffix}|(,*)`, "g");
 
   const handleKeyDown = (event) => {
     const { onPressEnter, onKeyDown } = props;
     const str = String(event.target.value).replace(regex, "");
-    if (onPressEnter && event.keyCode === 13) {
+    if (
+      isFunction(onPressEnter) &&
+      !isEmpty(onPressEnter) &&
+      isEqual(event.keyCode, 13)
+    ) {
       onPressEnter(Number(str) || null);
     }
     if (onKeyDown) {
@@ -47,17 +57,18 @@ const InputNumber = (props) => {
     'controls',
     'className',
   ]);
+
+  const className = classNames(
+    'kant-input-number',
+    `kant-input-number-theme-${props.theme}`,
+    props.className,
+    { 'kant-input-number-handler-hide': props.controls },
+  );
   return (
     <AntInputNumber
       formatter={value => `${props.prefix}${value}${props.suffix}`}
       parser={value => value.replace(regex, "")}
-      className={`
-        kant-input-number
-        kant-input-number-theme-${props.theme}
-        ${props.controls ? "" : "kant-input-number-handler-hide"}
-        ${props.className}
-        `.replace(/\s+/, " ")
-      }
+      className={className}
       onKeyDown={handleKeyDown}
       {...otherProps}
     />

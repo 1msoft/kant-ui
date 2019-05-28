@@ -125,22 +125,9 @@ module.exports = function(config) {
       require("karma-coverage-istanbul-reporter"),
       require("istanbul-instrumenter-loader"),
       require('karma-jasmine'),
-      require('karma-phantomjs-launcher'),
     ],
-    browsers: ['PhantomJS_custom', 'ChromeHeadless'],
+    browsers: ['ChromeHeadless'],
     customLaunchers: {
-      'PhantomJS_custom': {
-        base: 'PhantomJS',
-        options: {
-          windowName: 'my-window',
-          settings: {
-            webSecurityEnabled: false
-          },
-        },
-        flags: ['--load-images=true'],
-        debug: true
-      },
-
       ChromeHeadless: {
         base: 'Chrome',
         flags: [
@@ -151,10 +138,6 @@ module.exports = function(config) {
           '--remote-debugging-port=9222',
         ],
       }
-    },
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-      exitOnResourceError: true
     },
   });
 };
