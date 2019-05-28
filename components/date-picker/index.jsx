@@ -3,12 +3,13 @@
  * @author kjx
  * @module DatePicker
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import omit from 'omit.js';
 import { DatePicker as AntDatePicker } from 'antd';
 import YearPicker from './YearPicker';
+import Context from '../context';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 
 AntDatePicker.YearPicker = YearPicker;
@@ -43,7 +44,9 @@ const getPickerProps = (props, index) => {
   ]);
   const isStartPicker = index === 0;
   const config = isStartPicker ? props.starPickerConfig : props.endPickerConfig;
-  const className = `${props.className} kant-date-picker kant-date-picker-theme-${props.theme}`;
+  const kantContext = useContext(Context);
+  const theme = props.theme || kantContext.theme || 'box';
+  const className = `${props.className} kant-date-picker kant-date-picker-theme-${theme}`;
   let pickerProps = {
     className,
     placeholder: isStartPicker ? '开始日期' : '结束日期',
@@ -138,7 +141,6 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   type: "Date",
-  theme: "box",
   value: [],
   locale,
   defaultValue: [],

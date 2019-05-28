@@ -5,6 +5,7 @@ import HeaderComponent from './layout/HeaderComponent';
 
 import InputNumber from './form/InputNumber';
 import DatePickerComponent from './form/DatePicker';
+import Context from './other/Context';
 
 export default [
   {
@@ -43,6 +44,15 @@ export default [
       {
         title: 'Header 头部导航栏',
         component: HeaderComponent,
+      }
+    ]
+  },
+  {
+    title: '其他',
+    parents: [
+      {
+        title: 'Context 上下文',
+        component: Context,
       }
     ]
   }
