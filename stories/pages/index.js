@@ -1,6 +1,7 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
 import SideMenu from './sidemenu/SideMenu';
+import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
 
@@ -18,7 +19,7 @@ export default [
       {
         title: '欢迎页面111',
         component: Welcome
-      }
+      },
     ]
   },
   {
@@ -48,7 +49,11 @@ export default [
       {
         title: 'SideMenu 侧边栏',
         component: SideMenu
-      }
+      },
+      {
+        title: 'Breadcrumb 面包屑导航',
+        component: Breadcrumb,
+      },
     ]
   }
 ];

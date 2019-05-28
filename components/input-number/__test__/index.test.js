@@ -53,7 +53,7 @@ describe('InputNumber', () => {
     wrapper.find('input').simulate('keyDown', { keyCode: 13, target: { value: '1' } });
     expect(onKeyDown.called).to.be.true;
     expect(onPressEnter.called).to.be.true;
-  })
+  });
 
   it('能否正确触发自定义回车事件', () => {
     const onKeyDown = sinon.spy();
@@ -66,7 +66,7 @@ describe('InputNumber', () => {
     wrapper.find('input').simulate('keyDown', { keyCode: 48, target: { value: 'a' } });
     wrapper.find('input').simulate('keyDown', { keyCode: 13, target: { value: '1' } });
     expect(onKeyDown.called).to.be.true;
-  })
+  });
 
   it ('能否支持按下非回车按钮不触发onPressEnter方法', () => {
     const onPressEnter = sinon.spy({ method: () => {} }, 'method');
@@ -79,4 +79,4 @@ describe('InputNumber', () => {
 
     wrapper.find('input').simulate('keyDown', { keyCode: 48, target: { value: '1' } });
   });
-})
+});
