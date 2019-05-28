@@ -1,9 +1,9 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import SelectDoc from './form/SelectDoc';
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
-
 import InputNumber from './form/InputNumber';
 import FormLayout from './form/FormLayout';
 import DatePickerComponent from './form/DatePicker';
@@ -28,6 +28,9 @@ export default [
       {
         title: '输入框',
         component: Input
+      }, {
+        title: 'Select 选择器',
+        component: SelectDoc
       },
       {
         title: 'InputNumber 数字输入框',
