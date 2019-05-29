@@ -16,7 +16,7 @@ export default () => (
     <p>文本域</p>
     <Input.TextArea
       autosize={false}
-      rows={6}
+      rows={3}
       size="default"
     >
     </Input.TextArea>

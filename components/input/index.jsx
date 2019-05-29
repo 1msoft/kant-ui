@@ -20,9 +20,11 @@ const InputTextArea = (props) => {
   const filterArr = [];
   const otherProps = omit(props, filterArr);
   return (
-    <AntInput.TextArea
-      {...otherProps}
-    />
+    <div className="kant-textarea-focus">
+      <AntInput.TextArea
+        {...otherProps}
+      />
+    </div>
   );
 };
 
