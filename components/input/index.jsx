@@ -16,7 +16,17 @@ const Input = (props) => {
   );
 };
 
-Input.TextArea = AntInput.TextArea;
+const InputTextArea = (props) => {
+  const filterArr = [];
+  const otherProps = omit(props, filterArr);
+  return (
+    <AntInput.TextArea
+      {...otherProps}
+    />
+  );
+};
+
+Input.TextArea = InputTextArea;
 Input.Search = AntInput.Search;
 Input.Group = AntInput.Group;
 Input.Password = AntInput.Password;

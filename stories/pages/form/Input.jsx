@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '@components/index';
-import '@components/example/style';
+import '@components/input/style';
 
 export default () => (
   <div style={{ width: '300px' }}>
@@ -15,8 +15,9 @@ export default () => (
     />
     <p>文本域</p>
     <Input.TextArea
-      autosize={false}
-      size="default"
+      autosize={true}
+      // rows={6}
+      // size="default"
     >
     </Input.TextArea>
     <p>搜索框</p>
@@ -29,5 +30,6 @@ export default () => (
       <Input size="small"></Input>
       <Input></Input>
     </Input.Group>
+    <p>test</p>
   </div>
 );
