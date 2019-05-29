@@ -49,7 +49,7 @@ const SideBlock = () => {
     top: 0,
   };
 
-  const onLink = (props) => (
+  const menuItemDom = (props) => (
     <a href={props.url}  className="kant-a">{props.title}</a>
   );
 
@@ -60,7 +60,7 @@ const SideBlock = () => {
       <div style={{ width: '1000px', height: '30px' }}
       ></div>
       <SideMenu
-        onLink={onLink}
+        menuItemDom={menuItemDom}
         menuListDom={testDom()}
         inlineOpenStyle={inlineStyle}
         siderStyle={siderStyle}
