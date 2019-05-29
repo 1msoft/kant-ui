@@ -64,7 +64,7 @@ const SideBlock = () => {
         menuListDom={testDom()}
         inlineOpenStyle={inlineStyle}
         siderStyle={siderStyle}
-        showChildMenu={showChildMenu}
+        isShowChildMenu={showChildMenu}
         header={testDom()}
         footer={testDom()}
         halfRetractHeader={test1Dom()}
@@ -77,8 +77,8 @@ const SideBlock = () => {
         }}
         retractMode={retractMode}
         openChildMode={openChildMode}
-        isCollapsed={true}
-        collapsed={openChildMode}
+        useCollapsed={true}
+        isCollapsed={openChildMode}
         dataSource={[{ key: '123', title: '菜单1', url: '/abc', icon: 'delete',
           child: [{ key: '345', title: '菜单2', url: '/abcd', icon: 'delete',
             child: [
@@ -186,8 +186,8 @@ const MenuBlock = () => {
         }}
         menuProps={{
         }}
-        isCollapsed={true}
-        collapsed={collapsed}
+        useCollapsed={true}
+        isCollapsed={collapsed}
         inlineOpenStyle="normal"
       />
     </div>

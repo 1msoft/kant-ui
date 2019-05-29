@@ -1,3 +1,8 @@
+/**
+ * 侧边栏
+ * @author dxl
+ * @module SideMenu
+ */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
@@ -10,35 +15,34 @@ const MenuItemGroup = Menu.ItemGroup;
 
 /**
  * 侧边栏
- * 侧边栏封装参数
  * @param {object}   props
- * @param {array}    props.dataSource=[] 菜单数据源
- * @param {string}   props.dataSource.key                   数据key 唯一标识
- * @param {string}   props.dataSource.title                 标题
- * @param {string}   props.dataSource.url                   跳转链接
- * @param {array}    props.dataSource.child                 子级路由
- * @param {string}   props.dataSource.icon                  图标
- * @param {string}   props.dataSource.className             类名
- * @param {boolean}  [props.isCollapsed=false]              是否收缩菜单栏
- * @param {boolean}  [props.collapsed=false]                菜单是否收缩
- * @param {string}   [props.retractMode=('half' | 'all')]   收缩模式
- * @param {string}   [props.openChildMode=('vertical' | 'inline')] 展开子级的方式
- * @param {function} [header]                               未收缩头部组件
- * @param {function} [footer]                               未收缩底部组件
- * @param {function} [halfRetractHeader]                    半收缩头部组件
- * @param {function} [halfRetractFooter]                    半收缩底部组件
- * @param {object}   [siderStyle]                           侧边栏样式覆盖
- * @param {string}   [inlineOpenStyle='normal' | 'hideOther'] mode=inline时的子菜单展开方式
- * @param {boolean}  [showChildMenu=true]                   关闭菜单是否收缩子菜单
- * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
- * @param {array}    [openKeys=[]]                          当前openKeys的数据
- * @param {function} [menuItemDom]                          处理menuItem链接的自定义dom
- * @param {obeject}  [props.sideProps]                      layout.sider的api
- * @param {obeject}  [props.menuProps]                      menu的api
- * @param {object}   [props.menuItemProps]                  menuItem的api
- * @param {object}   [props.subMenuProps]                   subMenu的api
- * @param {function} [props.subMenuTitleDom]                subMenu标题内自定义dom
- * @param {function} [props.menuItemGroupDom]               menuItemGroup标题内自定义dom
+ * @param {array}    props.dataSource=[]                菜单数据源
+ * @param {string}   props.dataSource.key               数据key 唯一标识
+ * @param {string}   props.dataSource.title             标题
+ * @param {string}   props.dataSource.url               跳转链接
+ * @param {array}    props.dataSource.child             子级路由
+ * @param {string}   props.dataSource.icon              图标
+ * @param {string}   props.dataSource.className         类名
+ * @param {boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
+ * @param {boolean}  [props.isCollapsed=false]          菜单是否收缩
+ * @param {string}   [props.retractMode='half']         收缩模式       'half' | 'all'
+ * @param {string}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
+ * @param {function} [props.header]                     未收缩头部组件
+ * @param {function} [props.footer]                     未收缩底部组件
+ * @param {function} [props.halfRetractHeader]          半收缩头部组件
+ * @param {function} [props.halfRetractFooter]          半收缩底部组件
+ * @param {object}   [props.siderStyle]                 侧边栏样式覆盖
+ * @param {string}   [props.inlineOpenStyle='normal']   mode=inline时的子菜单展开方式 'normal' | 'hideOther'
+ * @param {boolean}  [props.isShowChildMenu=true]       关闭菜单是否收缩子菜单
+ * @param {array}    [props.selectKeys=[]]              当前selectKeys的数据
+ * @param {array}    [props.openKeys=[]]                当前openKeys的数据
+ * @param {function} [props.menuItemDom]                处理menuItem链接的自定义dom
+ * @param {obeject}  [props.sideProps]                  layout.sider的api
+ * @param {obeject}  [props.menuProps]                  menu的api
+ * @param {object}   [props.menuItemProps]              menuItem的api
+ * @param {object}   [props.subMenuProps]               subMenu的api
+ * @param {function} [props.subMenuTitleDom]            subMenu标题内自定义dom
+ * @param {function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
@@ -46,8 +50,8 @@ const SideMenu = (props) => {
 
   const filterArr = [
     'dataSource',
+    'useCollapsed',
     'isCollapsed',
-    'collapsed',
     'retractMode',
     'openChildMode',
     'header',
@@ -56,7 +60,7 @@ const SideMenu = (props) => {
     'halfRetractFooter',
     'siderStyle',
     'inlineOpenStyle',
-    'showChildMenu',
+    'isShowChildMenu',
     'selectKeys',
     'openKeys',
     'menuItemDom',
@@ -69,11 +73,9 @@ const SideMenu = (props) => {
   const menuItemProps = omit(props.menuItemProps, filterArr);
   const subMenuProps = omit(props.subMenuProps, filterArr);
 
-  //定义hook state
   const [selectedKeysState, setSelectedKeys] = useState([]);
   const [openKeysState, setOpenKeys] = useState([]);
 
-  //loop菜单
   const menuNode = (data) => {
     const menuElement = menu => menu.map(item => {
 
@@ -96,7 +98,7 @@ const SideMenu = (props) => {
           >
             {
               props.retractMode === 'half'
-                && props.collapsed === true ?
+                && props.isCollapsed === true ?
                 <MenuItemGroup
                   title={
                     props.menuItemGroupDom ? props.menuItemGroupDom(item)
@@ -142,7 +144,6 @@ const SideMenu = (props) => {
     return menuElement(data);
   };
 
-  //收缩模式insetProps
   const toggelRetractMode = (mark, otherProps) => {
     if (mark === 'all') {
       otherProps.collapsedWidth = 0;
@@ -150,7 +151,6 @@ const SideMenu = (props) => {
     return otherProps;
   };
 
-  //递归遍历子级的菜单url 及其索引拥有子级菜单的key
   const loopChildMenu = (data) => {
     let loopMenuObject = {};
     let childMenuArr = [];
@@ -169,7 +169,6 @@ const SideMenu = (props) => {
     return loopMenuObject;
   };
 
-  //展开子菜单隐藏其他项
   const hideOtherMenu = (openKeys) => {
     let dataSource = props.dataSource;
     let rootSubmenuKeys = [];
@@ -184,14 +183,11 @@ const SideMenu = (props) => {
     }
   };
 
-  //删除接收数组方法
   const pullAll = (arr, rmarr) => {
     return arr.filter(e => !rmarr.includes(e));
   };
 
   const showMenuOpenKeys = (openKeys) => {
-    //根据这个openKeys 找到子级的key 收缩的时候将子级的key 关闭
-    //遍历所有项的级联Keys
     const dataSource = props.dataSource;
     let cascadeListArr = [];
     for (let i = 0; i < dataSource.length; i++) {
@@ -213,28 +209,22 @@ const SideMenu = (props) => {
     } );
   };
 
-  //展开子菜单项不隐藏其他项
   const showOtherMenu = (openKeys) => {
-    if (!props.showChildMenu) {
+    if (!props.isShowChildMenu) {
       showMenuOpenKeys(openKeys);
     } else {
       setOpenKeys(openKeys);
     }
   };
 
-  //展开的子菜单项 找到openKeys目前点击的openkey
   const onOpenChange = (openKeys) => {
-    //传入一个函数处理openKey 并且返回值我们自动给他设置入useState
     if ( props.inlineOpenStyle === 'hideOther' ) {
-      //隐藏其他项
       hideOtherMenu(openKeys);
     } else {
-      //正常显示打开的菜单项
       showOtherMenu(openKeys);
     }
   };
 
-  //默认展开当前第一项的菜单栏
   const cascadeKeys = () => {
     const dataSource = props.dataSource;
     const openKeys = props.openKeys;
@@ -247,7 +237,6 @@ const SideMenu = (props) => {
     }
   };
 
-  //首次设置传入数据源数据的第一项菜单可点击子项为selectedKeys
   const resetMenuKeys = () => {
     const dataSource = props.dataSource;
     const selectKeys = props.selectKeys;
@@ -260,19 +249,16 @@ const SideMenu = (props) => {
     }
   };
 
-  //设置selecteKeys到hook
   const onSelect = ({ item, key, selectedKeys }) => {
     setSelectedKeys(selectedKeys);
   };
 
-  //展开的子级的方式
   const toogelOpenChildMode = (mark, otherProps) => {
-    /**根据子级方式来确定选择完菜单栏的聚焦形式 */
-    if (!props.collapsed && mark === 'inline') {
+    if (!props.isCollapsed && mark === 'inline') {
       otherProps.onOpenChange = onOpenChange;
       otherProps.openKeys = openKeysState;
       otherProps.mode = mark;
-    } else if (props.collapsed && mark === 'inline') {
+    } else if (props.isCollapsed && mark === 'inline') {
       otherProps.mode = 'vertical';
     }
     return otherProps;
@@ -294,13 +280,13 @@ const SideMenu = (props) => {
     <Layout>
       <AntSider
         style={props.siderStyle}
-        collapsed={props.isCollapsed ? props.collapsed : false}
+        collapsed={props.useCollapsed ? props.isCollapsed : false}
         trigger={null}
         {...toggelRetractMode(props.retractMode, {})}
         {...sideProps}
       >
         {
-          props.retractMode === 'half' && props.collapsed && props.halfRetractHeader ?
+          props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
             halfRetractHeaderDom
             :
             (props.header ? headerDom : '')
@@ -315,7 +301,7 @@ const SideMenu = (props) => {
           }
         </Menu>
         {
-          props.retractMode === 'half' && props.collapsed && props.halfRetractFooter ?
+          props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
             halfRetractFooterDom
             :
             (props.footer ? footerDom : '')
@@ -336,8 +322,8 @@ SideMenu.propTypes = {
       icon: PropTypes.string,
     })
   ),
+  useCollapsed: PropTypes.bool,
   isCollapsed: PropTypes.bool,
-  collapsed: PropTypes.bool,
   retractMode: PropTypes.string,
   openChildMode: PropTypes.string,
   header: PropTypes.object,
@@ -346,7 +332,7 @@ SideMenu.propTypes = {
   halfRetractFooter: PropTypes.object,
   siderStyle: PropTypes.object,
   inlineOpenStyle: PropTypes.string,
-  showChildMenu: PropTypes.bool,
+  isShowChildMenu: PropTypes.bool,
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
   menuItemDom: PropTypes.func,
@@ -360,12 +346,12 @@ SideMenu.propTypes = {
 
 SideMenu.defaultProps = {
   dataSource: [],
+  useCollapsed: false,
   isCollapsed: false,
-  collapsed: false,
   retractMode: 'half',
   openChildMode: 'inline',
   inlineOpenStyle: 'normal',
-  showChildMenu: true,
+  isShowChildMenu: true,
   selectKeys: [],
   openKeys: [],
   menuItemDom: null,

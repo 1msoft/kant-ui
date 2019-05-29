@@ -60,7 +60,7 @@ describe('侧边栏菜单', function () {
       );
     }
     const wrapper = mount(
-      <SideMenu isCollapsed={true}
+      <SideMenu useCollapsed={true}
         retractMode={'half'}
         header={testDom()}
         footer={testDom()}>
@@ -97,7 +97,7 @@ describe('侧边栏菜单', function () {
         submenuProps={{onClick:onClick}}
         menuItemDom={menuItemDom}
         retractMode={'all'}
-        showChildMenu={false}
+        isShowChildMenu={false}
       />
     );
 
@@ -121,7 +121,7 @@ describe('侧边栏菜单', function () {
         inlineOpenStyle={'hideOther'}
         openKeys={['678']}
         selectKeys={['3456']}
-        showChildMenu={true}
+        isShowChildMenu={true}
       />
     );
     (wrapper.find('.ant-menu-submenu-title').at(0)).simulate('click');
