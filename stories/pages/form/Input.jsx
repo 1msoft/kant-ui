@@ -15,7 +15,6 @@ export default () => (
     />
     <p>文本域</p>
     <Input.TextArea
-      autosize={false}
       rows={3}
       size="default"
     >
@@ -30,6 +29,5 @@ export default () => (
       <Input size="small"></Input>
       <Input></Input>
     </Input.Group>
-    <p>test</p>
   </div>
 );
