@@ -32,7 +32,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {boolean}  [showChildMenu=true]                   关闭菜单是否收缩子菜单
  * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
  * @param {array}    [openKeys=[]]                          当前openKeys的数据
- * @param {function} [onLinkDom]                            处理menuItem链接的自定义dom
+ * @param {function} [menuItemDom]                          处理menuItem链接的自定义dom
  * @param {obeject}  [props.sideProps]                      layout.sider的api
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
@@ -59,7 +59,7 @@ const SideMenu = (props) => {
     'showChildMenu',
     'selectKeys',
     'openKeys',
-    'onLinkDom',
+    'menuItemDom',
     'subMenuTitleDom',
     'menuItemGroupDom',
   ];
@@ -121,7 +121,7 @@ const SideMenu = (props) => {
             {...menuItemProps}
           >
             {
-              props.onLinkDom ? props.onLinkDom(item) :
+              props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
                   <a href={'javascript:;'}>
                     {
@@ -349,7 +349,7 @@ SideMenu.propTypes = {
   showChildMenu: PropTypes.bool,
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
-  onLinkDom: PropTypes.func,
+  menuItemDom: PropTypes.func,
   sideProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
@@ -368,7 +368,7 @@ SideMenu.defaultProps = {
   showChildMenu: true,
   selectKeys: [],
   openKeys: [],
-  onLinkDom: null,
+  menuItemDom: null,
   header: null,
   footer: null,
   halfRetractHeader: null,

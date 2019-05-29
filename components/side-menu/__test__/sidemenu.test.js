@@ -35,7 +35,7 @@ describe('侧边栏菜单', function () {
 
     const testDom = (props) => {
       return (
-        <div style={{ height: '100px', border: '1px solid red' }}></div>
+        <div className="kant-head-test" style={{ height: '100px', border: '1px solid red' }}></div>
       );
     }
     const wrapper = mount(
@@ -45,11 +45,11 @@ describe('侧边栏菜单', function () {
         halfRetractFooter={testDom()}
         footer={testDom()} />
     );
-    assert.equal(wrapper.find('.kant-menu-link span').at(0).length, 1);
+    assert.equal(wrapper.find('.kant-head-test').at(0).length, 1);
     assert.equal(wrapper.find('.ant-menu-item').length, 6);
     assert.equal(wrapper.find('.ant-menu-submenu').length, 4);
     //默认高亮是否正确
-    assert.equal(wrapper.find('.ant-menu-item-selected').text(),
+    assert.equal(wrapper.find('.ant-menu-item-selected').text().trim(),
       dataSource[0].child[0].child[0].child[0].title);
   });
 
@@ -77,7 +77,7 @@ describe('侧边栏菜单', function () {
         menuItemProps={{onClick:onClick}}
       />
     );
-    (wrapper.find('.kant-menu-link').at(0)).simulate('click');
+    (wrapper.find('.kant-menuitem-title a').at(0)).simulate('click');
     assert.isTrue(onClick.called);
     (wrapper.find('.ant-menu-submenu-title').at(0)).simulate('click');
     assert.isTrue(onClick.called);
@@ -86,7 +86,7 @@ describe('侧边栏菜单', function () {
   it ('传入自定义的链接方法是否生效', function () {
     const onClick = sinon.fake();
 
-    const onLink = (props) => (
+    const menuItemDom = (props) => (
       <a href={props.url}  className="kant-a">{props.title}</a>
     );
 
@@ -94,8 +94,8 @@ describe('侧边栏菜单', function () {
       <SideMenu
         dataSource={dataSource}
         menuItemProps={{onClick:onClick}}
-        menuSubmenuProps={{onClick:onClick}}
-        onLink={onLink}
+        submenuProps={{onClick:onClick}}
+        menuItemDom={menuItemDom}
         retractMode={'all'}
         showChildMenu={false}
       />
@@ -129,7 +129,7 @@ describe('侧边栏菜单', function () {
     (wrapper.find('.ant-menu-submenu-title').at(0)).simulate('click');
     assert.isTrue(onClick.called);
 
-    assert.equal(wrapper.find('.ant-menu-item-selected a').text(),
+    assert.equal(wrapper.find('.ant-menu-item-selected a').text().trim(),
       dataSource[1].child[0].title);
 
   });
