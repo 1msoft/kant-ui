@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import SideMenu from './side-menu/SideMenu';
 import SelectDoc from './form/SelectDoc';
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
@@ -53,6 +54,10 @@ export default [
       {
         title: 'Header 头部导航栏',
         component: HeaderComponent,
+      },
+      {
+        title: 'SideMenu 侧边栏',
+        component: SideMenu
       },
       {
         title: 'Breadcrumb 面包屑导航',
