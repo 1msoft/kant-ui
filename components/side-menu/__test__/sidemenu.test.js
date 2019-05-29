@@ -117,7 +117,7 @@ describe('侧边栏菜单', function () {
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
-        sideProps={{onClick:onClick}}
+        siderProps={{onClick:onClick}}
         inlineOpenStyle={'hideOther'}
         openKeys={['678']}
         selectKeys={['3456']}

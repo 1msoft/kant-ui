@@ -37,7 +37,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {array}    [props.selectKeys=[]]              当前selectKeys的数据
  * @param {array}    [props.openKeys=[]]                当前openKeys的数据
  * @param {function} [props.menuItemDom]                处理menuItem链接的自定义dom
- * @param {obeject}  [props.sideProps]                  layout.sider的api
+ * @param {obeject}  [props.siderProps]                 layout.sider的api
  * @param {obeject}  [props.menuProps]                  menu的api
  * @param {object}   [props.menuItemProps]              menuItem的api
  * @param {object}   [props.subMenuProps]               subMenu的api
@@ -68,7 +68,7 @@ const SideMenu = (props) => {
     'menuItemGroupDom',
   ];
 
-  const sideProps = omit(props.sideProps, filterArr);
+  const siderProps = omit(props.siderProps, filterArr);
   const menuProps = omit(props.menuProps, filterArr);
   const menuItemProps = omit(props.menuItemProps, filterArr);
   const subMenuProps = omit(props.subMenuProps, filterArr);
@@ -283,7 +283,7 @@ const SideMenu = (props) => {
         collapsed={props.useCollapsed ? props.isCollapsed : false}
         trigger={null}
         {...toggelRetractMode(props.retractMode, {})}
-        {...sideProps}
+        {...siderProps}
       >
         {
           props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
@@ -336,7 +336,7 @@ SideMenu.propTypes = {
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
   menuItemDom: PropTypes.func,
-  sideProps: PropTypes.object,
+  siderProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
   subMenuProps: PropTypes.object,
