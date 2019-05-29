@@ -39,8 +39,8 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {object}   [props.subMenuProps]                   subMenu的api
  * @param {function} [props.subMenuTitleDom]                subMenu标题内自定义dom
  * @param {function} [props.menuItemGroup]                  menuItemGroup标题内自定义dom
- * @link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)
- * @see @link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)
+ * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
+ * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
 const SideMenu = (props) => {
 
