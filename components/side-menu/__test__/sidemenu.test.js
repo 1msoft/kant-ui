@@ -1,10 +1,9 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import sinon from 'sinon';
-import { assert, expect } from 'chai';
+import { assert } from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 import SideMenu from '../index.jsx';
-import { Button, Icon } from 'antd';
 
 const { mount } = Enzyme;
 Enzyme.configure({ adapter: new Adapter() });
@@ -94,7 +93,7 @@ describe('侧边栏菜单', function () {
       <SideMenu
         dataSource={dataSource}
         menuItemProps={{onClick:onClick}}
-        submenuProps={{onClick:onClick}}
+        subMenuProps={{onClick:onClick}}
         menuItemDom={menuItemDom}
         retractMode={'all'}
         isShowChildMenu={false}

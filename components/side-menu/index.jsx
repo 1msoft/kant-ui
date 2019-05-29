@@ -320,6 +320,7 @@ SideMenu.propTypes = {
       url: PropTypes.string,
       child: PropTypes.array,
       icon: PropTypes.string,
+      className: PropTypes.string,
     })
   ),
   useCollapsed: PropTypes.bool,
