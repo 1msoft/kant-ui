@@ -32,13 +32,13 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {boolean}  [showChildMenu=true]                   关闭菜单是否收缩子菜单
  * @param {array}    [selectKeys=[]]                        当前selectKeys的数据
  * @param {array}    [openKeys=[]]                          当前openKeys的数据
- * @param {function} [onLink]                               处理menuItem链接的函数
+ * @param {function} [onLinkDom]                            处理menuItem链接的自定义dom
  * @param {obeject}  [props.sideProps]                      layout.sider的api
  * @param {obeject}  [props.menuProps]                      menu的api
  * @param {object}   [props.menuItemProps]                  menuItem的api
  * @param {object}   [props.subMenuProps]                   subMenu的api
  * @param {function} [props.subMenuTitleDom]                subMenu标题内自定义dom
- * @param {function} [props.menuItemGroup]                  menuItemGroup标题内自定义dom
+ * @param {function} [props.menuItemGroupDom]               menuItemGroup标题内自定义dom
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
@@ -59,9 +59,9 @@ const SideMenu = (props) => {
     'showChildMenu',
     'selectKeys',
     'openKeys',
-    'onLink',
+    'onLinkDom',
     'subMenuTitleDom',
-    'menuItemGroup',
+    'menuItemGroupDom',
   ];
 
   const sideProps = omit(props.sideProps, filterArr);
@@ -99,7 +99,7 @@ const SideMenu = (props) => {
                 && props.collapsed === true ?
                 <MenuItemGroup
                   title={
-                    props.menuItemGroup ? props.menuItemGroup(item)
+                    props.menuItemGroupDom ? props.menuItemGroupDom(item)
                       :
                       <div className="kant-itemgroup-title">
                         <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
@@ -121,7 +121,7 @@ const SideMenu = (props) => {
             {...menuItemProps}
           >
             {
-              props.onLink ? props.onLink(item) :
+              props.onLinkDom ? props.onLinkDom(item) :
                 <div className="kant-menuitem-title">
                   <a href={'javascript:;'}>
                     {
@@ -349,13 +349,13 @@ SideMenu.propTypes = {
   showChildMenu: PropTypes.bool,
   selectKeys: PropTypes.array,
   openKeys: PropTypes.array,
-  onLink: PropTypes.func,
+  onLinkDom: PropTypes.func,
   sideProps: PropTypes.object,
   menuProps: PropTypes.object,
   menuItemProps: PropTypes.object,
   subMenuProps: PropTypes.object,
   subMenuTitleDom: PropTypes.func,
-  menuItemGroup: PropTypes.func,
+  menuItemGroupDom: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
@@ -368,13 +368,13 @@ SideMenu.defaultProps = {
   showChildMenu: true,
   selectKeys: [],
   openKeys: [],
-  onLink: null,
+  onLinkDom: null,
   header: null,
   footer: null,
   halfRetractHeader: null,
   halfRetractFooter: null,
   subMenuTitleDom: null,
-  menuItemGroup: null,
+  menuItemGroupDom: null,
 };
 
 export default SideMenu;
