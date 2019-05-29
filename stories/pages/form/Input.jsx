@@ -15,9 +15,9 @@ export default () => (
     />
     <p>文本域</p>
     <Input.TextArea
-      autosize={true}
-      // rows={6}
-      // size="default"
+      autosize={false}
+      rows={6}
+      size="default"
     >
     </Input.TextArea>
     <p>搜索框</p>
