@@ -1,6 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
-import SideMenu from './sidemenu/SideMenu';
+import SideMenu from './side-menu/SideMenu';
 import SelectDoc from './form/SelectDoc';
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
