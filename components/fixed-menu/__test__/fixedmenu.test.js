@@ -11,13 +11,13 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('<FixedMenu>', function () {
   it('判断悬停菜单是否能正确传props值', function () {
-    const suggestEvents = sinon.fake();
+    const onClickTop = sinon.fake();
     const app = mount(
       <FixedMenu
         className={'kant-test'}
         showHeight={200}
-        show={true}
-        suggestEvent={suggestEvents}
+        isShow={true}
+        onClickTop={onClickTop}
       />);
 
     window.pageYOffset = 200;
@@ -43,7 +43,7 @@ describe('<FixedMenu>', function () {
       <FixedMenu
         className={'kant-test'}
         showHeight={200}
-        show={true}
+        isShow={true}
       />);
 
     FixedMenu.prototype.componentDidMount.restore();
@@ -59,7 +59,7 @@ describe('<FixedMenu>', function () {
       <FixedMenu
         className={'kant-test'}
         showHeight={200}
-        show={false}
+        isShow={false}
       />);
     assert.equal((app.find('.kant-hidden').at(0)).length, 1);
   });
@@ -73,8 +73,8 @@ describe('<FixedMenu>', function () {
     const app = mount(
       <FixedMenu
         className={'kant-test'}
-        freeDom={kantTestDom}
-        always={true}
+        customDom={kantTestDom}
+        isAlways={true}
       />);
     assert.equal((app.find('.kant-test2').at(0)).length, 1);
   });
@@ -86,8 +86,8 @@ describe('<FixedMenu>', function () {
         <FixedMenu
           className={'kant-test'}
           showHeight={200}
-          show={false}
-          always={false}
+          isShow={false}
+          isAlways={false}
         />
       </div>);
     (app.find('.content').at(0)).simulate('scroll');
@@ -96,7 +96,7 @@ describe('<FixedMenu>', function () {
 
   it('当不传参数的情况下有无问题', function () {
     const app = mount(
-      <FixedMenu show={{}} showHeight={{}} always={{}}/>);
+      <FixedMenu isShow={{}} showHeight={{}} isAlways={{}}/>);
     assert.equal(app.find('.kant-side-block-list-arrow').at(0).length, 1);
   });
 });

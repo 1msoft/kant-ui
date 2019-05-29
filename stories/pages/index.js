@@ -1,6 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
-import FixedMenu_ from './fixedmenu/FixedMenu';
+import FixedMenu_ from './fixed-menu/FixedMenu';
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
