@@ -1,9 +1,14 @@
 import React from "react";
 import { Input, Button, Divider } from "antd";
-import { Form, FormLayout, FormItem } from "@components/index";
+import {
+  Form,
+  FormLayout,
+  FormItem
+} from "@components/index";
 
 import "@components/form-layout/style";
 
+const TextArea = Input.TextArea;
 const getGrid = FormItem.getGrid;
 /**
  * app
@@ -169,8 +174,8 @@ const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }
         label="房屋"
       >
         {form.getFieldDecorator("houseNo", {
-          rules: [{ required: false, message: "必填" }],
-        })(<Input placeholder="单元" />)}
+          rules: [{ required: true, message: "必填" }],
+        })(<TextArea placeholder="房屋" />)}
       </FormItem>
       <FormItem
         row={3}
