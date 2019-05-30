@@ -3,7 +3,7 @@
  * @author kjx
  * @module DatePicker
  */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import omit from 'omit.js';
@@ -66,9 +66,29 @@ const getPickerProps = (props, index) => {
     ...otherProps,
     ...config,
   };
-  props.value[index] && (pickerProps.value = props.value[index]);
-  props.defaultValue[index] && (pickerProps.defaultValue = props.defaultValue[index]);
+  props.value && (pickerProps.value = props.value[index]);
+  props.defaultValue && (pickerProps.defaultValue = props.defaultValue[index]);
   return pickerProps;
+};
+
+const changeValues = (values, props, ref) => {
+  if (ref) {
+    const rules = props['data-__meta'].rules;
+    const requiredRule = rules.find(item => item.hasOwnProperty('required'));
+    const required = requiredRule && requiredRule.required;
+    if (values.filter(v => v).length !== 2 && required) {
+      const name = props['data-__meta'].name;
+      const formMethods = ref.__reactBoundContext;
+      formMethods.setFields({
+        [name]: {
+          value: values,
+          errors: [new Error(requiredRule.message || '必填')],
+        } 
+      });
+      return;
+    }
+  }
+  props.onChange(values);
 };
 
 /**
@@ -85,19 +105,19 @@ const getPickerProps = (props, index) => {
  * @param {object}   [props.endPickerConfig]         结束时间配置
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
  */
-const DatePicker = (props) => {
+let DatePicker = (props, ref) => {
   const [startDate, setStartDate] = useState(
-    props.value[0] ||
-    props.defaultValue[0] ||
+    (props.value && props.value[0]) ||
+    (props.defaultValue && props.defaultValue[0]) ||
     null
   );
   const [endDate, setEndDate] = useState(
-    props.value[1] ||
-    props.defaultValue[1] ||
+    (props.value && props.value[1]) ||
+    (props.defaultValue && props.defaultValue[1]) ||
     null
   );
   useEffect(() => {
-    props.onChange(startDate, endDate);
+    changeValues([startDate, endDate], props, ref);
   }, [startDate, endDate]);
   props = Object.assign({}, props, {
     startDate,
@@ -109,13 +129,15 @@ const DatePicker = (props) => {
   const startPickerProps = getPickerProps(props, 0);
   const endPickerProps = getPickerProps(props, 1);
   return (
-    <div className="kant-date-picker-layout">
+    <div className="kant-date-picker-layout" ref={ref}>
       {renderPicker(props.type, startPickerProps)}
       {` ~ `}
       {renderPicker(props.type, endPickerProps)}
     </div>
   );
 };
+
+DatePicker = forwardRef(DatePicker);
 
 /**
  * 自定义日期校验
@@ -141,9 +163,7 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   type: "Date",
-  value: [],
   locale,
-  defaultValue: [],
   onChange: () => {},
 };
 
