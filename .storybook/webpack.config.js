@@ -1,6 +1,6 @@
 const path = require("path")
 const webpack = require('webpack')
-
+const modifyVars = require('./modifyVars');
 // 路径别名配置
 const alias = {
   '@components': path.resolve(__dirname, '../components')
@@ -30,7 +30,8 @@ module.exports = {
           {
             loader: "less-loader",
             options: {
-              javascriptEnabled: true
+              modifyVars,
+              javascriptEnabled: true,
             },
           },
         ],
