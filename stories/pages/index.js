@@ -9,6 +9,7 @@ import InputNumber from './form/InputNumber';
 import FormLayout from './form/FormLayout';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
+import Button from './button/Button';
 
 export default [
   {
@@ -71,6 +72,15 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
+      }
+    ]
+  },
+  {
+    title: '通用',
+    parents: [
+      {
+        title: 'Button 按钮',
+        component: Button,
       }
     ]
   }

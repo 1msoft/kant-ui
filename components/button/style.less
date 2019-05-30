@@ -1,0 +1,26 @@
+@import '../assets/styles/vars.less';
+.ant-btn {
+  .button-wave(100px, 100px);
+}
+
+.kant-wave-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.kant-wave-button:after {
+  content: '';
+  display: inline-block;
+  border-radius: 50%;
+  background: white;
+  animation: move 0.6s alternate ease-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  opacity: 0 !important;
+  margin: auto;
+}
+

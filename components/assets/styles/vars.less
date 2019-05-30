@@ -1,3 +1,24 @@
 .red{
   background: red;
 }
+.button-wave (@width, @height) {
+
+  width: @width;
+  height: @height;
+
+  @keyframes move {
+    from {
+      transform: scale(1);
+      width: @height / 2;
+      height: @height / 2;
+      opacity: 0.3;
+    }
+    to {
+      transform: scale(3);
+      width: @width / 3;
+      height: @width / 3;
+      opacity: 0;
+    }
+  }
+
+}
