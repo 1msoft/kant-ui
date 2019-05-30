@@ -12,3 +12,4 @@ export { Form, FormLayout, FormItem, AntFormItem } from './form-layout';
 export { default as DatePicker } from './date-picker';
 
 export { default as Context } from './context';
+export { default as Checkbox } from './checkbox';

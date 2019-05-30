@@ -9,6 +9,7 @@ import InputNumber from './form/InputNumber';
 import FormLayout from './form/FormLayout';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
+import Checkbox from './checkbox/Checkbox';
 
 export default [
   {
@@ -71,7 +72,16 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
-      }
+      },
     ]
-  }
+  },
+  {
+    title: '通用',
+    parents: [
+      {
+        title: 'Checkbox 多选框',
+        component: Checkbox,
+      },
+    ]
+  },
 ];
