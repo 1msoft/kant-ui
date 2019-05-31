@@ -66,6 +66,7 @@ const SideMenu = (props) => {
     'menuItemDom',
     'subMenuTitleDom',
     'menuItemGroupDom',
+    'className',
   ];
 
   const siderProps = omit(props.siderProps, filterArr);
@@ -100,6 +101,7 @@ const SideMenu = (props) => {
               props.retractMode === 'half'
                 && props.isCollapsed === true ?
                 <MenuItemGroup
+                  className={'kant-menuitemgroup-content'}
                   title={
                     props.menuItemGroupDom ? props.menuItemGroupDom(item)
                       :
@@ -125,7 +127,7 @@ const SideMenu = (props) => {
             {
               props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
-                  <a href={'javascript:;'}>
+                  <a href={item.url}>
                     {
                       item.icon ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
@@ -278,6 +280,9 @@ const SideMenu = (props) => {
 
   return (
     <AntSider
+      className={props.className ?
+        `kant-sidermenu-content ${props.className}`
+        : 'kant-sidermenu-content'}
       style={props.siderStyle}
       collapsed={props.useCollapsed ? props.isCollapsed : false}
       trigger={null}
