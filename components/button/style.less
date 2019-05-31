@@ -1,9 +1,21 @@
 @import '../assets/styles/vars.less';
-.ant-btn {
-  .button-wave(100px, 100px);
-}
 
+.ant-btn {
+  width: 100px;
+  height: 100px;
+  border: none;
+}
+.ant-btn:focus {
+  background-color: none;
+  border: none;
+}
+.ant-btn:hover {
+  background-color: none;
+  border: none;
+  box-shadow:0px 0px 5px 5px rgba(0,0,0,0.1);
+}
 .kant-wave-button {
+  font-size: 13px;
   position: relative;
   overflow: hidden;
 }
@@ -13,7 +25,7 @@
   display: inline-block;
   border-radius: 50%;
   background: white;
-  animation: move 0.6s alternate ease-out;
+  animation: move 0.8s ease alternate;
   position: absolute;
   left: 0;
   top: 0;
@@ -23,4 +35,21 @@
   opacity: 0 !important;
   margin: auto;
 }
+@keyframes move {
+  from {
+    transform: scale(1);
+    width: 15px;
+    height: 15px;
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(3);
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+  }
+}
 
+.kant-button-content {
+  display: inline-block;
+}

@@ -12,12 +12,14 @@ import { Button as AntButton } from 'antd';
 /**
  * 按钮
  * @param {object}   Props
- * @param {function} [props.onClick] 按钮点击事件
+ * @param {function} [props.onClick]   按钮点击事件
+ * @param {string}   [props.className] 按钮类名
  * @see {@link https://ant.design/components/button-cn/#API 更多按钮参数参照antd官网}
  */
 const Button = (props) => {
   const filterArr = [
     'onClick',
+    'className',
   ];
   const otherProps = omit(props, filterArr);
 
@@ -34,13 +36,15 @@ const Button = (props) => {
     if(isShow) {
       setTimeout( () => {
         setIsShow(false);
-      }, 610);
+      }, 310);
     }
   }, [isShow]);
 
+  const className = props.className ? props.className : '';
+
   return (
     <AntButton
-      className={isShow ? 'kant-wave-button kant-chance' : 'kant-chance'}
+      className={isShow ? `kant-wave-button ${className}` : `${className}`}
       onClick={(e) => {
         e.stopPropagation();
         waveAnimation();
@@ -52,6 +56,7 @@ const Button = (props) => {
 
 Button.propTypes = {
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
