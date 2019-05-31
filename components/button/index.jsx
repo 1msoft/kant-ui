@@ -43,14 +43,16 @@ const Button = (props) => {
   const className = props.className ? props.className : '';
 
   return (
-    <AntButton
-      className={isShow ? `kant-wave-button ${className}` : `${className}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        waveAnimation();
-      }}
-      {...otherProps}
-    />
+    <div className="kant-button-content">
+      <AntButton
+        className={isShow ? `kant-wave-button ${className}` : `${className}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          waveAnimation();
+        }}
+        {...otherProps}
+      />
+    </div>
   );
 };
 

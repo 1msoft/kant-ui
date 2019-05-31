@@ -1,26 +1,30 @@
 @import '../assets/styles/vars.less';
 
-.ant-btn {
+.kant-button-content {
+  display: inline-block;
+}
+
+.kant-button-content .ant-btn {
   width: 100px;
   height: 100px;
   border: none;
 }
-.ant-btn:focus {
+.kant-button-content .ant-btn:focus {
   background-color: none;
   border: none;
 }
-.ant-btn:hover {
+.kant-button-content .ant-btn:hover {
   background-color: none;
   border: none;
   box-shadow:0px 0px 5px 5px rgba(0,0,0,0.1);
 }
-.kant-wave-button {
+.kant-button-content .kant-wave-button {
   font-size: 13px;
   position: relative;
   overflow: hidden;
 }
 
-.kant-wave-button:after {
+.kant-button-content .kant-wave-button:after {
   content: '';
   display: inline-block;
   border-radius: 50%;
@@ -50,6 +54,3 @@
   }
 }
 
-.kant-button-content {
-  display: inline-block;
-}
