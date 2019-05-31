@@ -1,3 +1,7 @@
+@font-color: #EB4D4D;
+@bg-color: #FBDDDD;
+@border-color: #EB4D4D;
+@shadow-color: #EB4D4D;
 
 .kant-form-item {
   display: flex;
@@ -32,7 +36,7 @@
       left: 4px;
       top: 1px;
       content: "*";
-      color: red;
+      color: @font-color;
       display: inline-block;
     }
 
@@ -41,7 +45,7 @@
       left: 4px;
       top: 1px;
       content: "*";
-      color: red;
+      color: @font-color;
       display: inline-block;
     }
 
@@ -77,6 +81,24 @@
     & .ant-form-item-control {
       line-height: 40px;
     }
+
+    & .has-error {
+      & .ant-form-explain {
+        color: @font-color;
+      }
+
+      input,
+      textarea,
+      .ant-select {
+        box-shadow: 0 2px 6px -2px @shadow-color;
+      }
+
+      input:focus,
+      textarea:focus,
+      .ant-select:focus {
+        background-color: @bg-color;
+      }
+    }
   }
 
   /*********** wrapper布局方向（wrapperAlign） left | center | right ****************/
@@ -106,7 +128,7 @@
       right: -10px;
       vertical-align: middle;
       content: "*";
-      color: red;
+      color: @font-color;
       display: inline-block;
       transform: translateY(-50%);
     }

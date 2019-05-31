@@ -10,6 +10,7 @@ export { default as Header } from './header';
 export { default as InputNumber } from './input-number';
 export { Form, FormLayout, FormItem, AntFormItem } from './form-layout';
 export { default as DatePicker } from './date-picker';
+export { default as Input } from './input';
 
 export { default as Context } from './context';
 export { default as Checkbox } from './checkbox';
