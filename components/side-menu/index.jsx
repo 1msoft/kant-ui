@@ -277,37 +277,35 @@ const SideMenu = (props) => {
   }, []);
 
   return (
-    <Layout>
-      <AntSider
-        style={props.siderStyle}
-        collapsed={props.useCollapsed ? props.isCollapsed : false}
-        trigger={null}
-        {...toggelRetractMode(props.retractMode, {})}
-        {...siderProps}
+    <AntSider
+      style={props.siderStyle}
+      collapsed={props.useCollapsed ? props.isCollapsed : false}
+      trigger={null}
+      {...toggelRetractMode(props.retractMode, {})}
+      {...siderProps}
+    >
+      {
+        props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
+          halfRetractHeaderDom
+          :
+          (props.header ? headerDom : '')
+      }
+      <Menu
+        onSelect={onSelect}
+        selectedKeys={selectedKeysState}
+        {...toogelOpenChildMode(props.openChildMode, menuProps)}
       >
         {
-          props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
-            halfRetractHeaderDom
-            :
-            (props.header ? headerDom : '')
+          menuNode(props.dataSource)
         }
-        <Menu
-          onSelect={onSelect}
-          selectedKeys={selectedKeysState}
-          {...toogelOpenChildMode(props.openChildMode, menuProps)}
-        >
-          {
-            menuNode(props.dataSource)
-          }
-        </Menu>
-        {
-          props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
-            halfRetractFooterDom
-            :
-            (props.footer ? footerDom : '')
-        }
-      </AntSider>
-    </Layout>
+      </Menu>
+      {
+        props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
+          halfRetractFooterDom
+          :
+          (props.footer ? footerDom : '')
+      }
+    </AntSider>
   );
 
 };
