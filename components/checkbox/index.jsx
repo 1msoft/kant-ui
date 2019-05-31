@@ -17,9 +17,11 @@ const Checkbox = (props) => {
   const filterArr = [];
   const otherProps =  omit(props, filterArr);
   return (
-    <AntCheckbox
-      {...otherProps}
-    />
+    <span className="kant-checkbox-content">
+      <AntCheckbox
+        {...otherProps}
+      />
+    </span>
   );
 };
 
