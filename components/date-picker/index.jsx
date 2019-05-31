@@ -3,7 +3,7 @@
  * @author kjx
  * @module DatePicker
  */
-import React, { useState, useEffect, useContext, forwardRef } from 'react';
+import React, { useState, useEffect, useContext, forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import omit from 'omit.js';
@@ -83,7 +83,7 @@ const changeValues = (values, props, ref) => {
         [name]: {
           value: values,
           errors: [new Error(requiredRule.message || '必填')],
-        } 
+        }
       });
       return;
     }
@@ -106,6 +106,10 @@ const changeValues = (values, props, ref) => {
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
  */
 let DatePicker = (props, ref) => {
+  let staticVariable = useMemo(() => ({
+    triggerChange: false
+  }), []);
+
   const [startDate, setStartDate] = useState(
     (props.value && props.value[0]) ||
     (props.defaultValue && props.defaultValue[0]) ||
@@ -117,7 +121,8 @@ let DatePicker = (props, ref) => {
     null
   );
   useEffect(() => {
-    changeValues([startDate, endDate], props, ref);
+    staticVariable.triggerChange && changeValues([startDate, endDate], props, ref);
+    staticVariable.triggerChange = true;
   }, [startDate, endDate]);
   props = Object.assign({}, props, {
     startDate,
