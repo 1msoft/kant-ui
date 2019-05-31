@@ -5,7 +5,9 @@ import './Checkbox.less';
 
 const CheckboxBlock = () => {
   return (
-    <Checkbox />
+    <div style={{ padding: '30px' }}>
+      <Checkbox />
+    </div>
   );
 };
 

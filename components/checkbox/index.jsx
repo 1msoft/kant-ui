@@ -11,7 +11,6 @@ import _ from 'lodash';
 
 /**
  * @param {object} Props
- * @param {}
  * @see {@link https://ant.design/components/checkbox-cn/#API 更多多选框参数参照antd官网}
  */
 const Checkbox = (props) => {
@@ -23,5 +22,7 @@ const Checkbox = (props) => {
     />
   );
 };
+
+Checkbox.Group = AntCheckbox.Group;
 
 export default Checkbox;
