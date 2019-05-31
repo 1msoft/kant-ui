@@ -1,24 +1,5 @@
-.red{
-  background: red;
-}
-.button-wave (@width, @height) {
 
-  width: @width;
-  height: @height;
+// 引入 antd 主题变量
+@import "../../../node_modules/antd/es/style/themes/index.less";
 
-  @keyframes move {
-    from {
-      transform: scale(1);
-      width: @height / 2;
-      height: @height / 2;
-      opacity: 0.3;
-    }
-    to {
-      transform: scale(3);
-      width: @width / 3;
-      height: @width / 3;
-      opacity: 0;
-    }
-  }
-
-}
+// kant-ui 自定义主题变量
