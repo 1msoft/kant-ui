@@ -26,7 +26,7 @@ const MenuBlock = () => {
         <span className="kant-head-icon"
           onClick={ () => { setCollapsed(!collapsed); } }
         >
-          <Icon type="swap"></Icon>
+          <Icon type="swap" style={{ width: '28px', height: '28px' }}></Icon>
         </span>
       </div>
     );
