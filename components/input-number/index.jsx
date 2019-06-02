@@ -18,19 +18,23 @@ import { InputNumber as AntInputNumber } from "antd";
 
 /**
  * 数字输入框
- * @param {object}  props
- * @param {string}  [props.theme='box']            不同风格   'box' 'underline'
- * @param {string}  [props.label]                  label的标签文本(预留)
- * @param {string}  [props.className='']           附加类名
- * @param {boolean} [props.autoFocus=false]        自动获焦
- * @param {boolean} [props.controls=true]          是否显示控制器按钮
- * @param {number}  [props.precision]              数值精度
- * @param {function}[props.onPressEnter=()=>{}]    回车事件
- * @param {string}  [props.prefix='']              格式化前缀
- * @param {string}  [props.suffix='']              格式化后缀
- * @see {@link https://ant.design/components/input-number-cn/#API 更多参数详见 antd 数字输入框 InputNumber 文档}
+ *
+ * @param {Object}  props
+ * @param {Object}  ref                            自动接收表单校验的ref
+ * @param {String}  [props.theme='box']            不同风格   'box' 'underline'
+ * @param {String}  [props.label]                  label的标签文本(预留)
+ * @param {String}  [props.className='']           附加类名
+ * @param {Boolean} [props.autoFocus=false]        自动获焦
+ * @param {Boolean} [props.controls=true]          是否显示控制器按钮
+ * @param {Number}  [props.precision]              数值精度
+ * @param {Function}[props.onPressEnter=()=>{}]    回车事件
+ * @param {String}  [props.prefix='']              格式化前缀
+ * @param {String}  [props.suffix='']              格式化后缀
+ * @see {@link https://ant.design/components/input-number-cn/#API
+ * 更多参数详见 antd 数字输入框 InputNumber 文档 }
+ * @returns {ReactComponent} 数组输入框
  */
-const InputNumber = forwardRef((props, ref) => {
+const InputNumber = (props, ref) => {
   const escapeCharacter = ['$', '?', '^', '*', '+'];
   const some = (array, compare) => array.some(item => item === compare);
 
@@ -90,7 +94,8 @@ const InputNumber = forwardRef((props, ref) => {
       {...otherProps}
     />
   );
-});
+};
+InputNumber = forwardRef(InputNumber);
 
 InputNumber.propTypes = {
   theme: PropTypes.oneOf(["box", "underline"]),

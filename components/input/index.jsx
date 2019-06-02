@@ -4,8 +4,9 @@ import omit from 'omit.js';
 
 /**
  * 文本输入框
- * @param {object}  props
- * @param {boolean} [props.autosize=false]    文本域自适应内容高度
+ * @param {Object}  props
+ * @param {Boolean} [props.autosize=false]    文本域自适应内容高度
+ * @returns {ReactComponent} 文本输入框组件
  * @see {@link https://ant.design/components/input-cn/#Input 更多参数 详见antd文本输入框 Input文档}
  */
 const Input = (props) => {

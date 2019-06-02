@@ -10,10 +10,8 @@ import "@components/form-layout/style";
 
 const TextArea = Input.TextArea;
 const getGrid = FormItem.getGrid;
-/**
- * app
- */
-const App = () => {
+
+export default () => {
   return (
     <div style={{ margin: '24px 36px' }}>
       <Divider orientation="left">展示表单 - 只读表单</Divider>
@@ -263,5 +261,3 @@ const InputFormLayoutByVertical = Form.create({ name: 'flex-input' })(({ form })
     </FormLayout>
   );
 });
-
-export default App;

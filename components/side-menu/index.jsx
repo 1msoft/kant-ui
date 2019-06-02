@@ -15,34 +15,35 @@ const MenuItemGroup = Menu.ItemGroup;
 
 /**
  * 侧边栏
- * @param {object}   props
- * @param {array}    props.dataSource=[]                菜单数据源
- * @param {string}   props.dataSource.key               数据key 唯一标识
- * @param {string}   props.dataSource.title             标题
- * @param {string}   props.dataSource.url               跳转链接
- * @param {array}    props.dataSource.child             子级路由
- * @param {string}   props.dataSource.icon              图标
- * @param {string}   props.dataSource.className         类名
- * @param {boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
- * @param {boolean}  [props.isCollapsed=false]          菜单是否收缩
- * @param {string}   [props.retractMode='half']         收缩模式       'half' | 'all'
- * @param {string}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
- * @param {function} [props.header]                     未收缩头部组件
- * @param {function} [props.footer]                     未收缩底部组件
- * @param {function} [props.halfRetractHeader]          半收缩头部组件
- * @param {function} [props.halfRetractFooter]          半收缩底部组件
- * @param {object}   [props.siderStyle]                 侧边栏样式覆盖
- * @param {string}   [props.inlineOpenStyle='normal']   mode=inline时的子菜单展开方式 'normal' | 'hideOther'
- * @param {boolean}  [props.isShowChildMenu=true]       关闭菜单是否收缩子菜单
- * @param {array}    [props.selectKeys=[]]              当前selectKeys的数据
- * @param {array}    [props.openKeys=[]]                当前openKeys的数据
- * @param {function} [props.menuItemDom]                处理menuItem链接的自定义dom
- * @param {obeject}  [props.siderProps]                 layout.sider的api
- * @param {obeject}  [props.menuProps]                  menu的api
- * @param {object}   [props.menuItemProps]              menuItem的api
- * @param {object}   [props.subMenuProps]               subMenu的api
- * @param {function} [props.subMenuTitleDom]            subMenu标题内自定义dom
- * @param {function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
+ * @param {Object}   props
+ * @param {Array}    props.dataSource=[]                菜单数据源
+ * @param {String}   props.dataSource.key               数据key 唯一标识
+ * @param {String}   props.dataSource.title             标题
+ * @param {String}   props.dataSource.url               跳转链接
+ * @param {Array}    props.dataSource.child             子级路由
+ * @param {String}   props.dataSource.icon              图标
+ * @param {String}   props.dataSource.className         类名
+ * @param {Boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
+ * @param {Boolean}  [props.isCollapsed=false]          菜单是否收缩
+ * @param {String}   [props.retractMode='half']         收缩模式       'half' | 'all'
+ * @param {String}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
+ * @param {Function} [props.header]                     未收缩头部组件
+ * @param {Function} [props.footer]                     未收缩底部组件
+ * @param {Function} [props.halfRetractHeader]          半收缩头部组件
+ * @param {Function} [props.halfRetractFooter]          半收缩底部组件
+ * @param {Object}   [props.siderStyle]                 侧边栏样式覆盖
+ * @param {String}   [props.inlineOpenStyle='normal']   mode=inline时的子菜单展开方式 'normal' | 'hideOther'
+ * @param {Boolean}  [props.isShowChildMenu=true]       关闭菜单是否收缩子菜单
+ * @param {Array}    [props.selectKeys=[]]              当前selectKeys的数据
+ * @param {Array}    [props.openKeys=[]]                当前openKeys的数据
+ * @param {Function} [props.menuItemDom]                处理menuItem链接的自定义dom
+ * @param {Object}  [props.siderProps]                 layout.sider的api
+ * @param {Object}  [props.menuProps]                  menu的api
+ * @param {Object}   [props.menuItemProps]              menuItem的api
+ * @param {Object}   [props.subMenuProps]               subMenu的api
+ * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom
+ * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
+ * @returns {ReactComponent} 导航栏组件
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
