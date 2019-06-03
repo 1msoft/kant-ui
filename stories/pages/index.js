@@ -46,7 +46,11 @@ export default [
       {
         title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
-      }
+      },
+      {
+        title: 'Checkbox 多选框',
+        component: Checkbox,
+      },
     ]
   },
   {
@@ -72,15 +76,6 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
-      },
-    ]
-  },
-  {
-    title: '通用',
-    parents: [
-      {
-        title: 'Checkbox 多选框',
-        component: Checkbox,
       },
     ]
   },

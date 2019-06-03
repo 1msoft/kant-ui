@@ -13,17 +13,19 @@ import _ from 'lodash';
  * @param {object} Props
  * @see {@link https://ant.design/components/checkbox-cn/#API 更多多选框参数参照antd官网}
  */
-const Checkbox = (props) => {
+let Checkbox = (props, ref) => {
   const filterArr = [];
   const otherProps =  omit(props, filterArr);
   return (
-    <span className="kant-checkbox-content">
+    <span className="kant-checkbox-content" ref={ref}>
       <AntCheckbox
         {...otherProps}
       />
     </span>
   );
 };
+
+Checkbox = React.forwardRef(Checkbox);
 
 Checkbox.Group = AntCheckbox.Group;
 
