@@ -1,29 +1,44 @@
-textarea.ant-input {
+@kant-focus-border: #40a9ff; //聚焦边框色#40a9ff
+@kant-focus-boxShadow-color: 0px 0px 5px 0px rgba(69,118,253,0.3); //聚焦阴影色
+@kant-normal-borderColor: @border-color-base; //普通边框色@border-color-base
+@kant-raduis: @border-radius-base; //组件圆角
+@kant-normal-bodxShadow-color: @box-shadow-base; //普通阴影
+
+.kant-input .ant-input {
+  border: 1px solid @kant-normal-borderColor !important;
+}
+
+.kant-input .ant-input:focus {
+  border: 1px solid @kant-focus-border !important;
+  box-shadow: @kant-focus-boxShadow-color !important;
+}
+
+.kant-input > textarea.ant-input {
   display: block;
   padding: 0 !important;
   padding-right: 30px !important;
   margin: 0 !important;
   resize: none !important;
   border-radius: 0 !important;
-  box-shadow: none;
-  border: none;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-textarea.ant-input:focus {
+.kant-input > textarea.ant-input:focus {
   box-shadow: 0 0px 0 0 rgba(24, 144, 255, 0.2) !important;
-  border: none;
+  border: none !important;
 }
 
-.kant-textarea-blur {
-  border:1px solid rgba(235, 235, 235, 1);
-  border-radius:4px;
+.kant-input.kant-textarea-blur {
+  border:1px solid @kant-normal-borderColor;
+  border-radius: @kant-raduis;
   padding: 13px 11px 15px 21px;
 }
 
-.kant-textarea-focus {
-  border:1px solid #40a9ff;
-  box-shadow:0px 0px 5px 0px rgba(69,118,253,0.3);
-  border-radius:4px;
+.kant-input.kant-textarea-focus {
+  border:1px solid @kant-focus-border;
+  box-shadow:@kant-focus-boxShadow-color;
+  border-radius: @kant-raduis;
   padding: 13px 11px 15px 21px;
 }
 

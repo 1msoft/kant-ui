@@ -11,23 +11,29 @@ import PropTypes from 'prop-types';
  * @param {function} [props.onBlur]             失焦事件
  * @see {@link https://ant.design/components/input-cn/#Input 更多参数 详见antd文本输入框 Input文档}
  */
-const Input = React.forwardRef((props, ref) => {
-  const filterArr = [];
+let Input = (props, ref) => {
+  const filterArr = [
+    'className',
+  ];
   const otherProps = omit(props, filterArr);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className={props.className ?
+      `${props.className} kant-input` : 'kant-input'}>
       <AntInput
         {...otherProps}
       />
     </span>
   );
-});
+};
 
-const InputTextArea = React.forwardRef((props, ref) => {
+Input = React.forwardRef(Input);
+
+let InputTextArea = (props, ref) => {
   const filterArr = [
     'onFocus',
     'onBlur',
+    'className',
   ];
   const otherProps = omit(props, filterArr);
 
@@ -38,7 +44,9 @@ const InputTextArea = React.forwardRef((props, ref) => {
   };
 
   return (
-    <div className={setFocusClassName()} ref={ref}>
+    <div className={props.className ?
+      `${props.className} ${setFocusClassName()} kant-input`
+      : `${setFocusClassName()} kant-input`} ref={ref} >
       <AntInput.TextArea
         autosize={false}
         onFocus={() => { setIsFocus(true); props.onFocus ? props.onFocus() : null; } }
@@ -47,12 +55,50 @@ const InputTextArea = React.forwardRef((props, ref) => {
       />
     </div>
   );
-});
+};
+
+InputTextArea = React.forwardRef(InputTextArea);
+
+let AntInputSearch = (props, ref) => {
+  const filterArr = [
+    'className',
+  ];
+  const otherProps = omit(props, filterArr);
+
+  return (
+    <span ref={ref} className={props.className ?
+      `${props.className} kant-input` : 'kant-input'}>
+      <AntInput.Search
+        {...otherProps}
+      />
+    </span>
+  );
+};
+
+AntInputSearch = React.forwardRef(AntInputSearch);
+
+let AntInputPassword = (props, ref) => {
+  const filterArr = [
+    'className',
+  ];
+  const otherProps = omit(props, filterArr);
+
+  return (
+    <span ref={ref} className={props.className ?
+      `${props.className} kant-input` : 'kant-input'}>
+      <AntInput.Search
+        {...otherProps}
+      />
+    </span>
+  );
+};
+
+AntInputPassword = React.forwardRef(AntInputPassword);
 
 Input.TextArea = InputTextArea;
-Input.Search = AntInput.Search;
+Input.Search = AntInputSearch;
 Input.Group = AntInput.Group;
-Input.Password = AntInput.Password;
+Input.Password = AntInputPassword;
 
 Input.propTypes = {
   onFocus: PropTypes.func,
@@ -63,5 +109,4 @@ Input.defaultProps = {
   onFocus: null,
   onBlur: null,
 };
-
 export default Input;

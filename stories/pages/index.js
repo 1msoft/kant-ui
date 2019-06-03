@@ -28,7 +28,7 @@ export default [
     title: '表单',
     parents: [
       {
-        title: '输入框',
+        title: 'Input 输入框',
         component: Input
       }, {
         title: 'Select 选择器',
