@@ -36,7 +36,12 @@ const Breadcrumb = (props) => {
                 {...breadcrumbItemProps}
                 {...item.props}
               >
-                {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
+                {item.icon ?
+                  <span className={`iconfont ${item.icon}`}>
+                    &nbsp;
+                  </span>
+                  : ''}
+                {item.text}
               </AntBreadcrumb.Item>
             );
           } else {
@@ -49,7 +54,15 @@ const Breadcrumb = (props) => {
                   props.itemRender ?
                     props.itemRender(item)
                     :
-                    <a href={item.path}>{item.icon ? <Icon type={item.icon}/> : ''}{item.text}</a>
+                    <a href={item.path}>{
+                      item.icon ?
+                        <span
+                          className={`iconfont ${item.icon}`}>
+                          &nbsp;
+                        </span>
+                        : ''}
+                    <span>{item.text}</span>
+                    </a>
                 }
               </AntBreadcrumb.Item>
             );
