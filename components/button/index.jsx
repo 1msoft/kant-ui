@@ -16,7 +16,7 @@ import { Button as AntButton } from 'antd';
  * @param {string}   [props.className] 按钮类名
  * @see {@link https://ant.design/components/button-cn/#API 更多按钮参数参照antd官网}
  */
-const Button = (props) => {
+let Button = (props, ref) => {
   const filterArr = [
     'onClick',
     'className',
@@ -36,14 +36,14 @@ const Button = (props) => {
     if(isShow) {
       setTimeout( () => {
         setIsShow(false);
-      }, 310);
+      }, 1010);
     }
   }, [isShow]);
 
   const className = props.className ? props.className : '';
 
   return (
-    <div className="kant-button-content">
+    <div className="kant-button-content" ref={ref}>
       <AntButton
         className={isShow ? `kant-wave-button ${className}` : `${className}`}
         onClick={(e) => {
@@ -55,6 +55,8 @@ const Button = (props) => {
     </div>
   );
 };
+
+Button = React.forwardRef(Button);
 
 Button.propTypes = {
   onClick: PropTypes.func,
