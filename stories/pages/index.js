@@ -6,7 +6,7 @@ import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
-import FormLayout from './form/FormLayout';
+import Form from './form/Form';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
 
@@ -28,7 +28,7 @@ export default [
     title: '表单',
     parents: [
       {
-        title: '输入框',
+        title: 'Input 输入框',
         component: Input
       }, {
         title: 'Select 选择器',
@@ -39,8 +39,8 @@ export default [
         component: InputNumber,
       },
       {
-        title: 'FormLayout 表单',
-        component: FormLayout,
+        title: 'Form 表单',
+        component: Form,
       },
       {
         title: 'DatePicker 日期范围选择器',
