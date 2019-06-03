@@ -34,7 +34,7 @@ import { InputNumber as AntInputNumber } from "antd";
  * 更多参数详见 antd 数字输入框 InputNumber 文档 }
  * @returns {ReactComponent} 数组输入框
  */
-const InputNumber = (props, ref) => {
+let InputNumber = (props, ref) => {
   const escapeCharacter = ['$', '?', '^', '*', '+'];
   const some = (array, compare) => array.some(item => item === compare);
 
