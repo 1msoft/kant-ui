@@ -43,9 +43,11 @@ const getBoundaryValue = (val) => {
 };
 
 // 头部类名设置
-const setHeaderClassName = (fixed, isHide) => {
-  let className = 'kant-header';
-  if (fixed) {
+const setHeaderClassName = (props, isHide) => {
+  let className = props.className ?
+    `${props.className} kant-header` :
+    'kant-header';
+  if (props.fixed) {
     className = `${className} kant-header-fixed`;
     if (isHide) {
       className = `${className} kant-header-hide`;
@@ -118,7 +120,7 @@ const Header = (props) => {
   });
   return (
     <div style={props.style}
-      className={setHeaderClassName(props.fixed, hide)}>
+      className={setHeaderClassName(props, hide)}>
       {renderDom(props)}
     </div>
   );
