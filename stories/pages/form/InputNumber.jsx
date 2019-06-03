@@ -10,14 +10,19 @@ export default () => (
     <Divider orientation="left">自动获焦</Divider>
     <InputNumber
       autoFocus={true}
-      // label="姓名"
       defaultValue={100}
       className="custom-input-number"
     />
     <Divider orientation="left">隐藏控制按钮</Divider>
     <InputNumber
-      controls={false}
+      controls={true}
       defaultValue={100}
+      className="custom-input-number"
+    />
+    <Divider orientation="left">最大值=100 | 最小值=0</Divider>
+    <InputNumber
+      min={0}
+      max={100}
       className="custom-input-number"
     />
     <Divider orientation="left">前缀</Divider>
@@ -35,14 +40,14 @@ export default () => (
     <Divider orientation="left">不同风格模式 box | underline</Divider>
     <InputNumber
       theme="box"
-      controls={false}
+      controls={true}
       defaultValue={100}
       className="custom-input-number"
     />
     <span style={{ padding: '0 30px' }}></span>
     <InputNumber
       theme="underline"
-      controls={false}
+      controls={true}
       defaultValue={100}
       className="custom-input-number"
     />
@@ -56,7 +61,7 @@ export default () => (
     <InputNumber
       defaultValue={100}
       className="custom-input-number"
-      onPressEnter={(value) => alert(value)}
+      onPressEnter={(e) => alert(e.target.value)}
     />
   </div>
 );

@@ -23,7 +23,7 @@ import { InputNumber as AntInputNumber } from "antd";
  * @param {string}  [props.label]                  label的标签文本(预留)
  * @param {string}  [props.className='']           附加类名
  * @param {boolean} [props.autoFocus=false]        自动获焦
- * @param {boolean} [props.controls=true]          是否显示控制器按钮
+ * @param {boolean} [props.controls=false]         是否显示控制器按钮
  * @param {number}  [props.precision]              数值精度
  * @param {function}[props.onPressEnter=()=>{}]    回车事件
  * @param {string}  [props.prefix='']              格式化前缀
@@ -31,34 +31,16 @@ import { InputNumber as AntInputNumber } from "antd";
  * @see {@link https://ant.design/components/input-number-cn/#API 更多参数详见 antd 数字输入框 InputNumber 文档}
  */
 const InputNumber = forwardRef((props, ref) => {
-  const escapeCharacter = ['$', '?', '^', '*', '+'];
-  const some = (array, compare) => array.some(item => item === compare);
-
-  const transPrefix = props.prefix
-    ? some(escapeCharacter, props.prefix)
-      ? `\\${props.prefix}|`
-      : `${props.prefix}|`
-    : "";
-
-  const transSuffix = props.suffix
-    ? some(escapeCharacter, props.suffix)
-      ? `\\${props.suffix}`
-      : `${props.suffix}|`
-    : "";
-
-  const regex = new RegExp(`${transPrefix}${transSuffix}`, "g");
   const handleKeyDown = (event) => {
     const { onPressEnter, onKeyDown } = props;
-    const str = String(event.target.value).replace(regex, "");
     if (
       !isNil(onPressEnter) &&
       isFunction(onPressEnter) &&
       isEqual(event.keyCode, 13)
     ) {
-      onPressEnter(Number(str) || null);
+      onPressEnter(event);
     }
     if (onKeyDown) {
-      event.target.value = str;
       onKeyDown(event);
     }
   };
@@ -81,14 +63,15 @@ const InputNumber = forwardRef((props, ref) => {
     { 'kant-input-number-handler-hide': props.controls },
   );
   return (
-    <AntInputNumber
-      ref={ref}
-      formatter={value => `${props.prefix}${value}${props.suffix}`}
-      parser={value => value.replace(regex, "")}
-      className={className}
-      onKeyDown={handleKeyDown}
-      {...otherProps}
-    />
+    <div className="kant-input-number-wrapper" ref={ref}>
+      <span className="kant-input-number-prefix">{props.prefix || null}</span>
+      <AntInputNumber
+        className={className}
+        onKeyDown={handleKeyDown}
+        {...otherProps}
+      />
+      <span className="kant-input-number-suffix">{props.suffix || null}</span>
+    </div>
   );
 });
 
@@ -106,11 +89,11 @@ InputNumber.propTypes = {
 
 InputNumber.defaultProps = {
   autoFocus: false,
-  controls: true,
+  controls: false,
   prefix: "",
   suffix: "",
   className: "",
-  onPressEnter: () => {},
+  onPressEnter: _ => _,
 };
 
 export default InputNumber;
