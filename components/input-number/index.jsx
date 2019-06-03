@@ -64,13 +64,17 @@ const InputNumber = forwardRef((props, ref) => {
   );
   return (
     <div className="kant-input-number-wrapper" ref={ref}>
-      <span className="kant-input-number-prefix">{props.prefix || null}</span>
+      {props.prefix ? (
+        <span className="kant-input-number-prefix">{props.prefix}</span>
+      ) : null}
       <AntInputNumber
         className={className}
         onKeyDown={handleKeyDown}
         {...otherProps}
       />
-      <span className="kant-input-number-suffix">{props.suffix || null}</span>
+      {props.suffix ? (
+        <span className="kant-input-number-suffix">{props.suffix}</span>
+      ) : null}
     </div>
   );
 });
