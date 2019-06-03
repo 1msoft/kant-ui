@@ -427,10 +427,7 @@ FormLayout.defaultProps = {
   },
 };
 
-export { Form } from 'antd';
+Form.FormItem = FormItem;
+Form.FormLayout = FormLayout;
 
-export {
-  FormItem,
-  FormLayout,
-  AntFormItem,
-};
+export default Form;
