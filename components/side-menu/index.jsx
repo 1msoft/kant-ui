@@ -37,13 +37,12 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {Array}    [props.selectKeys=[]]              当前selectKeys的数据
  * @param {Array}    [props.openKeys=[]]                当前openKeys的数据
  * @param {Function} [props.menuItemDom]                处理menuItem链接的自定义dom
- * @param {Object}  [props.siderProps]                 layout.sider的api
- * @param {Object}  [props.menuProps]                  menu的api
+ * @param {Obeject}  [props.siderProps]                 layout.sider的api
+ * @param {Obeject}  [props.menuProps]                  menu的api
  * @param {Object}   [props.menuItemProps]              menuItem的api
  * @param {Object}   [props.subMenuProps]               subMenu的api
  * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom
  * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
- * @returns {ReactComponent} 导航栏组件
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
@@ -67,6 +66,7 @@ const SideMenu = (props) => {
     'menuItemDom',
     'subMenuTitleDom',
     'menuItemGroupDom',
+    'className',
   ];
 
   const siderProps = omit(props.siderProps, filterArr);
@@ -83,7 +83,8 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
-            className={ ` ant-menu-submenu-active ${item.className ? `${item.className}` : ''}` }
+            className={ ` ant-menu-submenu-active ${item.className
+              ? `${item.className}` : ''} kant-submenu-overlay` }
             key={item.key}
             title={
               props.subMenuTitleDom ? props.subMenuTitleDom(item)
@@ -101,6 +102,7 @@ const SideMenu = (props) => {
               props.retractMode === 'half'
                 && props.isCollapsed === true ?
                 <MenuItemGroup
+                  className={'kant-menuitemgroup-content'}
                   title={
                     props.menuItemGroupDom ? props.menuItemGroupDom(item)
                       :
@@ -126,7 +128,7 @@ const SideMenu = (props) => {
             {
               props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
-                  <a href={'javascript:;'}>
+                  <a href={item.url}>
                     {
                       item.icon ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
@@ -278,37 +280,38 @@ const SideMenu = (props) => {
   }, []);
 
   return (
-    <Layout>
-      <AntSider
-        style={props.siderStyle}
-        collapsed={props.useCollapsed ? props.isCollapsed : false}
-        trigger={null}
-        {...toggelRetractMode(props.retractMode, {})}
-        {...siderProps}
+    <AntSider
+      className={props.className ?
+        `kant-sidermenu-content ${props.className}`
+        : 'kant-sidermenu-content'}
+      style={props.siderStyle}
+      collapsed={props.useCollapsed ? props.isCollapsed : false}
+      trigger={null}
+      {...toggelRetractMode(props.retractMode, {})}
+      {...siderProps}
+    >
+      {
+        props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
+          halfRetractHeaderDom
+          :
+          (props.header ? headerDom : '')
+      }
+      <Menu
+        onSelect={onSelect}
+        selectedKeys={selectedKeysState}
+        {...toogelOpenChildMode(props.openChildMode, menuProps)}
       >
         {
-          props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
-            halfRetractHeaderDom
-            :
-            (props.header ? headerDom : '')
+          menuNode(props.dataSource)
         }
-        <Menu
-          onSelect={onSelect}
-          selectedKeys={selectedKeysState}
-          {...toogelOpenChildMode(props.openChildMode, menuProps)}
-        >
-          {
-            menuNode(props.dataSource)
-          }
-        </Menu>
-        {
-          props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
-            halfRetractFooterDom
-            :
-            (props.footer ? footerDom : '')
-        }
-      </AntSider>
-    </Layout>
+      </Menu>
+      {
+        props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
+          halfRetractFooterDom
+          :
+          (props.footer ? footerDom : '')
+      }
+    </AntSider>
   );
 
 };
