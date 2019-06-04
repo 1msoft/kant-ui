@@ -34,7 +34,7 @@ import { InputNumber as AntInputNumber } from "antd";
   * 更多参数详见 antd 数字输入框 InputNumber 文档 }
   * @returns {ReactComponent} 数组输入框
   */
-const InputNumber = forwardRef((props, ref) => {
+let InputNumber = (props, ref) => {
   const handleKeyDown = (event) => {
     const { onPressEnter, onKeyDown } = props;
     if (
@@ -94,7 +94,7 @@ const InputNumber = forwardRef((props, ref) => {
       ) : null}
     </div>
   );
-});
+};
 InputNumber = forwardRef(InputNumber);
 
 InputNumber.propTypes = {
