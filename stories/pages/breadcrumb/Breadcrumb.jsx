@@ -12,11 +12,11 @@ export default () => (
     面包屑导航组件介绍页面 <br />
     <div>
       <Breadcrumb
-        BreadcrumbProps={{
+        breadcrumbProps={{
           separator: "|"
         }}
         targetItemClass ="kant-link"
-        itemRender={freeDom}
+        // itemRender={freeDom}
         breadcrumbs={[{ path: '/abc', text: '菜单一', icon: 'edit' },
           { path: '/abc1', text: '菜单二', icon: 'delete' }
         ]}
