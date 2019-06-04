@@ -116,6 +116,7 @@ const useStateHook = (props) => {
   // 下拉菜单容器 className
   const dropdownClassName = useMemo(() => {
     return (`
+      kant-select-dropdown
       ${props.dropdownClassName ? props.dropdownClassName : ''}
       ${open ? 'dropdown-show' : 'dropdown-hidden'}
     `);
@@ -130,7 +131,7 @@ const useStateHook = (props) => {
     } else {
       setTimeout(() => {
         setOpen(value);
-      }, 5000);
+      }, 500);
     }
   }, [open]);
 
@@ -164,20 +165,22 @@ const useStateHook = (props) => {
  * @link props.spin参数参考  [antd 官网](https://ant.design/components/spin-cn/#API)
  * @link 更多参数参考 [antd 官网](https://ant.design/components/select-cn/#API)
  */
-const Select = (props) => {
+const Select =  React.forwardRef((props, ref) => {
   const state = useStateHook(props);
   return (
-    <AntSelect
-      onPopupScroll={state.onPopupScroll}
-      dropdownRender={state.dropdownRender}
-      dropdownClassName={state.dropdownClassName}
-      onDropdownVisibleChange={state.onDropdownVisibleChange}
-      {...state.otherProps}
-    >
-      {state.options}
-    </AntSelect>
+    <span className="kant-select" ref={ref}>
+      <AntSelect
+        onPopupScroll={state.onPopupScroll}
+        dropdownRender={state.dropdownRender}
+        dropdownClassName={state.dropdownClassName}
+        onDropdownVisibleChange={state.onDropdownVisibleChange}
+        {...state.otherProps}
+      >
+        {state.options}
+      </AntSelect>
+    </span>
   );
-};
+});
 
 Select.propTypes = {
   data: PropTypes.arrayOf(PropTypes.oneOfType([

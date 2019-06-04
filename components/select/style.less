@@ -1,29 +1,28 @@
-@primary-color: #4576FD;
+@import '../assets/styles/vars.less';
+.kant-select {
+  .kant-append-option {
+    padding: 0;
+    margin: 0;
+    &-wrapper{
+      cursor: default;
+    }
+  }
 
-.kant-append-option {
-  padding: 0;
-  margin: 0;
-  &-wrapper{
-    cursor: default;
+  .ant-select {
+    border-radius: 4px;
+  }
+
+  .ant-select-open {
+    .ant-select-selection {
+      background: fade(@primary-color, 20%);
+    }
   }
 }
 
-.ant-select {
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow:0px 0px 8px 0px fade(#282828, 10%);
-}
-
-.ant-select-open {
-  .ant-select-selection {
-    background: fade(@primary-color, 20%);
-  }
-}
-
-.ant-select-dropdown {
+.kant-select-dropdown {
   // 清除样式
-  box-shadow: none;
-  background: transparent;
+  box-shadow: none !important;
+  background: transparent !important;
 
   .kant-menu {
     overflow: hidden;
@@ -35,11 +34,11 @@
   .kant-menu-wrapper {
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 2px 8px fade(@primary-color, 20%);
+    box-shadow: 0 2px 8px fade(@primary-color, 15%);
     background: #fff;
   }
 
-  &-hidden {
+  &.ant-select-dropdown-hidden {
     display: block !important;
     .kant-menu-wrapper {
       transform: translateY(-110%);
