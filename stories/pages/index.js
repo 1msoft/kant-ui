@@ -9,6 +9,7 @@ import InputNumber from './form/InputNumber';
 import Form from './form/Form';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
+import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
 
 export default [
@@ -46,6 +47,10 @@ export default [
       {
         title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
+      },
+      {
+        title: 'Button 按钮',
+        component: Button,
       },
       {
         title: 'Checkbox 多选框',
