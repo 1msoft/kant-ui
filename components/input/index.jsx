@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 
 /**
  * 文本输入框
- * @param {object}   props
- * @param {boolean}  [props.autosize=false]     文本域自适应内容高度
- * @param {function} [props.onFocus]            聚焦事件
- * @param {function} [props.onBlur]             失焦事件
+ * @param {Object}  props
+ * @param {Boolean} [props.autosize=false]    文本域自适应内容高度
+ * @param {Function} [props.onFocus]          聚焦事件
+ * @param {Function} [props.onBlur]           失焦事件
+ * @returns {ReactComponent} 文本输入框组件
  * @see {@link https://ant.design/components/input-cn/#Input 更多参数 详见antd文本输入框 Input文档}
  */
 let Input = (props, ref) => {
