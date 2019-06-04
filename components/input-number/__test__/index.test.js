@@ -21,10 +21,11 @@ describe('InputNumber', () => {
     />);
 
     assert(wrapper.exists('.ant-input-number-handler-wrap'), false, '步骤控制器关闭');
-    expect(wrapper.find('input').getDOMNode().value).to.equal('$%');
+    expect(wrapper.find('.kant-input-number-prefix').text()).to.equal('$');
+    expect(wrapper.find('.kant-input-number-suffix').text()).to.equal('%');
 
     wrapper.find('input').simulate('change', { target: { value: '1' } });
-    expect(wrapper.find('input').getDOMNode().value.replace(/\$|%/g, "")).to.equal('1');
+    expect(wrapper.find('input').getDOMNode().value).to.equal('1');
   });
 
   it ('能否支持自定义格式化方法和值解析处理', () => {

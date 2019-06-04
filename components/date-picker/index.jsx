@@ -115,18 +115,19 @@ const changeRules = (props) => {
 
 /**
  * 日期范围输入框
- * @param {object}   props
- * @param {string}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
- * @param {string}   [props.theme='box']             主题('box' | 'underline')
- * @param {array}    [props.value]                   指定时间[moment, moment]
- * @param {array}    [props.defaultValue]            默认时间[moment, moment]
- * @param {number}   [props.minYear]                 最小年份 年份选择器专用
- * @param {number}   [props.maxYear]                 最大年份 年份选择器专用
- * @param {function} [props.onChange=() => {}]       时间发生变化的回调
- * @param {object}   [props.starPickerConfig]        起始时间配置
- * @param {object}   [props.endPickerConfig]         结束时间配置
- * @param {boolean}  [startAutoVerify]               启动默认过滤假值的功能，基于form表单的getFieldDecorator
+ * @param {Object}   props
+ * @param {String}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
+ * @param {String}   [props.theme='box']             主题('box' | 'underline')
+ * @param {Array}    [props.value]                   指定时间[moment, moment]
+ * @param {Array}    [props.defaultValue]            默认时间[moment, moment]
+ * @param {Number}   [props.minYear]                 最小年份 年份选择器专用
+ * @param {Number}   [props.maxYear]                 最大年份 年份选择器专用
+ * @param {Function} [props.onChange=() => {}]       时间发生变化的回调
+ * @param {Object}   [props.starPickerConfig]        起始时间配置
+ * @param {Object}   [props.endPickerConfig]         结束时间配置
+ * @param {Boolean}  [startAutoVerify]               启动默认过滤假值的功能，基于form表单的getFieldDecorator
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
+ * @returns {ReactComponent} 日期组件
  */
 let DatePicker = (props, ref) => {
   let staticVariable = useMemo(() => ({
@@ -175,6 +176,12 @@ DatePicker = forwardRef(DatePicker);
 
 /**
  * 自定义日期校验
+ * @param {Object} propValue
+ * @param {String} key
+ * @param {String} componentName
+ * @param {*} location
+ * @param {String} propFullName
+ * @returns {Error} 类型校验错误信息
  */
 function customDateValidators(propValue, key, componentName, location, propFullName) {
   const val = propValue[key];
