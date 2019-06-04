@@ -15,7 +15,7 @@ describe('Button' , () => {
     const wrapper = mount(<Button
       type="primary"
       onClick={onClick}
-    />)
+    />);
     assert.equal(wrapper.find('.ant-btn-primary').length, 1);
     wrapper.find('.ant-btn').simulate('click');
     assert.isTrue(onClick.called);
@@ -25,12 +25,12 @@ describe('Button' , () => {
   it ('初始无操作值是否正确', () => {
     const onClick = () => {
       console.log('传入了个点击事件');
-    }
+    };
     const wrapper = mount(<Button
       onClick={onClick}
-    />)
+    />);
     assert.equal(wrapper.find('.ant-btn-primary').length, 0);
     assert.equal(wrapper.find('.kant-wave-button').length, 0);
     assert.equal(wrapper.find('.kant-chance').length, 2);
   });
-})
+});

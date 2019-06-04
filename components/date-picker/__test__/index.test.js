@@ -7,7 +7,7 @@ import moment from 'moment';
 const { mount } = Enzyme;
 
 // 为 Enzyme 配置适配器
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('DatePicker 组件', function () {
   it('DatePicker 是否渲染正确的选择器', function () {

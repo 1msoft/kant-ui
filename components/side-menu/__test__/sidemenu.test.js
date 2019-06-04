@@ -36,7 +36,7 @@ describe('侧边栏菜单', function () {
       return (
         <div className="kant-head-test" style={{ height: '100px', border: '1px solid red' }}></div>
       );
-    }
+    };
     const wrapper = mount(
       <SideMenu dataSource={dataSource}
         header={testDom()}
@@ -55,9 +55,9 @@ describe('侧边栏菜单', function () {
   it ('接收头部低部Dom', function () {
     const testDom = (props) => {
       return (
-          <div className="kant-div"></div>
+        <div className="kant-div"></div>
       );
-    }
+    };
     const wrapper = mount(
       <SideMenu useCollapsed={true}
         retractMode={'half'}
@@ -73,7 +73,7 @@ describe('侧边栏菜单', function () {
 
     const wrapper = mount(
       <SideMenu dataSource={dataSource}
-        menuItemProps={{onClick:onClick}}
+        menuItemProps={{ onClick: onClick }}
       />
     );
     (wrapper.find('.kant-menuitem-title a').at(0)).simulate('click');
@@ -92,8 +92,8 @@ describe('侧边栏菜单', function () {
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
-        menuItemProps={{onClick:onClick}}
-        subMenuProps={{onClick:onClick}}
+        menuItemProps={{ onClick: onClick }}
+        subMenuProps={{ onClick: onClick }}
         menuItemDom={menuItemDom}
         retractMode={'all'}
         isShowChildMenu={false}
@@ -116,7 +116,7 @@ describe('侧边栏菜单', function () {
     const wrapper = mount(
       <SideMenu
         dataSource={dataSource}
-        siderProps={{onClick:onClick}}
+        siderProps={{ onClick: onClick }}
         inlineOpenStyle={'hideOther'}
         openKeys={['678']}
         selectKeys={['3456']}
