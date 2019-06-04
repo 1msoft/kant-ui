@@ -1,19 +1,61 @@
-@import '../assets//styles/vars.less';
+@import '../assets/styles/vars.less';
 
 .kant-input-number-wrapper {
   display: inline-block;
+  position: relative;
   white-space: nowrap;
 
-  & .kant-input-number-prefix,
-  & .kant-input-number-suffix {
-    display: inline-block;
+  & .kant-input-number-prefix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 22px;
     width: auto;
-    height: inherit;
-    padding: 0px 5px;
+    height: calc(100% - 4px);
+    position: absolute;
+    left: 1px;
+    top: 2px;
+    z-index: 1;
+    padding-right: 5px;
+    color: #3e3c3c;
+    transition: all 0.3s;
+  }
+
+  .kant-input-number-prefix-show {
+    input {
+      padding-left: 23px;
+    }
+  }
+
+  & .kant-input-number-suffix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    width: auto;
+    height: calc(100% - 4px);
+    background: #fff;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    color: #3e3c3c;
+    transition: all 0.3s;
+  }
+
+  & .kant-input-number-suffix:hover {
+    right: 23px;
+  }
+
+  & .kant-input-number-suffix-right {
+    right: 1px !important;
   }
 
   .kant-input-number {
     position: relative;
+  }
+
+  .kant-input-number:hover + .kant-input-number-suffix {
+    right: 23px;
   }
 
   .kant-input-number-theme-underline {
@@ -24,6 +66,12 @@
   .ant-input-number-focused,
   .kant-input-number-theme-underline:focus {
     box-shadow: 0 1px 0 0 fade(@primary-color, 20%) !important;
+  }
+
+  .ant-input-number-input-wrap {
+    input {
+      padding-right: 22px;
+    }
   }
 
   .kant-input-number-theme-underline {

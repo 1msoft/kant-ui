@@ -57,15 +57,28 @@ const InputNumber = forwardRef((props, ref) => {
   const kantContext = useContext(Context);
   const theme = props.theme || kantContext.theme || 'box';
   const className = classNames(
+    props.className,
     'kant-input-number',
     `kant-input-number-theme-${theme}`,
-    props.className,
-    { 'kant-input-number-handler-hide': props.controls },
+    {
+      'kant-input-number-prefix-show': props.prefix,
+      'kant-input-number-handler-hide': props.controls,
+    },
+  );
+
+  const prefixClassName = classNames(
+    'kant-input-number-prefix',
+    { 'kant-input-number-prefix-left': props.controls },
+  );
+
+  const suffixClassName = classNames(
+    'kant-input-number-suffix',
+    { 'kant-input-number-suffix-right': props.controls },
   );
   return (
     <div className="kant-input-number-wrapper" ref={ref}>
       {props.prefix ? (
-        <span className="kant-input-number-prefix">{props.prefix}</span>
+        <span className={prefixClassName}>{props.prefix}</span>
       ) : null}
       <AntInputNumber
         className={className}
@@ -73,7 +86,7 @@ const InputNumber = forwardRef((props, ref) => {
         {...otherProps}
       />
       {props.suffix ? (
-        <span className="kant-input-number-suffix">{props.suffix}</span>
+        <span className={suffixClassName}>{props.suffix}</span>
       ) : null}
     </div>
   );

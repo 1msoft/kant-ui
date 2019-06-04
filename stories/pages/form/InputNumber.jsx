@@ -23,6 +23,7 @@ export default () => (
     <InputNumber
       min={0}
       max={100}
+      defaultValue={50}
       className="custom-input-number"
     />
     <Divider orientation="left">前缀</Divider>
@@ -30,10 +31,18 @@ export default () => (
       prefix="$"
       defaultValue={100}
       className="custom-input-number"
+      onPressEnter={e => console.log(e.target.value)}
     />
     <Divider orientation="left">后缀</Divider>
     <InputNumber
       suffix="%"
+      defaultValue={100}
+      className="custom-input-number"
+    />
+    <Divider orientation="left">后缀 + 关闭步骤控制器</Divider>
+    <InputNumber
+      suffix="%"
+      controls={true}
       defaultValue={100}
       className="custom-input-number"
     />
@@ -62,6 +71,7 @@ export default () => (
       defaultValue={100}
       className="custom-input-number"
       onPressEnter={(e) => alert(e.target.value)}
+      onKeyDown={e => console.log(e.target.value)}
     />
   </div>
 );
