@@ -21,8 +21,9 @@ const FIELD_META_PROP = 'data-__meta';
 
 /**
  * 配置栅格
- * @param {number} span=0       栅格跨度配置
- * @param {number} [offset=0]   向右位偏移
+ * @param {Number} span=0       栅格跨度配置
+ * @param {Number} [offset=0]   向右位偏移
+ * @returns {Object} 栅格与右位偏移
  */
 const getGrid = (span = 0, offset = 0) => ({ span, offset });
 
@@ -81,8 +82,9 @@ const LayoutContext = React.createContext({
 LayoutContext.contextType = COMMON_PARAMS_TYPES;
 
 /**
- * 获取必填标示位置
- * @param {string} location 必填标示位置
+ * 获取必填标示位置&替换成kebab方式
+ * @param {String} location 必填标示位置
+ * @returns {String}
  */
 const getLocation = (location) => location.replace(
   /[A-Z]/g,
@@ -90,7 +92,8 @@ const getLocation = (location) => location.replace(
 
 /**
  * 获取label容器宽度&值处理
- * @param {string|number} value label宽度
+ * @param {String|Number} value label宽度
+ * @returns {String}
  */
 const getLabelWidth = (value) => {
   const defaultLabelWidth = '80px';
@@ -110,22 +113,23 @@ const getLabelWidth = (value) => {
 /**
  * 表单布局组件
  *
- * @param {object} props   参数对象
- * @param {string} [props.direction='row']                排列方式  row | column
- * @param {string} [props.label]                          label标签的文本
+ * @param {Object} props   参数对象
+ * @param {String} [props.direction='row']                排列方式  row | column
+ * @param {String} [props.label]                          label标签的文本
  * @param {string|number} [props.labelWidth='80px']       label标签的宽度
- * @param {boolean} [props.inlineLabel=false]             label标签宽度自适应
- * @param {string} [props.labelAlign]                     label文本对齐方式   left | center | right
- * @param {string} [props.wrapperAlign]                   wrapper块对齐方式  left | center | right
- * @param {number} props.row                              当前项所在行
- * @param {number} props.span                             栅格配置参数
+ * @param {Boolean} [props.inlineLabel=false]             label标签宽度自适应
+ * @param {String} [props.labelAlign]                     label文本对齐方式   left | center | right
+ * @param {String} [props.wrapperAlign]                   wrapper块对齐方式  left | center | right
+ * @param {Number} props.row                              当前项所在行
+ * @param {Number} props.span                             栅格配置参数
  * span={8} | span={{ xs: 8 }} | span={getGrid(8, 2)}
- * @param {boolean} [props.colon=false]                   显示冒号
- * @param {string} [props.locationRequired='beforeLabel'] 必填标示位置
+ * @param {Boolean} [props.colon=false]                   显示冒号
+ * @param {String} [props.locationRequired='beforeLabel'] 必填标示位置
  * beforeLabel afterLabel afterWrapper
- * @param {string} [props.className]                      容器的className
- * @param {string} [props.labelClassName]                 label的className
- * @param {string} [props.wrapperClassName]               wrapper的calssName
+ * @param {String} [props.className]                      容器的className
+ * @param {String} [props.labelClassName]                 label的className
+ * @param {String} [props.wrapperClassName]               wrapper的calssName
+ * @returns {ReactComponent} 表单布局组件
  * @see {@link https://ant.design/components/form-cn/#Form.Item
  * 更多参数详见 antd 表单布局组件 Form.Item 文档}
  * @see {@link https://ant.design/components/grid-cn/#Col 更多参数详见 antd 栅格 Col 文档}
@@ -293,8 +297,9 @@ const FormItem = (props) => {
 
 /**
  * label标签宽度值类型校验器
- * @param {object} props            参数对象
- * @param {string} propsName        字段名称
+ * @param {Object} props            参数对象
+ * @param {String} propsName        字段名称
+ * @return {Error} 类型校验错误信息
  */
 const getLabelWidthValidator = (props, propsName) => {
   const value = props[propsName];
@@ -329,15 +334,16 @@ FormItem.defaultProps = {
  * 表单布局
  *
  * @author jfj
- * @param {object} props
- * @param {string} [props.direction='row']                 FormItem排列方式 row | column
- * @param {number|object} [props.gutter]                   栅格间隔  gutter=15 | gutter={{ xs: 8 }}
- * @param {string} [props.labelAlign='right']              label标签对齐方式
- * @param {boolean} [props.inlineLabel=false]              label标签宽度自适应
- * @param {string} [props.wrapperAlign='left']             wrapper标签对齐方式
- * @param {string} [props.locationRequired='beforeLabel']  必填标识位置
- * @param {boolean} [props.hideRequiredMark=false]         隐藏所有表单项的必选标记
- * @param {boolean} [props.colon=false]       	           配合label属性使用，表示是否显示label后面的冒号
+ * @param {Object} props
+ * @param {String} [props.direction='row']                 FormItem排列方式 row | column
+ * @param {Number|Object} [props.gutter]                   栅格间隔  gutter=15 | gutter={{ xs: 8 }}
+ * @param {String} [props.labelAlign='right']              label标签对齐方式
+ * @param {Boolean} [props.inlineLabel=false]              label标签宽度自适应
+ * @param {String} [props.wrapperAlign='left']             wrapper标签对齐方式
+ * @param {String} [props.locationRequired='beforeLabel']  必填标识位置
+ * @param {Boolean} [props.hideRequiredMark=false]         隐藏所有表单项的必选标记
+ * @param {Boolean} [props.colon=false]       	           配合label属性使用，表示是否显示label后面的冒号
+ * @returns {ReactComponent} 表单组件
  */
 const FormLayout = (props) => {
   const initItemConfig = {
@@ -427,10 +433,7 @@ FormLayout.defaultProps = {
   },
 };
 
-export { Form } from 'antd';
+Form.FormItem = FormItem;
+Form.FormLayout = FormLayout;
 
-export {
-  FormItem,
-  FormLayout,
-  AntFormItem,
-};
+export default Form;

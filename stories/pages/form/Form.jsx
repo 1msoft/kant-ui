@@ -1,19 +1,14 @@
 import React from "react";
-import { Input, Button, Divider } from "antd";
-import {
-  Form,
-  FormLayout,
-  FormItem
-} from "@components/index";
+import { InputNumber as AntInputNumber, Button, Divider } from "antd";
+import { Form, InputNumber, Input } from "@components/index";
 
-import "@components/form-layout/style";
+import "@components/form/style";
 
+const { FormLayout, FormItem } = Form;
 const TextArea = Input.TextArea;
 const getGrid = FormItem.getGrid;
-/**
- * app
- */
-const App = () => {
+
+export default () => {
   return (
     <div style={{ margin: '24px 36px' }}>
       <Divider orientation="left">展示表单 - 只读表单</Divider>
@@ -157,7 +152,7 @@ const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }
       >
         {form.getFieldDecorator("building", {
           rules: [{ required: true, message: "必填" }],
-        })(<Input placeholder="楼栋" />)}
+        })(<AntInputNumber style={{ width: '100%' }} placeholder="楼栋" />)}
       </FormItem>
       <FormItem
         row={2}
@@ -166,7 +161,7 @@ const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }
       >
         {form.getFieldDecorator("unitNo", {
           rules: [{ required: true, message: "必填" }],
-        })(<Input placeholder="单元" />)}
+        })(<InputNumber style={{ width: '100%' }} placeholder="单元" />)}
       </FormItem>
       <FormItem
         row={2}
@@ -263,5 +258,3 @@ const InputFormLayoutByVertical = Form.create({ name: 'flex-input' })(({ form })
     </FormLayout>
   );
 });
-
-export default App;

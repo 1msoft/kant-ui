@@ -1,7 +1,4 @@
-@font-color: #EB4D4D;
-@bg-color: #FBDDDD;
-@border-color: #EB4D4D;
-@shadow-color: #EB4D4D;
+@import '../assets/styles/vars.less';
 
 .kant-form-item {
   display: flex;
@@ -36,7 +33,7 @@
       left: 4px;
       top: 1px;
       content: "*";
-      color: @font-color;
+      color: @warning-color;
       display: inline-block;
     }
 
@@ -45,7 +42,7 @@
       left: 4px;
       top: 1px;
       content: "*";
-      color: @font-color;
+      color: @warning-color;
       display: inline-block;
     }
 
@@ -84,20 +81,22 @@
 
     & .has-error {
       & .ant-form-explain {
-        color: @font-color;
+        color: @warning-color;
       }
 
       input,
       textarea,
-      .ant-select {
-        box-shadow: 0 2px 6px -2px @shadow-color;
+      .ant-select,
+      .kant-input {
+        box-shadow: 0 2px 6px -2px fade(@warning-color, 30%);
       }
 
       input:focus,
       textarea:focus,
       .ant-select:focus {
-        background-color: @bg-color;
+        background-color: @warning-background-color;
       }
+
     }
   }
 
@@ -128,7 +127,7 @@
       right: -10px;
       vertical-align: middle;
       content: "*";
-      color: @font-color;
+      color: @warning-color;
       display: inline-block;
       transform: translateY(-50%);
     }
