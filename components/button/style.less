@@ -1,0 +1,86 @@
+@import '../assets/styles/vars.less';
+
+.kant-button-content {
+  display: inline-block;
+}
+
+.kant-button-content .ant-btn {
+  width: 100px;
+  height: 100px;
+  background: @primary-color;
+  border: @primary-color;
+  border-radius: @border-radius-base !important;
+  font-size: @font-size-base;
+}
+.kant-button-content .ant-btn:focus {
+  background-color: @primary-color;
+  border: @primary-color;
+}
+.kant-button-content .ant-btn:focus.kant-wave-button {
+  animation: checkShaw 0.6s ease-in-out, fontsize 0.3s ease-in-out;
+}
+.kant-button-content .ant-btn:hover {
+  border: @primary-color;
+  background: @primary-color;
+}
+.kant-button-content .kant-wave-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.kant-button-content .kant-wave-button:after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: white;
+  animation: move 1.5s ease alternate;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  opacity: 0 !important;
+  margin: auto;
+}
+
+@keyframes move {
+  from {
+    transform: scale(1);
+    width: 0px;
+    height: 0px;
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(3);
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+@keyframes checkShaw {
+  0% {
+    box-shadow: darkgrey 0px 0px 0px 0px ;//边框阴影
+  }
+  50% {
+    box-shadow: 0px 0px 0px 4px rgba(0, 0 ,0 , 0.1);//边框阴影
+  }
+  100% {
+    box-shadow: darkgrey 0px 0px 0px 0px ;//边框阴影
+  }
+}
+
+@keyframes fontsize {
+  0% {
+    font-size: @font-size-base;
+  }
+  50% {
+    font-size: @font-size-base - 1;
+  }
+  100% {
+    font-size: @font-size-base;;
+  }
+}
