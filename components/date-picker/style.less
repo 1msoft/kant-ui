@@ -1,4 +1,4 @@
-@custom-color: #31c27c;
+@import '../assets/styles/vars.less';
 
 .kant-date-picker-layout {
   display: inline-block;
@@ -9,36 +9,45 @@
 }
 
 .kant-date-picker-theme-underline .ant-input  {
-  border-style: none none solid none !important;
-  border-radius: 0 !important;
+  border-style: none none solid none;
+  border-radius: 0;
 }
 
 .kant-date-picker-theme-underline .ant-select-selection {
   border: 0;
   border-top-width: 0px;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid @border-color-base;
   border-radius: 0;
-  box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2) !important;
+  box-shadow: fade(@primary-color, 20%);
 }
 
 .kant-date-picker-theme-underline:focus {
-  box-shadow: 0 1px 0 0 rgba(24, 144, 255, 0.2) !important;
+  box-shadow: fade(@primary-color, 20%);
+}
+.kant-date-picker-theme-underline .ant-select-selection,
+.kant-date-picker-theme-underline .ant-select-selection:active,
+.kant-date-picker-theme-underline .ant-select-selection:focus {
+  box-shadow: none;
 }
 
 .kant-date-picker-theme-underline {
   .ant-input:focus {
-    outline: -webkit-focus-ring-color auto 0 !important;
+    outline: -webkit-focus-ring-color auto 0;
   }
 }
 
 .kant-date-picker-theme-underline .ant-select-selection:hover {
-  border-bottom: 1px solid #40a9ff;
+  border-bottom: 1px solid @primary-color;
 }
 
 .kant-date-picker-theme-underline .ant-select-selection:focus {
-  box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2) !important;
+  box-shadow: fade(@primary-color, 20%);
 }
 
 .kant-select-calendar-icon {
   font-size: 14px;
+}
+
+.kant-date-picker-layout .ant-select-open .ant-select-arrow-icon svg {
+  transform: none;
 }

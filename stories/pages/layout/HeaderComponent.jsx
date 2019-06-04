@@ -40,6 +40,7 @@ const HeaderComponent = () => {
             fixed={fixed}
             upShow={200}
             downHide={200}
+            className="header"
             subNavPlacement={placement ? 'up' : 'down'}
             subNav={subNav ? subHeaderComponent() : undefined}>
             <span>这个是logo</span>
