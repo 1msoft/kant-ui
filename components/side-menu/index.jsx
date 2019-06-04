@@ -83,7 +83,8 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
-            className={ ` ant-menu-submenu-active ${item.className ? `${item.className}` : ''}` }
+            className={ ` ant-menu-submenu-active ${item.className
+              ? `${item.className}` : ''} kant-submenu-overlay` }
             key={item.key}
             title={
               props.subMenuTitleDom ? props.subMenuTitleDom(item)

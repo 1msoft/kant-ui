@@ -16,11 +16,12 @@
 }
 
 .ant-layout-sider-collapsed .kant-menu-head {
-  width: 110px;
+  // width: 110px;
   height: 50px;
   box-shadow:1px 1px 20px 0px rgba(40,40,40,0.1);
   text-align: right;
   margin-bottom: 2px;
+  animation: moveHead 1s ease forwards;
 }
 
 .ant-layout-sider-collapsed .kant-head-icon {
@@ -31,3 +32,23 @@
   cursor: pointer;
 }
 
+.kant-sider-free .kant-menu-head {
+  width: 100% !important;
+}
+
+@keyframes moveHead{
+  from {
+    width: 280px;
+  } to {
+    width: 110px;
+  }
+}
+
+@keyframes moveHeadRevese{
+  from {
+    width: 110px;
+  }
+  to {
+    width: 280px;
+  }
+}
