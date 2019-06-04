@@ -128,8 +128,7 @@ const SideMenu = (props) => {
             {
               props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
-                  {/* <a href={item.url}> */}
-                  <a href="javascript:;">
+                  <a href={item.url}>
                     {
                       item.icon ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
