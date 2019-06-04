@@ -15,6 +15,7 @@ import locale from 'antd/lib/date-picker/locale/zh_CN';
 AntDatePicker.YearPicker = YearPicker;
 
 moment.locale('zh-cn');
+const ruleKey = 'autoVerify';
 
 // 渲染日期选择框
 const renderPicker = (type, pickerProps) => {
@@ -71,24 +72,24 @@ const getPickerProps = (props, index) => {
   return pickerProps;
 };
 
-const changeValues = (values, props, ref) => {
-  if (ref) {
-    const rules = props['data-__meta'].rules;
-    const requiredRule = rules.find(item => item.hasOwnProperty('required'));
-    const required = requiredRule && requiredRule.required;
-    if (values.filter(v => v).length !== 2 && required) {
-      const name = props['data-__meta'].name;
-      const formMethods = ref.__reactBoundContext;
-      formMethods.setFields({
-        [name]: {
-          value: values,
-          errors: [new Error(requiredRule.message || '必填')],
-        }
-      });
-      return;
-    }
+// 改变 getFieldDecorator下的options.rules
+const changeRules = (props) => {
+  const rules = props['data-__meta'].rules;
+  const validate = props['data-__meta'].validate;
+  const requiredRule = rules.find(rule => rule.hasOwnProperty('required'));
+  const autoVerifyRule = !rules.find(rule => rule.key === ruleKey);
+  if (requiredRule.required && props.startAutoVerify && autoVerifyRule) {
+    const addRule = {
+      type: 'number', min: 2, max: 2, message: requiredRule.message || 'required', key: ruleKey,
+      transform: (date) => { return date && date.filter(v => v).length; }
+    };
+    props['data-__meta'].rules = [...rules, addRule];
+    validate[0] &&
+    (props['data-__meta'].validate[0] = {
+      trigger: validate[0].trigger,
+      rules: props['data-__meta'].rules,
+    });
   }
-  props.onChange(values);
 };
 
 /**
@@ -96,13 +97,14 @@ const changeValues = (values, props, ref) => {
  * @param {object}   props
  * @param {string}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
  * @param {string}   [props.theme='box']             主题('box' | 'underline')
- * @param {array}    [props.value=[]]                指定时间[moment, moment]
- * @param {array}    [props.defaultValue=[]]         默认时间[moment, moment]
+ * @param {array}    [props.value]                   指定时间[moment, moment]
+ * @param {array}    [props.defaultValue]            默认时间[moment, moment]
  * @param {number}   [props.minYear]                 最小年份 年份选择器专用
  * @param {number}   [props.maxYear]                 最大年份 年份选择器专用
  * @param {function} [props.onChange=() => {}]       时间发生变化的回调
  * @param {object}   [props.starPickerConfig]        起始时间配置
  * @param {object}   [props.endPickerConfig]         结束时间配置
+ * @param {boolean}  [startAutoVerify]               启动默认过滤假值的功能，基于form表单的getFieldDecorator
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
  */
 let DatePicker = (props, ref) => {
@@ -120,8 +122,13 @@ let DatePicker = (props, ref) => {
     (props.defaultValue && props.defaultValue[1]) ||
     null
   );
+
   useEffect(() => {
-    staticVariable.triggerChange && changeValues([startDate, endDate], props, ref);
+    ref && changeRules(props);
+  });
+
+  useEffect(() => {
+    staticVariable.triggerChange && props.onChange([startDate, endDate]);
     staticVariable.triggerChange = true;
   }, [startDate, endDate]);
   props = Object.assign({}, props, {
@@ -164,12 +171,14 @@ DatePicker.propTypes = {
   onChange: PropTypes.func,
   starPickerConfig: PropTypes.object,
   endPickerConfig: PropTypes.object,
+  startAutoVerify: PropTypes.bool,
 };
 
 DatePicker.defaultProps = {
   type: "Date",
   locale,
   onChange: () => {},
+  startAutoVerify: true,
 };
 
 export default DatePicker;

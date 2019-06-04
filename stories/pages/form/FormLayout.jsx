@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Button, Divider } from "antd";
-import { Form, FormLayout, FormItem } from "@components/index";
+import { Form, FormLayout, FormItem, DatePicker } from "@components/index";
 
 import "@components/form-layout/style";
 
@@ -166,11 +166,13 @@ const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }
       <FormItem
         row={2}
         span={8}
-        label="房屋"
+        label="合同日期"
       >
-        {form.getFieldDecorator("houseNo", {
-          rules: [{ required: false, message: "必填" }],
-        })(<Input placeholder="单元" />)}
+        {form.getFieldDecorator("date", {
+          rules: [
+            { required: true, message: "合同日期必填" },
+          ],
+        })(<DatePicker />)}
       </FormItem>
       <FormItem
         row={3}
