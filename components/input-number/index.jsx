@@ -94,7 +94,7 @@ const InputNumber = forwardRef((props, ref) => {
       ) : null}
     </div>
   );
-};
+});
 InputNumber = forwardRef(InputNumber);
 
 InputNumber.propTypes = {
