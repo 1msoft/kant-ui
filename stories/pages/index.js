@@ -6,10 +6,11 @@ import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
-import FormLayout from './form/FormLayout';
+import Form from './form/Form';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
 import Button from './button/Button';
+import Checkbox from './checkbox/Checkbox';
 
 export default [
   {
@@ -29,7 +30,7 @@ export default [
     title: '表单',
     parents: [
       {
-        title: '输入框',
+        title: 'Input 输入框',
         component: Input
       }, {
         title: 'Select 选择器',
@@ -40,8 +41,8 @@ export default [
         component: InputNumber,
       },
       {
-        title: 'FormLayout 表单',
-        component: FormLayout,
+        title: 'Form 表单',
+        component: Form,
       },
       {
         title: 'DatePicker 日期范围选择器',
@@ -50,7 +51,11 @@ export default [
       {
         title: 'Button 按钮',
         component: Button,
-      }
+      },
+      {
+        title: 'Checkbox 多选框',
+        component: Checkbox,
+      },
     ]
   },
   {
@@ -76,7 +81,7 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
-      }
+      },
     ]
-  }
+  },
 ];

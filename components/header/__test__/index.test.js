@@ -14,6 +14,7 @@ describe('Header', () => {
         fixed={true}
         downHide={true}
         upShow={true}
+        className="header"
         subNav={<div key="11">子级</div>}
         subNavPlacement="up" />
     );
