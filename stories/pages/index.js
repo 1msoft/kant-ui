@@ -46,6 +46,10 @@ export default [
       {
         title: 'DatePicker 日期范围选择器',
         component: DatePickerComponent,
+      },
+      {
+        title: 'Button 按钮',
+        component: Button,
       }
     ]
   },
@@ -72,15 +76,6 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
-      }
-    ]
-  },
-  {
-    title: '通用',
-    parents: [
-      {
-        title: 'Button 按钮',
-        component: Button,
       }
     ]
   }
