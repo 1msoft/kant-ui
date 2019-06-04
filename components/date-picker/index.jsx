@@ -78,7 +78,7 @@ const changeRules = (props) => {
   const validate = props['data-__meta'].validate;
   const requiredRule = rules.find(rule => rule.hasOwnProperty('required'));
   const autoVerifyRule = !rules.find(rule => rule.key === ruleKey);
-  if (requiredRule.required && props.startAutoVerify && autoVerifyRule) {
+  if (requiredRule.required && autoVerifyRule) {
     const addRule = {
       type: 'number', min: 2, max: 2, message: requiredRule.message || 'required', key: ruleKey,
       transform: (date) => { return date && date.filter(v => v).length; }
@@ -123,8 +123,8 @@ let DatePicker = (props, ref) => {
     null
   );
 
-  useEffect(() => {
-    ref && changeRules(props);
+  ref && props.startAutoVerify && useEffect(() => {
+    changeRules(props);
   });
 
   useEffect(() => {
@@ -137,6 +137,15 @@ let DatePicker = (props, ref) => {
     endDate,
     setEndDate
   });
+
+  ref && useEffect(() => {
+    setStartDate((props.value && props.value[0]) ||
+    (props.defaultValue && props.defaultValue[0]) ||
+    null);
+    setEndDate((props.value && props.value[1]) ||
+    (props.defaultValue && props.defaultValue[1]) ||
+    null);
+  }, [props.value]);
 
   const startPickerProps = getPickerProps(props, 0);
   const endPickerProps = getPickerProps(props, 1);
