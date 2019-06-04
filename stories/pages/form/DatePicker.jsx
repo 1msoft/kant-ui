@@ -125,21 +125,21 @@ const DateFormLayout = Form.create({ name: 'date-form' })(({ form }) => {
   };
   return (
     <FormLayout colon={true} inlineLabel={true}>
-      <FormItem row={2} span={8} label="日期">
+      <FormItem row={1} span={8} label="日期">
         {form.getFieldDecorator("date", {
           rules: [
             { required: true, message: "日期必填" },
           ],
         })(<DatePicker />)}
       </FormItem>
-      <FormItem row={2} span={8} label="周数">
+      <FormItem row={1} span={8} label="周数">
         {form.getFieldDecorator("week", {
           rules: [
             { required: true, message: "周数必填" },
           ],
         })(<DatePicker type="Week" />)}
       </FormItem>
-      <FormItem row={2} span={8} label="月份">
+      <FormItem row={1} span={8} label="月份">
         {form.getFieldDecorator("month", {
           rules: [
             { required: true, message: "月份必填" },

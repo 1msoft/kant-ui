@@ -16,6 +16,20 @@ AntDatePicker.YearPicker = YearPicker;
 
 moment.locale('zh-cn');
 const ruleKey = 'autoVerify';
+const filterPropKeys = [
+  "type",
+  "theme",
+  "value",
+  "defaultValue",
+  "onChange",
+  "className",
+  "starPickerConfig",
+  "endPickerConfig",
+  "startDate",
+  "setStartDate",
+  "endDate",
+  "setEndDate",
+];
 
 // 渲染日期选择框
 const renderPicker = (type, pickerProps) => {
@@ -27,22 +41,26 @@ const renderPicker = (type, pickerProps) => {
   }
 };
 
+// form表单重置字段时，修改选择器的props
+const changePropsByResetField = (props, pickerProps, isStartPicker) => {
+  pickerProps.value = null;
+  pickerProps.disabledDate = () => {
+    return false;
+  };
+  pickerProps.onChange = (date, dateString) => {
+    if (isStartPicker) {
+      props.setStartDate(date);
+      props.setEndDate(null);
+    } else {
+      props.setStartDate(null);
+      props.setEndDate(date);
+    }
+  };
+};
+
 // 解析选择器的props
-const getPickerProps = (props, index) => {
-  const otherProps = omit(props, [
-    "type",
-    "theme",
-    "value",
-    "defaultValue",
-    "onChange",
-    "className",
-    "starPickerConfig",
-    "endPickerConfig",
-    "startDate",
-    "setStartDate",
-    "endDate",
-    "setEndDate",
-  ]);
+const getPickerProps = (props, index, ref) => {
+  const otherProps = omit(props, filterPropKeys);
   const isStartPicker = index === 0;
   const config = isStartPicker ? props.starPickerConfig : props.endPickerConfig;
   const kantContext = useContext(Context);
@@ -69,6 +87,9 @@ const getPickerProps = (props, index) => {
   };
   props.value && (pickerProps.value = props.value[index]);
   props.defaultValue && (pickerProps.defaultValue = props.defaultValue[index]);
+  if (ref && !props.value) {
+    changePropsByResetField(props, pickerProps, isStartPicker);
+  }
   return pickerProps;
 };
 
@@ -138,17 +159,9 @@ let DatePicker = (props, ref) => {
     setEndDate
   });
 
-  ref && useEffect(() => {
-    setStartDate((props.value && props.value[0]) ||
-    (props.defaultValue && props.defaultValue[0]) ||
-    null);
-    setEndDate((props.value && props.value[1]) ||
-    (props.defaultValue && props.defaultValue[1]) ||
-    null);
-  }, [props.value]);
+  const startPickerProps = getPickerProps(props, 0, ref);
+  const endPickerProps = getPickerProps(props, 1, ref);
 
-  const startPickerProps = getPickerProps(props, 0);
-  const endPickerProps = getPickerProps(props, 1);
   return (
     <div className="kant-date-picker-layout" ref={ref}>
       {renderPicker(props.type, startPickerProps)}
