@@ -1,11 +1,8 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
-<<<<<<< HEAD
 import FixedMenu_ from './fixed-menu/FixedMenu';
-=======
 import SideMenu from './side-menu/SideMenu';
 import SelectDoc from './form/SelectDoc';
->>>>>>> e0c779ef3e658bf217b117e8e91335e4a4d2927e
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
 import HeaderComponent from './layout/HeaderComponent';
