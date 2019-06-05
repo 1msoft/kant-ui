@@ -13,7 +13,11 @@ const MenuBlock = () => {
 
   const dataSource = [
     { key: '123', title: '菜单1', url: '/abc',
-      icon: <Icon type="delete"></Icon>, className: 'abccccc',
+      icon: <Icon type="delete" style={{ display: 'inline-block',
+        paddingLeft: '4px',
+        width: '40px',
+        height: '40px',
+        color: 'rgba(0, 0, 0, 0.8)' }}></Icon>, className: 'abccccc',
       child: [{ key: '7895', title: '菜单63', url: '/abcdhds',
         icon: <Icon type="delete"></Icon> }]
     },
@@ -34,7 +38,10 @@ const MenuBlock = () => {
             retractMenu();
           } }
         >
-          <Icon type="swap" style={{ width: '28px', height: '28px' }}></Icon>
+          <Icon type="swap"
+            style={{ width: '28px', height: '28px', margin: 'auto'
+            }}>
+          </Icon>
         </span>
       </div>
     );

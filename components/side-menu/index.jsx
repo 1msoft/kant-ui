@@ -327,7 +327,6 @@ const SideMenu = (props) => {
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
-      cascadeKeys();
     }
   }, []);
 
@@ -336,9 +335,14 @@ const SideMenu = (props) => {
     if (collapsed === false && mark === 0) {
       setMark(mark + 1);
     } else if (collapsed === false && mark !== 0 ) {
+      setOpenKeys([]);
       setClass();
+      setTimeout(() => {
+        cascadeKeys();
+      }, 1400);
     } else if (collapsed === true && mark !== 0) {
       removeClass();
+      setOpenKeys([]);
     }
   }, [collapsed]);
 
