@@ -11,6 +11,11 @@ import PropTypes from 'prop-types';
  *
  * @class
  * @extends React.Component
+*/
+class FixedMenu extends React.Component {
+/**
+ * Creates an instance of FixedMenu
+ * @memberof FixedMenu
  * @param {Object}   props
  * @param {Number}   [props.showHeight]        悬停菜单出现的滚动高度
  * @param {Function} [props.onClickTop]        点击顶部触发事件
@@ -23,8 +28,7 @@ import PropTypes from 'prop-types';
  * @param {Function} [props.bottomDom]         悬停菜单底部传入自定义dom
  * @param {Function} [props.onClickBottom]     底部自定义事件
  * @param {Boolean}  [props.useChange]         是否使用初始动效
- */
-class FixedMenu extends React.Component {
+*/
   constructor(props){
     super(props);
     this.state = {
@@ -123,6 +127,10 @@ class FixedMenu extends React.Component {
     document.body.scrollTop = value;
   }
 
+  /**
+   * e
+   * @param {Event} e
+   */
   onScroll = (e) => {
     const showHeight = this.props.showHeight || 0;
     if (this.props.isAlways === true) {
@@ -134,6 +142,14 @@ class FixedMenu extends React.Component {
     }
   }
 
+  /**
+   * 防抖
+   *
+   * @memberof FixedMenu
+   * @param {Function} func 方法
+   * @param {Number} wait 时间
+   * @returns {Function}
+   */
   debounce = (func, wait) => {
     let timeout;
     return function () {
