@@ -1,0 +1,30 @@
+@import '../assets/styles/vars.less';
+
+.kant-progress-bar-outer {
+  width: 100%;
+  height: 2px;
+  background: #d5e0ff;
+
+  .kant-progress-bar-inner {
+    height: 100%;
+    background: #658dfe;
+    transform: all 3s;
+    position: relative;
+
+    &-animation::before {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border-radius: 50%;
+      opacity: 0;
+      content: '';
+      animation: kant-paogress-bar-animation 2.4s infinite;
+    }
+  }
+
+}
+
+@keyframes kant-paogress-bar-animation {
+  from {}
+  to {}
+}
