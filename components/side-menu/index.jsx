@@ -86,7 +86,7 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
-            className={ ` ant-menu-submenu-active ${item.className
+            className={ ` ${item.className
               ? `${item.className}` : ''} kant-submenu-overlay` }
             key={item.key}
             title={
@@ -100,6 +100,9 @@ const SideMenu = (props) => {
                       </span> : item.icon) : ''
                   }
                   <span className="kant-sub-text">{item.title}</span>
+                  <Icon type="right"
+                    className="kant-icon-allow"
+                  />
                 </div>
             }
             {...subMenuProps}
