@@ -12,10 +12,17 @@ const MenuBlock = () => {
   const [openKeys, setOpenKeys] = useState([]);
 
   const dataSource = [
-    { key: '123', title: '菜单1', url: '/abc', icon: 'delete', className: 'abccccc',
-      child: [{ key: '7895', title: '菜单63', url: '/abcdhds' }]
+    { key: '123', title: '菜单1', url: '/abc',
+      icon: <Icon type="delete" style={{ display: 'inline-block',
+        paddingLeft: '4px',
+        width: '40px',
+        height: '40px',
+        color: 'rgba(0, 0, 0, 0.8)' }}></Icon>, className: 'abccccc',
+      child: [{ key: '7895', title: '菜单63', url: '/abcdhds',
+        icon: <Icon type="delete"></Icon> }]
     },
-    { key: '798', title: '菜单4', url: '/abcde', icon: 'delete' },
+    { key: '798', title: '菜单4', url: '/abcde',
+      icon: <Icon type="delete"></Icon> },
     { key: '678', title: '菜单3', url: '/abcde', icon: 'delete',
       child: [{ key: '3456', title: '菜单62', url: '/abcdh' }]
     },
@@ -23,66 +30,18 @@ const MenuBlock = () => {
     { key: '978', title: '菜单6', url: '/abcde', icon: 'delete' }
   ];
 
-  const getElementDom = () => {
-    const element = document.getElementsByClassName('ant-menu-submenu-open');
-    const elementList = [...element].reverse();
-    const toggleClass = (element, j) => {
-      const ul = element[j].getElementsByClassName('ant-menu-sub');
-      ul[0].className += ' ant-menu-hidden';
-      element[j].className = element[j].className.replace(/ant-menu-submenu-open/g, ' ');
-      if (j === element.length - 1 || element.length === 0) {
-        setTimeout( () => {
-          setCollapsed(!collapsed);
-        }, 400);
-      }
-    };
-    const recur = (j, length, elemnt) => {
-      setTimeout(() => {
-        toggleClass(elementList, j);
-        if( ++j <= element.length) {
-          recur(j, length);
-        }
-      }, 400);
-    };
-    if (element.length !== 0) {
-      recur(0, element.length);
-    }
-    if (element.length === 0 ) {
-      setCollapsed(!collapsed);
-    }
-  };
-
-  //设置一个类名给sider
-  const setClass = () => {
-    const element = document.getElementsByClassName('ant-layout-sider')[0];
-    element.className += ' kant-sider-free';
-  };
-
-  const removeClass = () => {
-    const element = document.getElementsByClassName('ant-layout-sider')[0];
-    element.className = element.className.replace(/kant-sider-free/g, ' ');
-  };
-
-  useEffect(() => {
-    if (collapsed === false && mark === 0) {
-      setMark(mark + 1);
-    } else if (collapsed === false && mark !== 0 ) {
-      setClass();
-    } else if (collapsed === true && mark !== 0) {
-      removeClass();
-    }
-  }, [collapsed]);
-
-  const headDom = () => {
+  const headDom = (retractMenu) => {
     return (
       <div className="kant-menu-head">
         <span className="kant-head-icon"
           onClick={ () => {
-            // setCollapsed(!collapsed);
-            getElementDom();
+            retractMenu();
           } }
         >
-          <Icon type="swap" style={{ width: '28px', height: '28px' }}></Icon>
+          <Icon type="swap"
+            style={{ width: '28px', height: '28px', margin: 'auto'
+            }}>
+          </Icon>
         </span>
       </div>
     );
@@ -92,12 +51,11 @@ const MenuBlock = () => {
     <div style={{ height: '700px', width: '800px', border: '1px solid black' }}>
       <SideMenu
         dataSource={dataSource}
-        header={headDom()}
+        header={headDom}
         siderProps={{
           theme: 'light',
         }}
         useCollapsed={true}
-        isCollapsed={collapsed}
         inlineOpenStyle="normal"
         openKeys={openKeys}
       />
