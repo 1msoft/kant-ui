@@ -31,14 +31,14 @@ describe('<FixedMenu>', function () {
     assert.equal(app.find('.kant-test').at(0).length, 1);
     assert.equal((app.find('.kant-show').at(0)).length, 1);
     (app.find('.kant-side-block-list-weixin').at(0)).simulate('click');
-    assert.equal(app.instance().scrollToTop())
-    assert.equal(app.instance().debounce()())
+    assert.equal(app.instance().scrollToTop());
+    assert.equal(app.instance().debounce()());
   });
 
 
   it('是否能正确触发回到顶部事件', function () {
-    sinon.spy(FixedMenu.prototype, 'componentDidMount')
-    sinon.spy(FixedMenu.prototype, 'componentWillUnmount')
+    sinon.spy(FixedMenu.prototype, 'componentDidMount');
+    sinon.spy(FixedMenu.prototype, 'componentWillUnmount');
     const app = mount(
       <FixedMenu
         className={'kant-test'}

@@ -1,20 +1,28 @@
+/**
+ * 悬停菜单栏
+ * @author dxl
+ * @module FixedMenu
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
  * 悬停菜单栏
- * @param {object}   props
- * @param {number}   [props.showHeight]        悬停菜单出现的滚动高度
- * @param {function} [props.onClickTop]        点击顶部触发事件
- * @param {boolean}  [props.isShow]            初始是否默认显示悬停菜单
- * @param {boolean}  [props.isAlways]          悬停菜单栏是否一直存在
- * @param {string}   [props.className]         悬停菜单盒子的类名
- * @param {string}   [props.topClassName]      悬停菜单上部盒子类名
- * @param {string}   [props.bottomClassName]   悬停菜单底部盒子类名
- * @param {function} [props.topDom]            悬停菜单顶部传入自定义dom
- * @param {function} [props.bottomDom]         悬停菜单底部传入自定义dom
- * @param {function} [props.onClickBottom]     底部自定义事件
- * @param {boolean}  [props.useChange]         是否使用初始动效
+ *
+ * @class
+ * @extends React.Component
+ * @param {Object}   props
+ * @param {Number}   [props.showHeight]        悬停菜单出现的滚动高度
+ * @param {Function} [props.onClickTop]        点击顶部触发事件
+ * @param {Boolean}  [props.isShow]            初始是否默认显示悬停菜单
+ * @param {Boolean}  [props.isAlways]          悬停菜单栏是否一直存在
+ * @param {String}   [props.className]         悬停菜单盒子的类名
+ * @param {String}   [props.topClassName]      悬停菜单上部盒子类名
+ * @param {String}   [props.bottomClassName]   悬停菜单底部盒子类名
+ * @param {Function} [props.topDom]            悬停菜单顶部传入自定义dom
+ * @param {Function} [props.bottomDom]         悬停菜单底部传入自定义dom
+ * @param {Function} [props.onClickBottom]     底部自定义事件
+ * @param {Boolean}  [props.useChange]         是否使用初始动效
  */
 class FixedMenu extends React.Component {
   constructor(props){
@@ -109,20 +117,12 @@ class FixedMenu extends React.Component {
     animate(10, 100);
   }
 
-  /**
-   * 设置 scrollTop
-   * @param {Number} value scrollTop值
-   */
   setScrollTop(value){
     document.documentElement.scrollTop = value;
     window.pageYOffset = value;
     document.body.scrollTop = value;
   }
 
-  /**
-   * 监听滚动
-   * @param {Object} e 事件
-   */
   onScroll = (e) => {
     const showHeight = this.props.showHeight || 0;
     if (this.props.isAlways === true) {
@@ -134,11 +134,6 @@ class FixedMenu extends React.Component {
     }
   }
 
-  /**
-    * 防抖
-    * @param {Function} func 事件函数
-    * @param {Number} wait 时长
-    */
   debounce = (func, wait) => {
     let timeout;
     return function () {
