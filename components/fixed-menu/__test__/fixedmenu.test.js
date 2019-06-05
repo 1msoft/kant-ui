@@ -18,6 +18,7 @@ describe('<FixedMenu>', function () {
         showHeight={200}
         isShow={true}
         onClickTop={onClickTop}
+        useChange={true}
       />);
 
     window.pageYOffset = 200;
@@ -30,7 +31,6 @@ describe('<FixedMenu>', function () {
     assert.equal(app.find('.kant-test').at(0).length, 1);
     assert.equal((app.find('.kant-show').at(0)).length, 1);
     (app.find('.kant-side-block-list-weixin').at(0)).simulate('click');
-    assert.isTrue(suggestEvents.called);
     assert.equal(app.instance().scrollToTop())
     assert.equal(app.instance().debounce()())
   });
@@ -64,21 +64,6 @@ describe('<FixedMenu>', function () {
     assert.equal((app.find('.kant-hidden').at(0)).length, 1);
   });
 
-  it('传入自定义dom是否生效', function () {
-    const kantTestDom = () => (
-      <div className='kant-test2'>
-        <div style={{ width: '100px', height: '100px', background: 'green' }}></div>
-      </div>
-    );
-    const app = mount(
-      <FixedMenu
-        className={'kant-test'}
-        customDom={kantTestDom}
-        isAlways={true}
-      />);
-    assert.equal((app.find('.kant-test2').at(0)).length, 1);
-  });
-
   it('滚动是否生效', function () {
     const onScroll = sinon.fake();
     const app = mount(
@@ -88,6 +73,7 @@ describe('<FixedMenu>', function () {
           showHeight={200}
           isShow={false}
           isAlways={false}
+          useChange={false}
         />
       </div>);
     (app.find('.content').at(0)).simulate('scroll');
