@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 /**
  * 文本输入框
  * @param {Object}  props
+ * @param {Object}  ref                       自动接收表单校验的ref
  * @param {Boolean} [props.autosize=false]    文本域自适应内容高度
  * @param {Function} [props.onFocus]          聚焦事件
  * @param {Function} [props.onBlur]           失焦事件

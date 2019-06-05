@@ -11,9 +11,11 @@ import { Button as AntButton } from 'antd';
 
 /**
  * 按钮
- * @param {object}   Props
- * @param {function} [props.onClick]   按钮点击事件
- * @param {string}   [props.className] 按钮类名
+ * @param {Object}   props
+ * @param {Object}   ref               自动接收表单校验的ref
+ * @param {Function} [props.onClick]   按钮点击事件
+ * @param {String}   [props.className] 按钮类名
+ * @returns {ReactComponent} 按钮
  * @see {@link https://ant.design/components/button-cn/#API 更多按钮参数参照antd官网}
  */
 let Button = (props, ref) => {
