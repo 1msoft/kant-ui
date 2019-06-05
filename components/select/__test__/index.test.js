@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import React from 'react'
+import React from 'react';
 import sinon from 'sinon';
 import Enzyme from 'enzyme';
-import {assert} from 'chai';
+import { assert } from 'chai';
 import Select from '../index';
 import { Select as AntSelect, Icon } from 'antd';
 import Adapter from 'enzyme-adapter-react-16';
@@ -10,11 +10,11 @@ import Adapter from 'enzyme-adapter-react-16';
 const { mount, shallow } = Enzyme;
 const Option = AntSelect.Option;
 
-Enzyme.configure({ adapter: new Adapter() })
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Select: 选择器', function () {
   it('使用 antd 默认 Option 进行渲染', function (){
-    const data = [{title: '红色', value: 'red'}];
+    const data = [{ title: '红色', value: 'red' }];
     const onChange = sinon.fake();
     const wrapper = mount(
       <Select onChange={onChange}>
@@ -36,10 +36,10 @@ describe('Select: 选择器', function () {
   it('直接通过 data 是否正确渲染数据', function (){
     const onChange = sinon.fake();
     const data = [
-      {title: '红色', value: 'red', key: '自定义key'},
-      {title: '白色', value: 'white', props: { disabled: true }},
+      { title: '红色', value: 'red', key: '自定义key' },
+      { title: '白色', value: 'white', props: { disabled: true } },
       '字符串数据', 12345,
-      {title: '黑色', value: 'black'},
+      { title: '黑色', value: 'black' },
     ];
     const wrapper = mount(
       <Select onChange={onChange} data={data}/>
@@ -65,7 +65,7 @@ describe('Select: 选择器', function () {
   });
 
   it('通过 formatValue 和 formatTitle 指定数据 key', function (){
-    const data = [{desc: '红色', color: 'red'}];
+    const data = [{ desc: '红色', color: 'red' }];
     const onChange = sinon.fake();
     const wrapper = mount(
       <Select formatValue="color" formatTitle="desc" onChange={onChange} data = {data} />
@@ -82,8 +82,8 @@ describe('Select: 选择器', function () {
 
   it('通过 formatValue 和 formatTitle 对 title value 进行格式化', function (){
     const data = [
-      {community: '国关小区', building: '1', house: '201', id: '123'},
-      {community: '花园小区', building: '8', house: '801', id: '456'},
+      { community: '国关小区', building: '1', house: '201', id: '123' },
+      { community: '花园小区', building: '8', house: '801', id: '456' },
     ];
     const onChange = sinon.fake();
     const formatValue = v => v.id;
@@ -110,7 +110,7 @@ describe('Select: 选择器', function () {
   });
 
   it('加载中是否能够正确显示、类型是否正确', function (){
-    const data =  [{title: '红色', value: 'red'}];
+    const data =  [{ title: '红色', value: 'red' }];
     const defaultWrapper = mount( <Select data={data} loading/>);
     const fieldWrapper = mount( <Select data={data} loading loadingType="field"/>);
     const allWrapper = mount(
@@ -120,11 +120,11 @@ describe('Select: 选择器', function () {
         loadingType="all"
         spin={{ indicator: (
           <Icon
-          type="loading"
-          style={{ fontSize: 24 }}
-          className="kant-icon-spin"
+            type="loading"
+            style={{ fontSize: 24 }}
+            className="kant-icon-spin"
           />
-        )}}
+        ) }}
       />
     );
     const menuWrapper = mount(
@@ -134,11 +134,11 @@ describe('Select: 选择器', function () {
         loadingType="menu"
         spin={{ indicator: (
           <Icon
-          type="loading"
-          style={{ fontSize: 24 }}
-          className="kant-icon-spin"
+            type="loading"
+            style={{ fontSize: 24 }}
+            className="kant-icon-spin"
           />
-        )}}
+        ) }}
       />
     );
 
@@ -166,7 +166,7 @@ describe('Select: 选择器', function () {
   it('触底事件是否正确触发', function (){
     const data = [];
     for(let i = 0; i < 10; i++){
-      data.push({title: `红色${i}`, value: `red${i}`});
+      data.push({ title: `红色${i}`, value: `red${i}` });
     }
     const onTouchBottom = sinon.fake();
     const onPopupScroll = sinon.fake();
@@ -193,7 +193,7 @@ describe('Select: 选择器', function () {
 
   it('追加 dom 是否实现', function (){
     const onClick = sinon.fake();
-    const data =  [{title: '红色', value: 'red'}];
+    const data =  [{ title: '红色', value: 'red' }];
     const wrapper = mount(
       <Select
         data = {data}

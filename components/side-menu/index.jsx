@@ -13,6 +13,7 @@ const { Sider: AntSider } = Layout;
 const { SubMenu: AntSubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
+
 /**
  * 侧边栏
  * @param {Object}   props
@@ -24,7 +25,6 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {String}   props.dataSource.icon              图标
  * @param {String}   props.dataSource.className         类名
  * @param {Boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
- * @param {Boolean}  [props.isCollapsed=false]          菜单是否收缩
  * @param {String}   [props.retractMode='half']         收缩模式       'half' | 'all'
  * @param {String}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
  * @param {Function} [props.header]                     未收缩头部组件
@@ -43,6 +43,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {Object}   [props.subMenuProps]               subMenu的api
  * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom
  * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
+ * @returns {ReactComponent} 侧边栏
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
  */
@@ -76,6 +77,8 @@ const SideMenu = (props) => {
 
   const [selectedKeysState, setSelectedKeys] = useState([]);
   const [openKeysState, setOpenKeys] = useState([]);
+  const [collapsed, setCollapsed] = useState(false);
+  const [mark, setMark] = useState(0);
 
   const menuNode = (data) => {
     const menuElement = menu => menu.map(item => {
@@ -83,33 +86,42 @@ const SideMenu = (props) => {
       if (item.child) {
         return (
           <AntSubMenu
-            className={ ` ant-menu-submenu-active ${item.className
+            className={ ` ${item.className
               ? `${item.className}` : ''} kant-submenu-overlay` }
             key={item.key}
             title={
               props.subMenuTitleDom ? props.subMenuTitleDom(item)
                 :
                 <div className="kant-submenu-title">
-                  <span className={`kant-sub-icon iconfont ${item.icon}`}>
-                    &nbsp;
-                  </span>
+                  {
+                    item.icon ? (typeof(item.icon) === 'string' ?
+                      <span className={`kant-sub-icon iconfont ${item.icon}`}>
+                        &nbsp;
+                      </span> : item.icon) : ''
+                  }
                   <span className="kant-sub-text">{item.title}</span>
+                  <Icon type="right"
+                    className="kant-icon-allow"
+                  />
                 </div>
             }
             {...subMenuProps}
           >
             {
               props.retractMode === 'half'
-                && props.isCollapsed === true ?
+                && collapsed === true ?
                 <MenuItemGroup
                   className={'kant-menuitemgroup-content'}
                   title={
                     props.menuItemGroupDom ? props.menuItemGroupDom(item)
                       :
                       <div className="kant-itemgroup-title">
-                        <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
-                          &nbsp;
-                        </span>
+                        {
+                          item.icon ? (typeof(item.icon) === 'string' ?
+                            <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
+                              &nbsp;
+                            </span> : item.icon) : ''
+                        }
                         <span className="kant-itemgroup-text">{item.title}</span>
                       </div>
                   }>
@@ -130,11 +142,10 @@ const SideMenu = (props) => {
                 <div className="kant-menuitem-title">
                   <a href={item.url}>
                     {
-                      item.icon ?
+                      item.icon ? (typeof(item.icon) === 'string' ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
                           &nbsp;
-                        </span>
-                        : ''
+                        </span> : item.icon) : ''
                     }
                     <span className="kant-menuitem-text">{item.title}</span>
                   </a>
@@ -257,14 +268,55 @@ const SideMenu = (props) => {
   };
 
   const toogelOpenChildMode = (mark, otherProps) => {
-    if (!props.isCollapsed && mark === 'inline') {
+    if (!collapsed && mark === 'inline') {
       otherProps.onOpenChange = onOpenChange;
       otherProps.openKeys = openKeysState;
       otherProps.mode = mark;
-    } else if (props.isCollapsed && mark === 'inline') {
+    } else if (collapsed && mark === 'inline') {
       otherProps.mode = 'vertical';
     }
     return otherProps;
+  };
+
+  //收起级联下级并且收缩菜单
+  const retractMenu = () => {
+    const element = document.getElementsByClassName('ant-menu-submenu-open');
+    const elementList = [...element].reverse();
+    const toggleClass = (element, j) => {
+      const ul = element[j].getElementsByClassName('ant-menu-sub');
+      ul[0].className += ' ant-menu-hidden';
+      element[j].className = element[j].className.replace(/ant-menu-submenu-open/g, ' ');
+      if (j === element.length - 1 || element.length === 0) {
+        setTimeout( () => {
+          setCollapsed(!collapsed);
+        }, 400);
+      }
+    };
+    const recur = (j, length) => {
+      setTimeout(() => {
+        toggleClass(elementList, j);
+        if( ++j <= element.length) {
+          recur(j, length);
+        }
+      }, 400);
+    };
+    if (element.length !== 0) {
+      recur(0, element.length);
+    }
+    if (element.length === 0 ) {
+      setCollapsed(!collapsed);
+    }
+  };
+
+  //设置一个类名给sider
+  const setClass = () => {
+    const element = document.getElementsByClassName('ant-layout-sider')[0];
+    element.className += ' kant-sider-free';
+  };
+
+  const removeClass = () => {
+    const element = document.getElementsByClassName('ant-layout-sider')[0];
+    element.className = element.className.replace(/kant-sider-free/g, ' ');
   };
 
   const halfRetractHeaderDom = props.halfRetractHeader ? props.halfRetractHeader : null;
@@ -275,9 +327,25 @@ const SideMenu = (props) => {
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
-      cascadeKeys();
     }
   }, []);
+
+  //设置收缩/展开
+  useEffect(() => {
+    if (collapsed === false && mark === 0) {
+      setMark(mark + 1);
+    } else if (collapsed === false && mark !== 0 ) {
+      setOpenKeys([]);
+      setClass();
+      setTimeout(() => {
+        cascadeKeys();
+      }, 1400);
+    } else if (collapsed === true && mark !== 0) {
+      removeClass();
+      setOpenKeys([]);
+    }
+  }, [collapsed]);
+
 
   return (
     <AntSider
@@ -285,16 +353,17 @@ const SideMenu = (props) => {
         `kant-sidermenu-content ${props.className}`
         : 'kant-sidermenu-content'}
       style={props.siderStyle}
-      collapsed={props.useCollapsed ? props.isCollapsed : false}
+      // collapsed={props.useCollapsed ? props.isCollapsed : false}
+      collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}
       {...toggelRetractMode(props.retractMode, {})}
       {...siderProps}
     >
       {
-        props.retractMode === 'half' && props.isCollapsed && props.halfRetractHeader ?
-          halfRetractHeaderDom
+        props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
+          props.halfRetractHeader(retractMenu)
           :
-          (props.header ? headerDom : '')
+          (props.header ? props.header(retractMenu) : '')
       }
       <Menu
         onSelect={onSelect}
@@ -306,7 +375,7 @@ const SideMenu = (props) => {
         }
       </Menu>
       {
-        props.retractMode === 'half' && props.isCollapsed && props.halfRetractFooter ?
+        props.retractMode === 'half' && collapsed && props.halfRetractFooter ?
           halfRetractFooterDom
           :
           (props.footer ? footerDom : '')
@@ -323,7 +392,10 @@ SideMenu.propTypes = {
       title: PropTypes.string,
       url: PropTypes.string,
       child: PropTypes.array,
-      icon: PropTypes.string,
+      icon: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element,
+      ]),
       className: PropTypes.string,
     })
   ),
@@ -331,9 +403,9 @@ SideMenu.propTypes = {
   isCollapsed: PropTypes.bool,
   retractMode: PropTypes.string,
   openChildMode: PropTypes.string,
-  header: PropTypes.object,
+  header: PropTypes.func,
   footer: PropTypes.object,
-  halfRetractHeader: PropTypes.object,
+  halfRetractHeader: PropTypes.func,
   halfRetractFooter: PropTypes.object,
   siderStyle: PropTypes.object,
   inlineOpenStyle: PropTypes.string,

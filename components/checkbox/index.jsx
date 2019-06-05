@@ -10,7 +10,9 @@ import omit from 'omit.js';
 import _ from 'lodash';
 
 /**
- * @param {object} Props
+ * @param {Object} props
+ * @param {Object}  ref      自动接收表单校验的ref
+ * @returns {ReactComponent} 多选框
  * @see {@link https://ant.design/components/checkbox-cn/#API 更多多选框参数参照antd官网}
  */
 let Checkbox = (props, ref) => {
