@@ -116,6 +116,7 @@ const changeRules = (props) => {
 /**
  * 日期范围输入框
  * @param {Object}   props
+ * @param {Object}   ref                       自动接收表单校验的ref
  * @param {String}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
  * @param {String}   [props.theme='box']             主题('box' | 'underline')
  * @param {Array}    [props.value]                   指定时间[moment, moment]
