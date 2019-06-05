@@ -56,14 +56,15 @@ const getSelectProps = (props) => {
 
 /**
  * 年份范围输入框
- * @param {object}   props
- * @param {date}     [props.value]              值
- * @param {date}     [props.defaultValue]       默认值
- * @param {function} [props.onChange]           年份发生变化的回调
- * @param {string}   [props.className]          类名
- * @param {number}   [props.minYear=1990]       最小年份
- * @param {number}   [props.maxYear=当前年份+10]  最大年份
+ * @param {Object}   props
+ * @param {Date}     [props.value]              值
+ * @param {Date}     [props.defaultValue]       默认值
+ * @param {Function} [props.onChange]           年份发生变化的回调
+ * @param {String}   [props.className]          类名
+ * @param {Number}   [props.minYear=1990]       最小年份
+ * @param {Number}   [props.maxYear=当前年份+10]  最大年份
  * @see {@link https://ant.design/components/select-cn/#API 更多参数详见 antd 选择框 Select 文档}
+ * @returns {ReactComponent} 年份范围选择组件
  */
 const YearPicker = (props) => {
   const selectProps = getSelectProps(props);
@@ -79,6 +80,10 @@ const YearPicker = (props) => {
 
 /**
  * 自定义日期校验
+ * @param {Object} props
+ * @param {String} propName
+ * @param {String} componentName
+ * @returns {Error} 类型校验错误信息
  */
 function customDateValidators(props, propName, componentName) {
   const val = props[propName];

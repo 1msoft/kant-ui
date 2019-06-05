@@ -1,0 +1,141 @@
+@import '../assets/styles/vars.less';
+
+.kant-form-item {
+  display: flex;
+  align-items: flex-start;
+  min-height: 40px;
+  height: 100%;
+  padding-right: 12px;
+  flex-direction: row;
+
+  & .kant-label-container {
+    // min-width: 80px;
+    min-height: 40px;
+    height: 100%;
+    padding-right: 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    & .kant-label {
+      position: relative;
+      font-size: 14px;
+    }
+
+    /********** 必填标示（locationRequired） beforeLabel | afterLabel | afterWrapper *******/
+    & .kant-label-required-before-label {
+      padding-left: 12px;
+    }
+
+    & .kant-label-required-before-label:before {
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      content: "*";
+      color: @warning-color;
+      display: inline-block;
+    }
+
+    & .kant-wrapper-required-after-wrapper:after {
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      content: "*";
+      color: @warning-color;
+      display: inline-block;
+    }
+
+    /****** 冒号(colon) true | false ********/
+    & .kant-label-colon-show:after {
+      position: absolute;
+      top: 0;
+      right: -6px;
+      content: " : ";
+      display: inline-block;
+    }
+  }
+
+  & .kant-label-container-inline {
+    width: auto !important;
+  }
+
+  /*********** label布局方向（labelAlign） left | center | right ****************/
+  & .kant-label-container-left {
+    justify-content: flex-start;
+  }
+
+  & .kant-label-container-center {
+    justify-content: center;
+  }
+
+  & .kant-wrapper-container {
+    flex: 1;
+    position: relative;
+    margin-bottom: 24px;
+    padding-bottom: 0;
+
+    & .ant-form-item-control {
+      line-height: 40px;
+    }
+
+    & .has-error {
+      & .ant-form-explain {
+        color: @warning-color;
+      }
+
+      input,
+      textarea,
+      .ant-select,
+      .kant-input {
+        box-shadow: 0 2px 6px -2px fade(@warning-color, 30%);
+      }
+
+      input:focus,
+      textarea:focus,
+      .ant-select:focus {
+        background-color: @warning-background-color;
+      }
+
+    }
+  }
+
+  /*********** wrapper布局方向（wrapperAlign） left | center | right ****************/
+  & .kant-wrapper-container-left {
+    & .ant-form-item-control {
+      text-align: left;
+    }
+  }
+
+  & .kant-wrapper-container-right {
+    & .ant-form-item-control {
+      text-align: right;
+    }
+  }
+
+  & .kant-wrapper-container-center {
+    & .ant-form-item-control {
+      text-align: center;
+    }
+  }
+
+  /********** 必填标示（locationRequired） beforeLabel | afterLabel | afterWrapper *******/
+  & .kant-wrapper-required-after-wrapper {
+    & .ant-form-item-children:after {
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      vertical-align: middle;
+      content: "*";
+      color: @warning-color;
+      display: inline-block;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+/******* 方向设置(direction) row | column **********/
+.kant-form-item-column {
+  flex-direction: column;
+  margin-bottom: 0;
+}

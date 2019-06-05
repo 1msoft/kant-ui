@@ -1,6 +1,6 @@
 {
   "name": "@1msoft/kant-ui",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "private": false,
   "files": [
     "lib",
@@ -12,6 +12,7 @@
   "module": "es/index.js",
   "dependencies": {
     "antd": "^3.17.0",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "omit.js": "^1.0.2",
     "prop-types": "^15.7.2"

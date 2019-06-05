@@ -1,0 +1,67 @@
+@import '../assets/styles/vars.less';
+.kant-select {
+  .kant-append-option {
+    padding: 0;
+    margin: 0;
+    &-wrapper{
+      cursor: default;
+    }
+  }
+
+  .ant-select {
+    border-radius: 4px;
+  }
+
+  .ant-select-open {
+    .ant-select-selection {
+      background: fade(@primary-color, 20%);
+    }
+  }
+}
+
+.kant-select-dropdown {
+  // 清除样式
+  box-shadow: none !important;
+  background: transparent !important;
+
+  .kant-menu {
+    overflow: hidden;
+    width: calc(100% + 20px);
+    padding: 0 10px 10px 10px;
+    transform: translateX(-10px);
+  }
+
+  .kant-menu-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px fade(@primary-color, 15%);
+    background: #fff;
+  }
+
+  &.ant-select-dropdown-hidden {
+    display: block !important;
+    .kant-menu-wrapper {
+      transform: translateY(-110%);
+      transition: transform 0.5s;
+    }
+  }
+
+  &.dropdown-hidden {
+    display: none !important;
+  }
+
+  &.dropdown-show {
+    .kant-menu-wrapper {
+      animation: dropdown-show 0.5s;
+    }
+  }
+
+  @keyframes dropdown-show {
+    0%{
+      transform: translateY(-110%);
+    }
+    100%{
+      transform: translateY(0);
+    }
+  }
+}

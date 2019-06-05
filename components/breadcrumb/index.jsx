@@ -5,16 +5,17 @@ import omit from 'omit.js';
 
 /**
  * 面包屑导航通用组件
- * @param {object}   props
- * @param {array}    props.breadcrumbs = []         面包屑路由
- * @param {string}   [props.breadcrumbs.icon]       图标
- * @param {string}   [props.breadcrumbs.text]       内容
- * @param {string}   [props.breadcrumbs.path]       路由链接
- * @param {object}   [props.breadcrumbs.props]      特定的属性
- * @param {function} [props.itemRender]             链接路由函数
- * @param {string}   [props.targetItemClass ]       当前路由高亮等自定义样式
- * @param {object}   [props.breadcrumbProps]        breadcrumb组件的api
- * @param {object}   [props.breadcrumbItemProps]    BreadcrumbItem的api
+ * @param {Object}   props
+ * @param {Array}    props.breadcrumbs = []         面包屑路由
+ * @param {String}   [props.breadcrumbs.icon]       图标
+ * @param {String}   [props.breadcrumbs.text]       内容
+ * @param {String}   [props.breadcrumbs.path]       路由链接
+ * @param {Object}   [props.breadcrumbs.props]      特定的属性
+ * @param {Function} [props.itemRender]             链接路由函数
+ * @param {String}   [props.targetItemClass ]       当前路由高亮等自定义样式
+ * @param {Object}   [props.breadcrumbProps]        breadcrumb组件的api
+ * @param {Object}   [props.breadcrumbItemProps]    BreadcrumbItem的api
+ * @returns {ReactComponent} 面包屑组件
  */
 const Breadcrumb = (props) => {
   let filterArr = [
@@ -36,7 +37,12 @@ const Breadcrumb = (props) => {
                 {...breadcrumbItemProps}
                 {...item.props}
               >
-                {item.icon ? <Icon type={item.icon} /> : ''} {item.text}
+                {item.icon ?
+                  <span className={`iconfont ${item.icon}`}>
+                    &nbsp;
+                  </span>
+                  : ''}
+                {item.text}
               </AntBreadcrumb.Item>
             );
           } else {
@@ -49,7 +55,15 @@ const Breadcrumb = (props) => {
                   props.itemRender ?
                     props.itemRender(item)
                     :
-                    <a href={item.path}>{item.icon ? <Icon type={item.icon}/> : ''}{item.text}</a>
+                    <a href={item.path}>{
+                      item.icon ?
+                        <span
+                          className={`iconfont ${item.icon}`}>
+                          &nbsp;
+                        </span>
+                        : ''}
+                    <span>{item.text}</span>
+                    </a>
                 }
               </AntBreadcrumb.Item>
             );

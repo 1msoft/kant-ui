@@ -3,47 +3,48 @@
  * @author jfj
  * @module InputNumber
  */
-import React from "react";
+import React, { useContext, forwardRef } from "react";
 import PropTypes from "prop-types";
 
 import omit from 'omit.js';
 import {
   isEqual,
-  isEmpty,
+  isNil,
   isFunction,
 } from 'lodash';
 import classNames from 'classnames';
+import Context from '../context';
 import { InputNumber as AntInputNumber } from "antd";
 
 /**
  * 数字输入框
- * @param {object}  props
- * @param {string}  [props.theme='box']            不同风格   'box' 'underline'
- * @param {string}  [props.label]                  label的标签文本(预留)
- * @param {string}  [props.className='']           附加类名
- * @param {boolean} [props.autoFocus=false]        自动获焦
- * @param {boolean} [props.controls=true]          是否显示控制器按钮
- * @param {number}  [props.precision]              数值精度
- * @param {function}[props.onPressEnter=()=>{}]    回车事件
- * @param {string}  [props.prefix='']              格式化前缀
- * @param {string}  [props.suffix='']              格式化后缀
- * @see {@link https://ant.design/components/input-number-cn/#API 更多参数详见 antd 数字输入框 InputNumber 文档}
- */
-const InputNumber = (props) => {
-  const regex = new RegExp(`\\${props.prefix}\s?|${props.suffix}|(,*)`, "g");
-
+ *
+ * @param {Object}  props
+ * @param {Object}  ref                            自动接收表单校验的ref
+ * @param {String}  [props.theme='box']            不同风格   'box' 'underline'
+ * @param {String}  [props.label]                  label的标签文本(预留)
+ * @param {String}  [props.className='']           附加类名
+ * @param {Boolean} [props.autoFocus=false]        自动获焦
+ * @param {Boolean} [props.controls=true]          是否显示控制器按钮
+ * @param {Number}  [props.precision]              数值精度
+ * @param {Function}[props.onPressEnter=()=>{}]    回车事件
+ * @param {String}  [props.prefix='']              格式化前缀
+ * @param {String}  [props.suffix='']              格式化后缀
+ * @see {@link https://ant.design/components/input-number-cn/#API
+  * 更多参数详见 antd 数字输入框 InputNumber 文档 }
+  * @returns {ReactComponent} 数组输入框
+  */
+let InputNumber = (props, ref) => {
   const handleKeyDown = (event) => {
     const { onPressEnter, onKeyDown } = props;
-    const str = String(event.target.value).replace(regex, "");
     if (
+      !isNil(onPressEnter) &&
       isFunction(onPressEnter) &&
-      !isEmpty(onPressEnter) &&
       isEqual(event.keyCode, 13)
     ) {
-      onPressEnter(Number(str) || null);
+      onPressEnter(event);
     }
     if (onKeyDown) {
-      event.target.value = str;
       onKeyDown(event);
     }
   };
@@ -57,23 +58,44 @@ const InputNumber = (props) => {
     'controls',
     'className',
   ]);
-
+  const kantContext = useContext(Context);
+  const theme = props.theme || kantContext.theme || 'box';
   const className = classNames(
-    'kant-input-number',
-    `kant-input-number-theme-${props.theme}`,
     props.className,
-    { 'kant-input-number-handler-hide': props.controls },
+    'kant-input-number',
+    `kant-input-number-theme-${theme}`,
+    {
+      'kant-input-number-prefix-show': props.prefix,
+      'kant-input-number-handler-hide': props.controls,
+    },
+  );
+
+  const prefixClassName = classNames(
+    'kant-input-number-prefix',
+    { 'kant-input-number-prefix-left': props.controls },
+  );
+
+  const suffixClassName = classNames(
+    'kant-input-number-suffix',
+    { 'kant-input-number-suffix-right': props.controls },
   );
   return (
-    <AntInputNumber
-      formatter={value => `${props.prefix}${value}${props.suffix}`}
-      parser={value => value.replace(regex, "")}
-      className={className}
-      onKeyDown={handleKeyDown}
-      {...otherProps}
-    />
+    <div className="kant-input-number-wrapper" ref={ref}>
+      {props.prefix ? (
+        <span className={prefixClassName}>{props.prefix}</span>
+      ) : null}
+      <AntInputNumber
+        className={className}
+        onKeyDown={handleKeyDown}
+        {...otherProps}
+      />
+      {props.suffix ? (
+        <span className={suffixClassName}>{props.suffix}</span>
+      ) : null}
+    </div>
   );
 };
+InputNumber = forwardRef(InputNumber);
 
 InputNumber.propTypes = {
   theme: PropTypes.oneOf(["box", "underline"]),
@@ -88,13 +110,12 @@ InputNumber.propTypes = {
 };
 
 InputNumber.defaultProps = {
-  theme: "box",
   autoFocus: false,
-  controls: true,
+  controls: false,
   prefix: "",
   suffix: "",
   className: "",
-  onPressEnter: () => {},
+  onPressEnter: _ => _,
 };
 
 export default InputNumber;

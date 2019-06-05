@@ -3,12 +3,13 @@
  * @author kjx
  * @module DatePicker
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import omit from 'omit.js';
 import { DatePicker as AntDatePicker } from 'antd';
 import YearPicker from './YearPicker';
+import Context from '../context';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 
 AntDatePicker.YearPicker = YearPicker;
@@ -43,7 +44,9 @@ const getPickerProps = (props, index) => {
   ]);
   const isStartPicker = index === 0;
   const config = isStartPicker ? props.starPickerConfig : props.endPickerConfig;
-  const className = `${props.className} kant-date-picker kant-date-picker-theme-${props.theme}`;
+  const kantContext = useContext(Context);
+  const theme = props.theme || kantContext.theme || 'box';
+  const className = `${props.className} kant-date-picker kant-date-picker-theme-${theme}`;
   let pickerProps = {
     className,
     placeholder: isStartPicker ? '开始日期' : '结束日期',
@@ -70,17 +73,18 @@ const getPickerProps = (props, index) => {
 
 /**
  * 日期范围输入框
- * @param {object}   props
- * @param {string}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
- * @param {string}   [props.theme='box']             主题('box' | 'underline')
- * @param {array}    [props.value=[]]                指定时间[moment, moment]
- * @param {array}    [props.defaultValue=[]]         默认时间[moment, moment]
- * @param {number}   [props.minYear]                 最小年份 年份选择器专用
- * @param {number}   [props.maxYear]                 最大年份 年份选择器专用
- * @param {function} [props.onChange=() => {}]       时间发生变化的回调
- * @param {object}   [props.starPickerConfig]        起始时间配置
- * @param {object}   [props.endPickerConfig]         结束时间配置
+ * @param {Object}   props
+ * @param {String}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
+ * @param {String}   [props.theme='box']             主题('box' | 'underline')
+ * @param {Array}    [props.value=[]]                指定时间[moment, moment]
+ * @param {Array}    [props.defaultValue=[]]         默认时间[moment, moment]
+ * @param {Number}   [props.minYear]                 最小年份 年份选择器专用
+ * @param {Number}   [props.maxYear]                 最大年份 年份选择器专用
+ * @param {Function} [props.onChange=() => {}]       时间发生变化的回调
+ * @param {Object}   [props.starPickerConfig]        起始时间配置
+ * @param {Object}   [props.endPickerConfig]         结束时间配置
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
+ * @returns {ReactComponent} 日期组件
  */
 const DatePicker = (props) => {
   const [startDate, setStartDate] = useState(
@@ -116,6 +120,12 @@ const DatePicker = (props) => {
 
 /**
  * 自定义日期校验
+ * @param {Object} propValue
+ * @param {String} key
+ * @param {String} componentName
+ * @param {*} location
+ * @param {String} propFullName
+ * @returns {Error} 类型校验错误信息
  */
 function customDateValidators(propValue, key, componentName, location, propFullName) {
   const val = propValue[key];
@@ -138,7 +148,6 @@ DatePicker.propTypes = {
 
 DatePicker.defaultProps = {
   type: "Date",
-  theme: "box",
   value: [],
   locale,
   defaultValue: [],

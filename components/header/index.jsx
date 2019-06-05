@@ -43,9 +43,9 @@ const getBoundaryValue = (val) => {
 };
 
 // 头部类名设置
-const setHeaderClassName = (fixed, isHide) => {
-  let className = 'kant-header';
-  if (fixed) {
+const setHeaderClassName = (props, isHide) => {
+  let className = `${props.className} kant-header`;
+  if (props.fixed) {
     className = `${className} kant-header-fixed`;
     if (isHide) {
       className = `${className} kant-header-hide`;
@@ -83,6 +83,7 @@ const renderDom = ({ children, subNav, subNavPlacement }) => {
  * @param {object}                props
  * @param {boolean}               [props.fixed=true]      是否固定在页面
  * @param {object}                [props.style]           行内样式
+ * @param {string}                [props.className]       类名
  * @param {boolean|string|number} [props.downHide=false]  滚动条下滑时，是否隐藏头部(基于fixed)
  * @param {boolean|string|number} [props.upShow=false]    滚动条上滑时，是否显示头部(基于downHide)
  * @param {element}               [props.subNav]          子菜单的ReactDom
@@ -118,7 +119,7 @@ const Header = (props) => {
   });
   return (
     <div style={props.style}
-      className={setHeaderClassName(props.fixed, hide)}>
+      className={setHeaderClassName(props, hide)}>
       {renderDom(props)}
     </div>
   );
@@ -126,7 +127,12 @@ const Header = (props) => {
 
 /**
  * 自定义类型校验
-*/
+ *
+ * @param {Object} props
+ * @param {String} propName
+ * @param {String} componentName
+ * @returns {Error} 类型校验错误信息
+ */
 function customTypeValidators(props, propName, componentName) {
   const val = props[propName];
   switch (typeof val) {
@@ -158,6 +164,7 @@ Header.propTypes = {
   fixed: PropTypes.bool,
   downHide: customTypeValidators,
   upShow: customTypeValidators,
+  className: PropTypes.string,
   subNav: PropTypes.element,
   subNavPlacement: PropTypes.oneOf([
     'up',
@@ -169,6 +176,7 @@ Header.defaultProps = {
   fixed: false,
   downHide: false,
   upShow: false,
+  className: '',
 };
 
 export default Header;

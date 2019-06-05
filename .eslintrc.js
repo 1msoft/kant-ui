@@ -18,6 +18,27 @@ module.exports = {
         }
       }
     ],
+    // 有效的jsdoc
+    "valid-jsdoc": [
+      "error",
+      {
+        "preferType":
+        {
+          "boolean": "Boolean",
+          "number": "Number",
+          "string": "String",
+          "object": "Object",
+          "array": "Array",
+          "date": "Date",
+          "error": "Error",
+          "function": "Function",
+        },
+        "requireReturn": false,
+        "requireReturnType": false,
+        "requireParamDescription": false,
+        "requireReturnDescription": false,
+      },
+    ],
     // 最大长度
     "max-len": [1, { "code": 100 } ],
     // 不允许多个空行
