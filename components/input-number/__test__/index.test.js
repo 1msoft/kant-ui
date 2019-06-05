@@ -41,7 +41,7 @@ describe('InputNumber', () => {
   });
 
   it('能否正确触发按下回车按钮事件', () => {
-    const onPressEnter = sinon.spy({ method: value => value}, 'method');
+    const onPressEnter = sinon.spy({ method: value => value }, 'method');
     const onKeyDown = sinon.spy(onPressEnter);
     const wrapper = mount(
       <InputNumber
