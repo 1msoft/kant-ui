@@ -9,6 +9,7 @@ import InputNumber from './form/InputNumber';
 import Form from './form/Form';
 import DatePickerComponent from './form/DatePicker';
 import Context from './other/Context';
+import ImgPreviewer from './other/ImgPreviewer';
 
 export default [
   {
@@ -71,6 +72,10 @@ export default [
       {
         title: 'Context 上下文',
         component: Context,
+      },
+      {
+        title: 'ImagePreviewer 图片预览',
+        component: ImgPreviewer,
       }
     ]
   }

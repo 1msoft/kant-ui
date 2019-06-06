@@ -13,3 +13,5 @@ export { default as DatePicker } from './date-picker';
 export { default as Input } from './input';
 
 export { default as Context } from './context';
+// 图片预览
+export { default as ImagePreviewer } from './image-previewer';
