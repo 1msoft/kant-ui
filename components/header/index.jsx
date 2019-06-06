@@ -127,7 +127,12 @@ const Header = (props) => {
 
 /**
  * 自定义类型校验
-*/
+ *
+ * @param {Object} props
+ * @param {String} propName
+ * @param {String} componentName
+ * @returns {Error} 类型校验错误信息
+ */
 function customTypeValidators(props, propName, componentName) {
   const val = props[propName];
   switch (typeof val) {

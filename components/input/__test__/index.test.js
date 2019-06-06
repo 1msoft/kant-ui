@@ -19,7 +19,7 @@ describe('Input', () => {
   });
 
   it('文本域focus能否给外嵌盒子相应的样式', () => {
-    const setFocusClassName = sinon.spy({method: value => value}, 'method');
+    const setFocusClassName = sinon.spy({ method: value => value }, 'method');
     const onClick = sinon.spy(setFocusClassName);
     const wrapper = mount(
       <div>
@@ -32,4 +32,4 @@ describe('Input', () => {
     assert.isTrue(onClick.called);
     assert.equal(wrapper.find('.kant-textarea-blur').length, 1);
   });
-})
+});

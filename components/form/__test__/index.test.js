@@ -177,7 +177,7 @@ describe('LayoutForm 组件 & FormItem 组件', () => {
                 label="房屋"
               >304</FormItem>
             </FormItem>
-              <span>测试数据</span>
+            <span>测试数据</span>
               测试数据
           </FormItem>
         </Form>
@@ -187,5 +187,5 @@ describe('LayoutForm 组件 & FormItem 组件', () => {
     myForm.validateFields();
     wrapper.update();
     wrapper.render();
-  })
+  });
 });

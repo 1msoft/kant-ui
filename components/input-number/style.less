@@ -1,25 +1,89 @@
-.kant-input-number {
+@import '../assets/styles/vars.less';
+
+.kant-input-number-wrapper {
+  display: inline-block;
   position: relative;
-}
+  white-space: nowrap;
 
-.kant-input-number-theme-underline {
-  border-style: none none solid none !important;
-  border-radius: 0 !important;
-}
-
-.ant-input-number-focused,
-.kant-input-number-theme-underline:focus {
-  box-shadow: 0 1px 0 0 rgba(24, 144, 255, 0.2) !important;
-}
-
-.kant-input-number-theme-underline {
-  .ant-input-number-input-wrap:focus {
-    outline: -webkit-focus-ring-color auto 0 !important;
+  & .kant-input-number-prefix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 22px;
+    width: auto;
+    height: calc(100% - 4px);
+    position: absolute;
+    left: 1px;
+    top: 2px;
+    z-index: 1;
+    padding-right: 5px;
+    color: #3e3c3c;
+    transition: all 0.3s;
   }
-}
 
-.kant-input-number-handler-hide {
-  .ant-input-number-handler-wrap {
-    display: none;
+  .kant-input-number-prefix-show {
+    input {
+      padding-left: 23px;
+    }
+  }
+
+  & .kant-input-number-suffix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 22px;
+    width: auto;
+    height: calc(100% - 4px);
+    background: #fff;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    padding-left: 2px;
+    color: #3e3c3c;
+    transition: all 0.3s;
+  }
+
+  & .kant-input-number-suffix:hover {
+    right: 23px;
+  }
+
+  & .kant-input-number-suffix-right {
+    right: 1px !important;
+  }
+
+  .kant-input-number {
+    position: relative;
+  }
+
+  .kant-input-number:hover + .kant-input-number-suffix {
+    right: 23px;
+  }
+
+  .kant-input-number-theme-underline {
+    border-style: none none solid none !important;
+    border-radius: 0 !important;
+  }
+
+  .ant-input-number-focused,
+  .kant-input-number-theme-underline:focus {
+    box-shadow: 0 1px 0 0 fade(@primary-color, 20%) !important;
+  }
+
+  .ant-input-number-input-wrap {
+    input {
+      padding-right: 22px;
+    }
+  }
+
+  .kant-input-number-theme-underline {
+    .ant-input-number-input-wrap:focus {
+      outline: -webkit-focus-ring-color auto 0 !important;
+    }
+  }
+
+  .kant-input-number-handler-hide {
+    .ant-input-number-handler-wrap {
+      display: none;
+    }
   }
 }

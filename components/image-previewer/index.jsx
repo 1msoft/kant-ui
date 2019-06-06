@@ -6,13 +6,14 @@ import './style';
 
 /**
  * 图片预览组件
- * @param {object}  props
- * @param {array}   [props.imgList]               图片url数组 
- * @param {bool}    [props.visible=false]         是否显示
- * @param {func}    [props.onClose]               点击关闭事件
- * @param {number}  [props.currentImg]            首次显示图片在数组中index
- * @param {bool}    [props.loop=false]                  当前图片为最后一张时，是否跳至第一张
- * @param {string}  [props.controlBar='normal']   控制条样式:none,不显示;lite,精简（默认）;normal,正常
+ * @param {Object}    props
+ * @param {Array}     [props.imgList]               图片url数组 
+ * @param {bool}      [props.visible=false]         是否显示
+ * @param {Function}  [props.onClose]               点击关闭事件
+ * @param {Number}    [props.currentImg]            首次显示图片在数组中index
+ * @param {Boolean}   [props.loop=false]            当前图片为最后一张时，是否跳至第一张
+ * @param {String}    [props.controlBar='normal']   控制条样式:none,不显示;lite,精简（默认）;normal,正常
+ * @returns {ReactComponent} 图片预览
  */
 const ImagePreviewer = (props) => {
   const {
