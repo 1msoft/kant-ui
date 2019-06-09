@@ -3,13 +3,16 @@
  * @author kjx
  * @module ProgressBar
  */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
+const LOADING = "loading";
+const SCROLL = "scroll";
 
 // 解析颜色
 const analyticColor = (color) => {
   const type = typeof color;
-  if (type === 'object') {
+  if (type === "object") {
     return `linear-gradient(to right, ${color.from} 0%, ${color.to} 100%)`;
   }
   return color;
@@ -26,6 +29,32 @@ const setOuterStyle = (props) => {
 };
 
 // 设置内层行内样式
+const setInnerStyle = (props) => {
+  const style = { width: `${props.percent || 0}%` };
+  return style;
+};
+
+// 设置进度样式
+const setStrokeStyle = (props) => {
+  const style = {};
+  if (props.strokeColor) {
+    style.background = analyticColor(props.baseColor);
+  }
+  if (props.percent !== 100) {
+    style.animation = "kant-paogress-initial 3s forwards";
+  }
+  return style;
+};
+
+// 设置动画样式
+const setAnimationStyle = (props) => {
+  const style = {};
+  if (props.animationColor) {
+    style.background = analyticColor(props.animationColor);
+  }
+  return style;
+};
+
 
 /**
  * 进度条组件
@@ -41,46 +70,66 @@ const setOuterStyle = (props) => {
  */
 const ProgressBar = (props) => {
   const outerCLassName = `kant-progress-bar-outer ${props.className}`;
-  const innerClassName = props.animation ?
-    'kant-progress-bar-inner kant-progress-bar-inner-animation' :
-    'kant-progress-bar-inner';
+  const outerStyle = setOuterStyle(props);
+  let innerStyle = setInnerStyle(props);
+  let strokeStyle = setStrokeStyle(props);
+  const animationStyle = setAnimationStyle(props);
 
   return (
-    <div className={outerCLassName} style={setOuterStyle(props)}>
-      <div className={innerClassName}></div>
+    <div style={outerStyle} className={outerCLassName}>
+      <div style={innerStyle} className="kant-progress-bar-inner">
+        <div style={strokeStyle} className="kant-progress-bar">
+          {
+            props.animation &&
+            <div style={animationStyle} className="kant-progress-bar-animation">
+            </div>
+          }
+        </div>
+      </div>
     </div>
   );
 };
 
 // 自定义校验颜色参数值
 const customVerifyColorProp = (props, propName, componentName) => {
-  switch (typeof props[propName]) {
-    case 'string':
-      break;
-    case 'object':
-      if (!props[propName].hasOwnProperty('from') ||
-        !props[propName].hasOwnProperty('to')) {
-        return new Error(`${propName}为object时，请用{from: '', to: ''}`);
-      }
-      break;
-    default:
-      return new Error(`${propName} 仅支持string和object类型`);
+  if(props.hasOwnProperty(propName)) {
+    switch (typeof props[propName]) {
+      case "string":
+        break;
+      case "object":
+        if (!props[propName].hasOwnProperty("from") ||
+          !props[propName].hasOwnProperty("to")) {
+          return new Error(`${propName}为object时，请用{from: "", to: ""}`);
+        }
+        break;
+      default:
+        return new Error(`${propName} 必须为 string和object 类型`);
+    }
   }
 };
 
+// 自定义校验进度参数值
+const customVerifyPercentProp = (props, propName, componentName) => {
+  if (typeof props[propName] !== "number")
+    return new Error(`${propName}必须为 number 类型`);
+  if (props[propName] > 100 || props[propName] < 0)
+    return new Error(`${propName}必须为 0-100之间的数字`);
+};
+
 ProgressBar.propTypes = {
-  mode: PropTypes.oneOf(['loading', 'scroll']),
+  mode: PropTypes.oneOf([LOADING, SCROLL]),
   className: PropTypes.string,
   style: PropTypes.object,
-  percent: PropTypes.number,
+  percent: customVerifyPercentProp,
   baseColor: customVerifyColorProp,
   strokeColor: customVerifyColorProp,
   animation: PropTypes.bool,
+  animationColor: customVerifyColorProp,
 };
 
 ProgressBar.defaultProps = {
-  mode: 'loading',
-  className: '',
+  mode: LOADING,
+  className: "",
 };
 
 export default ProgressBar;

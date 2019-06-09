@@ -2,29 +2,57 @@
 
 .kant-progress-bar-outer {
   width: 100%;
-  height: 2px;
+  height: 3px;
+  border-radius: 5px;
   background: #d5e0ff;
+  overflow: hidden;
 
   .kant-progress-bar-inner {
+    width: 0px;
     height: 100%;
-    background: #658dfe;
-    transform: all 3s;
-    position: relative;
+    transition: all 2s;
+    border-radius: 5px;
 
-    &-animation::before {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      border-radius: 50%;
-      opacity: 0;
-      content: '';
-      animation: kant-paogress-bar-animation 2.4s infinite;
+    .kant-progress-bar {
+      position: relative;
+      height: 100%;
+      border-radius: 5px;
+      background: #658dfe;
+
+      &-sprint {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border-radius: 5px;
+        content: '';
+        background: #99b2f8;
+        height: 100%;
+        animation: kant-paogress-bar-sprint 5s inherit;
+      }
     }
   }
-
 }
 
-@keyframes kant-paogress-bar-animation {
-  from {}
-  to {}
+@keyframes kant-paogress-initial {
+  0% {
+    width: 0;
+  }
+  30% {
+    width: 80%;
+  }
+  40% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes kant-paogress-bar-sprint {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
