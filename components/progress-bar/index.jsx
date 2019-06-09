@@ -9,6 +9,31 @@ import PropTypes from "prop-types";
 const LOADING = "loading";
 const SCROLL = "scroll";
 
+// 获取顶部距离
+const getScrollTop = () => {
+  return (
+    document.documentElement.scrollTop ||
+    window.pageYOffset ||
+    document.body.scrollTop
+  );
+};
+
+// 可视区域高度
+const getViewPortHeight = () => {
+  return (
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+  );
+};
+
+// 获取页面高度
+const getWebHeight = () => {
+  return (
+    document.body.scrollHeight ||
+    document.body.clientHeight
+  );
+};
+
 // 解析颜色
 const analyticColor = (color) => {
   const type = typeof color;
@@ -28,12 +53,6 @@ const setOuterStyle = (props) => {
   return style;
 };
 
-// 设置内层行内样式
-const setInnerStyle = (props) => {
-  const style = { width: `${props.percent || 0}%` };
-  return style;
-};
-
 // 设置进度样式
 const setStrokeStyle = (props) => {
   const style = {};
@@ -41,7 +60,7 @@ const setStrokeStyle = (props) => {
     style.background = analyticColor(props.baseColor);
   }
   if (props.percent !== 100) {
-    style.animation = "kant-paogress-initial 3s forwards";
+    style.animation = "kant-paogress-initial 3.5s";
   }
   return style;
 };
@@ -69,19 +88,52 @@ const setAnimationStyle = (props) => {
  * @returns {ReactComponent} 表单组件
  */
 const ProgressBar = (props) => {
+  const [width, setWidth] = useState(props.percent);
+
+  // 样式及类名
   const outerCLassName = `kant-progress-bar-outer ${props.className}`;
   const outerStyle = setOuterStyle(props);
-  let innerStyle = setInnerStyle(props);
-  let strokeStyle = setStrokeStyle(props);
+  const strokeStyle = setStrokeStyle(props);
   const animationStyle = setAnimationStyle(props);
+
+  // 在scroll模式，进度条计算
+  const onScroll = () => {
+    const scrollTop = getScrollTop();
+    const viewPortHeight = getViewPortHeight();
+    const webHeight = getWebHeight();
+    const val = Math.ceil((scrollTop + viewPortHeight) / webHeight * 100);
+    setWidth(val);
+  };
+
+  useEffect(() => {
+    if (props.mode === SCROLL) {
+      onScroll();
+    }
+  }, []);
+
+  // 启动scroll模式
+  useEffect(() => {
+    if (props.mode === SCROLL && !props.percent) {
+      window.addEventListener('scroll', onScroll);
+    } else {
+      window.removeEventListener('scroll', onScroll);
+    }
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [props.mode, props.percent]);
+
+  useEffect(() => {
+    setWidth(props.percent);
+  }, [props.percent]);
 
   return (
     <div style={outerStyle} className={outerCLassName}>
-      <div style={innerStyle} className="kant-progress-bar-inner">
+      <div style={{ width: `${width}%` }} className="kant-progress-bar-inner">
         <div style={strokeStyle} className="kant-progress-bar">
           {
             props.animation &&
-            <div style={animationStyle} className="kant-progress-bar-animation">
+            <div style={animationStyle} className="kant-progress-bar-sprint">
             </div>
           }
         </div>
@@ -110,6 +162,9 @@ const customVerifyColorProp = (props, propName, componentName) => {
 
 // 自定义校验进度参数值
 const customVerifyPercentProp = (props, propName, componentName) => {
+  if (props[propName] === undefined) {
+    return;
+  }
   if (typeof props[propName] !== "number")
     return new Error(`${propName}必须为 number 类型`);
   if (props[propName] > 100 || props[propName] < 0)
