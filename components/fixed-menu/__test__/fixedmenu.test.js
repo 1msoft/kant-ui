@@ -11,14 +11,13 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('<FixedMenu>', function () {
   it('判断悬停菜单是否能正确传props值', function () {
-    const onClickTop = sinon.fake();
     const app = mount(
       <FixedMenu
         className={'kant-test'}
         showHeight={200}
         isShow={true}
-        onClickTop={onClickTop}
-        useChange={true}
+        isAwayls={false}
+        speed={100}
       />);
 
     window.pageYOffset = 200;
@@ -30,9 +29,6 @@ describe('<FixedMenu>', function () {
 
     assert.equal(app.find('.kant-test').at(0).length, 1);
     assert.equal((app.find('.kant-show').at(0)).length, 1);
-    (app.find('.kant-side-block-list-weixin').at(0)).simulate('click');
-    assert.equal(app.instance().scrollToTop());
-    assert.equal(app.instance().debounce()());
   });
 
 
@@ -49,7 +45,6 @@ describe('<FixedMenu>', function () {
     FixedMenu.prototype.componentDidMount.restore();
     FixedMenu.prototype.componentWillUnmount.restore();
     const scrollToTop = sinon.stub(app.instance(), 'scrollToTop');
-    app.find('.kant-side-block-list-arrow').at(0).simulate('click');
     assert.equal(scrollToTop());
   });
 
@@ -64,25 +59,4 @@ describe('<FixedMenu>', function () {
     assert.equal((app.find('.kant-hidden').at(0)).length, 1);
   });
 
-  it('滚动是否生效', function () {
-    const onScroll = sinon.fake();
-    const app = mount(
-      <div className='content' onScroll={onScroll}>
-        <FixedMenu
-          className={'kant-test'}
-          showHeight={200}
-          isShow={false}
-          isAlways={false}
-          useChange={false}
-        />
-      </div>);
-    (app.find('.content').at(0)).simulate('scroll');
-    assert.isTrue(onScroll.called);
-  });
-
-  it('当不传参数的情况下有无问题', function () {
-    const app = mount(
-      <FixedMenu isShow={{}} showHeight={{}} isAlways={{}}/>);
-    assert.equal(app.find('.kant-side-block-list-arrow').at(0).length, 1);
-  });
 });

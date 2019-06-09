@@ -18,73 +18,29 @@ class FixedMenu extends React.Component {
  * @memberof FixedMenu
  * @param {Object}   props
  * @param {Number}   [props.showHeight]        悬停菜单出现的滚动高度
- * @param {Function} [props.onClickTop]        点击顶部触发事件
  * @param {Boolean}  [props.isShow]            初始是否默认显示悬停菜单
  * @param {Boolean}  [props.isAlways]          悬停菜单栏是否一直存在
- * @param {String}   [props.className]         悬停菜单盒子的类名
- * @param {String}   [props.topClassName]      悬停菜单上部盒子类名
- * @param {String}   [props.bottomClassName]   悬停菜单底部盒子类名
- * @param {Function} [props.topDom]            悬停菜单顶部传入自定义dom
- * @param {Function} [props.bottomDom]         悬停菜单底部传入自定义dom
- * @param {Function} [props.onClickBottom]     底部自定义事件
- * @param {Boolean}  [props.useChange]         是否使用初始动效
+ * @param {Number}   [props.speed]             回到顶部的速度
+ * @param {Function} [props.FixedMenuDom]      悬停菜单自定义Dom
 */
   constructor(props){
     super(props);
     this.state = {
-      isShow: this.props.isShow || false,
-      isChange: false,
+      isShow: this.props.isShow,
     };
   }
   componentDidMount(){
     document.addEventListener('scroll', this.debounce(this.onScroll, 50));
   }
 
-
-  toogelStyleChange = () => {
-    const useChange = this.props.useChange;
-    if (useChange) {
-      const isChange = !this.state.isChange;
-      this.setState({ isChange });
-    }
-  };
-
   componentWillUnmount(){
     document.removeEventListener('scroll', this.onScroll);
   }
   render(){
-    const topDom = this.props.topDom ? this.props.topDom : null;
-    const bottomDom = this.props.bottomDom ? this.props.bottomDom : null;
-    const isChange = this.state.isChange;
-    const useChange = this.props.useChange;
+    const FixedMenuDom = this.props.FixedMenuDom;
     return (
       <div className={`${this.sideBlockClassName} kant-fixedmenu-content ${this.props.className}`}>
-        <div className={`kant-side-block-list`}>
-          <div
-            onClick={ this.props.onClickTop
-              ? () => {this.props.onClickTop(); this.toogelStyleChange();}
-              : this.toogelStyleChange
-            }
-            className={
-              !useChange ? `kant-changetop  ${this.props.topClassName} kant-cp`
-                : `${'kant-side-block-list-weixin'}
-              ${this.props.topClassName}
-              kant-cp `}>
-            { topDom ? topDom(isChange, this.scrollToTop) : '' }
-          </div>
-
-          <div
-            onClick={(e) => {
-              this.props.onClickBottom && useChange && isChange ? this.props.onClickBottom()
-                : this.scrollToTop(); e.stopPropagation();
-            }}
-            className={
-              `${'kant-side-block-list-arrow'}
-              ${this.props.bottomClassName}
-              kant-cp `}>
-            { bottomDom ? bottomDom(isChange) : '' }
-          </div>
-        </div>
+        { FixedMenuDom ? FixedMenuDom({ 'scrollToTop': this.scrollToTop }) : '' }
       </div>
     );
   }
@@ -118,7 +74,8 @@ class FixedMenu extends React.Component {
       }, speed);
     };
     // （时间， 跨度）
-    animate(10, 100);
+    const speed = this.props.speed;
+    animate(10, speed);
   }
 
   setScrollTop(value){
@@ -132,12 +89,12 @@ class FixedMenu extends React.Component {
    * @param {Event} e
    */
   onScroll = (e) => {
-    const showHeight = this.props.showHeight || 0;
+    const showHeight = this.props.showHeight;
     if (this.props.isAlways === true) {
       this.setState({ isShow: true });
-    } else if (!this.props.isAlways && this.scrollTop > showHeight && !this.state.show ){
+    } else if (!this.props.isAlways && this.scrollTop > showHeight && !this.state.isShow ){
       this.setState({ isShow: true });
-    } else if ( !this.props.isAlways && this.scrollTop < showHeight && this.state.show ){
+    } else if ( !this.props.isAlways && this.scrollTop < showHeight && this.state.isShow ){
       this.setState({ isShow: false });
     }
   }
@@ -164,25 +121,19 @@ class FixedMenu extends React.Component {
 }
 
 FixedMenu.propTypes = {
-  onClickTop: PropTypes.func,
   isShow: PropTypes.bool,
   isAlways: PropTypes.bool,
-  className: PropTypes.string,
-  topClassName: PropTypes.string,
-  bottomClassName: PropTypes.string,
-  topDom: PropTypes.func,
-  bottomDom: PropTypes.func,
-  onClickBottom: PropTypes.func,
-  useChange: PropTypes.bool,
+  showHeight: PropTypes.number,
+  speed: PropTypes.number,
+  FixedMenuDom: PropTypes.func,
 };
 
 FixedMenu.defaultProps = {
-  onClickTop: null,
-  onClickBottom: null,
   isShow: false,
-  bottomDom: null,
-  topDom: null,
-  useChange: false,
+  isAlways: false,
+  showHeight: 0,
+  fixedmenuDom: null,
+  speed: 100,
 };
 
 export default FixedMenu;
