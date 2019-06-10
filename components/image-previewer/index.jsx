@@ -306,7 +306,12 @@ ImagePreviewer.propTypes = {
   })),
   visible: PropTypes.bool,
   onClose: PropTypes.func,
-  currentImg: PropTypes.number,
+  currentImg: (props, propName, componentName) => {
+    let { currentImg } = props;
+    if (currentImg < 0 || currentImg < props.imgList.length){
+      return new Error(`组件${componentName}的${propName}大于imgList长度或小于0`);
+    }
+  },
   loop: PropTypes.bool,
   controlBar: PropTypes.oneOf(['none', 'normal', 'lite']),
 };
