@@ -236,35 +236,24 @@ const ImagePreviewer = (props) => {
 };
 
 const ControlBar = (props) => {
-  const {
-    type,
-    zoomRate,
-    loop,
-    current,
-    total,
-    zoomOut,
-    zoomIn,
-    prev,
-    next,
-  } = props;
 
   return(
     <div
-      className = {`kant-image-previewer-control-bar${type == 'none' ? '-none' : ''}`}>
+      className = {`kant-image-previewer-control-bar${props.type == 'none' ? '-none' : ''}`}>
       <Button 
         type = {'link'} 
         className = 'bar-item'
-        onClick = {zoomOut}>
+        onClick = {props.zoomOut}>
         <Icon type="zoom-out" />
       </Button>
       <Divider type="vertical" style = {{ height: '34px' }}/>
-      { type === 'normal' ? 
+      { props.type === 'normal' ? 
         <React.Fragment>
           <Button 
             type = {'link'} 
             className = 'bar-item-zoom'
             disabled>
-            {`${Math.round(zoomRate * 100)}%`}
+            {`${Math.round(props.zoomRate * 100)}%`}
           </Button> 
           <Divider type="vertical" style = {{ height: '34px' }}/>
         </React.Fragment>
@@ -274,25 +263,25 @@ const ControlBar = (props) => {
       <Button 
         type = {'link'} 
         className = {'bar-item'}
-        onClick = {zoomIn}>
+        onClick = {props.zoomIn}>
         <Icon type="zoom-in" />
       </Button>
       <Divider type="vertical" style = {{ height: '48px' }}/>
       <Button 
         type = {'link'} 
         className = {'bar-item'}
-        onClick = {prev}
-        disabled = {loop === false && current === 1 ? true : false}>
+        onClick = {props.prev}
+        disabled = {props.loop === false && props.current === 1 ? true : false}>
         <Icon type="left" />
       </Button>
       <Divider type="vertical" style = {{ height: '34px' }}/>
-      { type === 'normal' ? 
+      { props.type === 'normal' ? 
         <React.Fragment>
           <Button 
             type = {'link'} 
             className = {'bar-item-page'}
             disabled>
-            {`${current}/${total}`}
+            {`${props.current}/${props.total}`}
           </Button> 
           <Divider type="vertical" style = {{ height: '34px' }}/>
         </React.Fragment>
@@ -302,8 +291,8 @@ const ControlBar = (props) => {
       <Button 
         type = {'link'} 
         className = {'bar-item'}
-        onClick = {next}
-        disabled = {loop === false && current === total ? true : false}>
+        onClick = {props.next}
+        disabled = {props.loop === false && props.current === props.total ? true : false}>
         <Icon type="right" />
       </Button>
     </div>
