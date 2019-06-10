@@ -106,10 +106,8 @@ const ProgressBar = (props) => {
   };
 
   useEffect(() => {
-    if (props.mode === SCROLL) {
-      onScroll();
-    }
-  }, []);
+    setWidth(props.percent);
+  }, [props.percent]);
 
   // 启动scroll模式
   useEffect(() => {
@@ -124,8 +122,10 @@ const ProgressBar = (props) => {
   }, [props.mode, props.percent]);
 
   useEffect(() => {
-    setWidth(props.percent);
-  }, [props.percent]);
+    if (props.mode === SCROLL && !props.percent) {
+      onScroll();
+    }
+  }, []);
 
   return (
     <div style={outerStyle} className={outerCLassName}>
