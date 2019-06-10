@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Divider, Button, Checkbox, Radio } from "antd";
 import { ImagePreviewer } from "@components/index";
-
+import "@components/image-previewer/style";
 
 const urlList = [
   "http://5b0988e595225.cdn.sohucs.com/images/20180504/cc178a20314c4d409dbee7b5419d796c.jpeg",

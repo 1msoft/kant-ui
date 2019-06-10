@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+/**
+ * 图片预览组件
+ * @author xyk
+ * @module ImagePreviewer
+ */
+import React, { useState, useEffect, useMemo } from "react";
 import { Button, Icon, Divider, message } from 'antd';
 import PropTypes from "prop-types";
-import './style';
 
 
 /**
  * 图片预览组件
  * @param {Object}    props
- * @param {Array}     [props.imgList]               图片url数组 
- * @param {bool}      [props.visible=false]         是否显示
+ * @param {{Object}[]}  [props.imgList]               图片url数组,{title:string, url:string}[]
+ * @param {Boolean}   [props.visible=false]         是否显示
  * @param {Function}  [props.onClose]               点击关闭事件
  * @param {Number}    [props.currentImg]            首次显示图片在数组中index
  * @param {Boolean}   [props.loop=false]            当前图片为最后一张时，是否跳至第一张
@@ -16,14 +20,6 @@ import './style';
  * @returns {ReactComponent} 图片预览
  */
 const ImagePreviewer = (props) => {
-  const {
-    imgList,
-    visible,
-    onClose,
-    currentImg,
-    loop,
-    controlBar,
-  } = props;
 
   // size.width: 当前播放图片实际width, size.height: 当前播放图片实际height
   const [size, setSize] = useState({ width: 100, height: 100 });
@@ -32,7 +28,7 @@ const ImagePreviewer = (props) => {
   // zoomRate: 图片缩放比例，控制缩放
   const [zoomRate, setZoomRate] = useState(1);
   // imgIndex: 显示图片在imgList中index
-  const [imgIndex, setImgIndex] = useState(currentImg);
+  const [imgIndex, setImgIndex] = useState(props.currentImg);
   // mouseUp：拖拽图片控制参数，左键是否按下
   const [mouseUp, setMouseUp] = useState(true);
   // mouseX，mouseY：拖拽时，左键KeyDown时坐标
@@ -43,9 +39,9 @@ const ImagePreviewer = (props) => {
 
   // 图片切换
   const changImg = (index) => {
-    setImgIndex((index > 0 && index < imgList.length) ? index : 0);
+    setImgIndex((index > 0 && index < props.imgList.length) ? index : 0);
     let img = new Image();
-    img.src = imgList[imgIndex].url;
+    img.src = props.imgList[imgIndex].url;
 
     let pageWidth = window.innerWidth
       || document.documentElement.clientWidth
@@ -71,21 +67,21 @@ const ImagePreviewer = (props) => {
 
   // 上一张图片 
   const prev = () => {
-    if (loop !== true && imgIndex === 0) {
+    if (props.loop !== true && imgIndex === 0) {
       message.warning('已经是第一张');
       return;
     };
-    let index = (imgIndex + imgList.length - 1) % imgList.length;
+    let index = (imgIndex + props.imgList.length - 1) % props.imgList.length;
     setImgIndex(index);
   };
 
   // 下一张图片
   const next = () => {
-    if (loop !== true && imgIndex === imgList.length - 1) {
+    if (props.loop !== true && imgIndex === props.imgList.length - 1) {
       message.warning('已经是最后一张');
       return;
     };
-    let index = (imgIndex + 1) % imgList.length;
+    let index = (imgIndex + 1) % props.imgList.length;
     setImgIndex(index);
   };
 
@@ -94,7 +90,7 @@ const ImagePreviewer = (props) => {
     setShowZoomRate(true);
     setTimeout(() => {
       setShowZoomRate(false);
-    },duration);
+    }, duration);
   };
 
   // 图片相对实际尺寸放大10%
@@ -158,26 +154,31 @@ const ImagePreviewer = (props) => {
   };
 
   useEffect(() => {
+    setImgIndex(props.currentImg);
+    console.log(imgIndex);
+  }, [props.currentImg, props.imgList]);
+
+  useEffect(() => {
     changImg(imgIndex);
-  }, [imgIndex, imgList]);
+  }, [imgIndex, props.imgList]);
 
   return (
     <div>
       <div
-        className={`kant-image-previewer-mask${visible === true ? '' : '-none'}`}
-        onWheel={handleWheel}>
-        <span className={'kant-image-previewer-quit'}
-          onClick={onClose}>
-          <Icon type="close" className = {'kant-image-previewer-quit-icon'}/>
+        className = {`kant-image-previewer-mask${props.visible === true ? '' : '-none'}`}
+        onWheel = {handleWheel}>
+        <span className = 'kant-image-previewer-quit'
+          onClick = {props.onClose}>
+          <Icon type = "close" className = 'kant-image-previewer-quit-icon'/>
         </span>
         <div
-          className={'kant-image-previewer-body'}>
+          className= 'kant-image-previewer-body' >
           <div 
-            style = {{ position: 'fixed', tpo: '0',width: '100%', zIndex: '1003' }}>
+            className = 'ant-image-previewer-header'>
             <div className = {'kant-image-previewer-title'}>
               <span
                 style = {{ fontSize: '18px',color: '#fff' }}>
-                {imgList[imgIndex].title || ""}
+                {props.imgList[imgIndex].title || ""}
               </span>
             </div>
           </div>
@@ -189,24 +190,24 @@ const ImagePreviewer = (props) => {
             </span>
           </div>
           <div 
-            style = {{ position: 'fixed', bottom: '60px',width: '100%', zIndex: '1010' }}>
+            className = 'kant-image-previewer-footer'>
             <ControlBar
-              type = {controlBar}
-              loop = {loop}
+              type = {props.controlBar}
+              loop = {props.loop}
               zoomRate = {zoomRate}
               current = {imgIndex + 1}
-              total = {imgList.length}
+              total = {props.imgList.length}
               zoomIn = {zoomIn}
               zoomOut = {zoomOut}
               prev = {prev}
               next = {next}/>
           </div>
           <div
-            className={'kant-image-previewer-container'}
-            onMouseDown={dragDown}
-            onMouseMove={dragMove}
-            onMouseUp={dragUp}
-            onMouseOut={dragUp}
+            className = 'kant-image-previewer-container'
+            onMouseDown = {dragDown}
+            onMouseMove = {dragMove}
+            onMouseUp = {dragUp}
+            onMouseOut = {dragUp}
             style={{
               width: size.width * zoomRate,
               height: size.height * zoomRate,
@@ -214,19 +215,19 @@ const ImagePreviewer = (props) => {
               marginTop: margin.top
             }}>
             <img
-              className={'kant-image-previewer-img'}
-              src={imgList[imgIndex].url}
-              alt={'图片读取错误！'} />
+              className = 'kant-image-previewer-img'
+              src = {props.imgList[imgIndex].url}
+              alt = {'图片读取错误！'} />
           </div>
           <div
-            className={'kant-image-previewer-prev'}
-            onClick={prev}>
-            <Icon type="left" className = { 'kant-image-previewer-prev-icon' }/>
+            className = 'kant-image-previewer-prev'
+            onClick = {prev}>
+            <Icon type="left" className = 'kant-image-previewer-prev-icon'/>
           </div>
           <div
-            className={'kant-image-previewer-next'}
-            onClick={next}>
-            <Icon type="right" className = { 'kant-image-previewer-next-icon' }/>
+            className = 'kant-image-previewer-next'
+            onClick = {next}>
+            <Icon type = "right" className = 'kant-image-previewer-next-icon' />
           </div>
         </div>
       </div>
@@ -252,7 +253,7 @@ const ControlBar = (props) => {
       className = {`kant-image-previewer-control-bar${type == 'none' ? '-none' : ''}`}>
       <Button 
         type = {'link'} 
-        className = {'bar-item'}
+        className = 'bar-item'
         onClick = {zoomOut}>
         <Icon type="zoom-out" />
       </Button>
@@ -261,7 +262,7 @@ const ControlBar = (props) => {
         <React.Fragment>
           <Button 
             type = {'link'} 
-            className = {'bar-item-zoom'}
+            className = 'bar-item-zoom'
             disabled>
             {`${Math.round(zoomRate * 100)}%`}
           </Button> 
@@ -310,12 +311,15 @@ const ControlBar = (props) => {
 };
 
 ImagePreviewer.propTypes = {
-  imgList: PropTypes.array,
+  imgList: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.any,
+    url: PropTypes.string.isRequired
+  })),
   visible: PropTypes.bool,
   onClose: PropTypes.func,
   currentImg: PropTypes.number,
   loop: PropTypes.bool,
-  controlBar: PropTypes.string,
+  controlBar: PropTypes.oneOf(['none', 'normal', 'lite']),
 };
 
 ImagePreviewer.defaultProps = {
