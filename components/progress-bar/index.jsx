@@ -3,7 +3,7 @@
  * @author kjx
  * @module ProgressBar
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
 const LOADING = "loading";
@@ -53,6 +53,15 @@ const setOuterStyle = (props) => {
   return style;
 };
 
+// 设置内层行内样式
+const setInnerStyle = (props, width) => {
+  const style = { width: `${width}%` };
+  if (width === 0) {
+    style.transition = "none";
+  }
+  return style;
+};
+
 // 设置进度样式
 const setStrokeStyle = (props) => {
   const style = {};
@@ -85,14 +94,18 @@ const setAnimationStyle = (props) => {
  * @param {String|Object} [props.baseColor]        基础颜色(Object时为渐变, 写法为{from: '', to: ''})
  * @param {String|Object} [props.strokeColor]      进度条颜色(Object时为渐变)
  * @param {Boolean}       [props.animation]        动画效果
+ * @param {String|Object} [props.animationColor]   动画颜色(Object时为渐变)
+ * @param {Boolean}       [props.autoClearPercent] 进度100%后 自动清除进度
  * @returns {ReactComponent} 表单组件
  */
 const ProgressBar = (props) => {
   const [width, setWidth] = useState(props.percent);
+  let oldProps = useMemo(() => { return props; }, []);
 
   // 样式及类名
   const outerCLassName = `kant-progress-bar-outer ${props.className}`;
   const outerStyle = setOuterStyle(props);
+  const innerStyle = setInnerStyle(props, width);
   const strokeStyle = setStrokeStyle(props);
   const animationStyle = setAnimationStyle(props);
 
@@ -107,6 +120,13 @@ const ProgressBar = (props) => {
 
   useEffect(() => {
     setWidth(props.percent);
+    if (props.autoClearPercent && props.percent === 100) {
+      const time = oldProps === 0 ? 3700 : 1000;
+      setTimeout(() => {
+        setWidth(0);
+      }, time);
+    }
+    oldProps = props;
   }, [props.percent]);
 
   // 启动scroll模式
@@ -129,7 +149,7 @@ const ProgressBar = (props) => {
 
   return (
     <div style={outerStyle} className={outerCLassName}>
-      <div style={{ width: `${width}%` }} className="kant-progress-bar-inner">
+      <div style={innerStyle} className="kant-progress-bar-inner">
         <div style={strokeStyle} className="kant-progress-bar">
           {
             props.animation &&
@@ -180,6 +200,7 @@ ProgressBar.propTypes = {
   strokeColor: customVerifyColorProp,
   animation: PropTypes.bool,
   animationColor: customVerifyColorProp,
+  autoClearPercent: PropTypes.bool,
 };
 
 ProgressBar.defaultProps = {

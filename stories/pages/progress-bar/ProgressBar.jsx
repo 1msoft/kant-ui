@@ -37,7 +37,10 @@ const ProgressBarComponent = () => {
         {`${animation1 ? "关闭" : "启动"}动画效果`}
       </Button>
       <div style={styles.outerLayout}>
-        <ProgressBar percent={progress1} animation={animation1} />
+        <ProgressBar
+          percent={progress1}
+          animation={animation1}
+          autoClearPercent={true} />
       </div>
       <div style={styles.flex}>
         <Divider>滚动进度条</Divider>
