@@ -161,7 +161,7 @@ const InputFormLayoutByHorizontal = Form.create({ name: 'row-input' })(({ form }
       >
         {form.getFieldDecorator("unitNo", {
           rules: [{ required: true, message: "必填" }],
-        })(<InputNumber style={{ width: '100%' }} placeholder="单元" />)}
+        })(<InputNumber placeholder="单元" />)}
       </FormItem>
       <FormItem
         row={2}
