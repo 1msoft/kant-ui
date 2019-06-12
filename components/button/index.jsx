@@ -27,16 +27,16 @@ let Button = (props, ref) => {
 
   const [isShow, setIsShow] = useState(false);
 
-  const setElementNoramlClass = () => {
-    let button = document.getElementsByClassName('kant-button-width');
+  const setElementNoramlStyle = () => {
+    let button = document.getElementsByClassName('kant-button-settings');
     for ( let i = 0; i < button.length; i++ ) {
       button[i].style.width = '100%';
       button[i].style.lineHeight = '100%';
     };
   };
 
-  const setElementChangeClass = () => {
-    let button = document.getElementsByClassName('kant-button-width');
+  const setElementChangeStyle = () => {
+    let button = document.getElementsByClassName('kant-button-settings');
     for ( let i = 0; i < button.length; i++ ) {
       button[i].style.height = button[i].offsetHeight + 'px';
       button[i].style.width = button[i].offsetWidth + 'px';
@@ -59,9 +59,9 @@ let Button = (props, ref) => {
   }, [isShow]);
 
   useEffect(() => {
-    setElementNoramlClass();
+    setElementNoramlStyle();
     setTimeout(() => {
-      setElementChangeClass();
+      setElementChangeStyle();
     }, 500);
   }, [props.children]);
 
@@ -69,8 +69,8 @@ let Button = (props, ref) => {
   return (
     <div className="kant-button-content" ref={ref}>
       <AntButton
-        className={isShow ? `kant-wave-button ${className} kant-button-width`
-          : `${className} kant-button-width`}
+        className={isShow ? `kant-wave-button ${className} kant-button-settings`
+          : `${className} kant-button-settings`}
         onClick={(e) => {
           e.stopPropagation();
           waveAnimation(e);

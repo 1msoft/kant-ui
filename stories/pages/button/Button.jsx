@@ -12,17 +12,17 @@ const KantButton = () => {
           className='kant-button-test1'
           type='primary'
           onClick={(e) => { e.stopPropagation(); } }
-        >11111111111111111111111111211111{ ishow ? '123' : '' }</Button>
+        >按钮1{ ishow ? '123' : '' }</Button>
         <Button
           className='kant-button-test2'
           type='primary'
           onClick={() => { setIsshow(!ishow); } }
-        >这个是按钮2</Button>
+        >按钮2</Button>
         <Button
           className='kant-button-test2'
           type='primary'
           onClick={() => { } }
-        >333</Button>
+        >按钮3</Button>
       </div>
     </div>
   );
