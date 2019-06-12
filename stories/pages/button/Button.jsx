@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@components/index';
 import '@components/button/style';
 import './Button.less';
-export default () => (
-  <div style={{ margin: '100px' }}>
-    <div>
-      <span>
+const KantButton = () => {
+  const [ishow, setIsshow] = useState(false);
+  return (
+    <div style={{ margin: '100px' }}>
+      <div>
         <Button
+          style={{ witdh: '123px' }}
           className='kant-button-test1'
           type='primary'
-          onClick={() => { console.log('这个把里面的覆盖了？');} }
-        >查询</Button>
-      </span>
-      <span>
+          onClick={(e) => { e.stopPropagation(); } }
+        >11111111111111111111111111211111{ ishow ? '123' : '' }</Button>
         <Button
           className='kant-button-test2'
           type='primary'
-          onClick={() => { console.log('这个把里面的覆盖了？');} }
+          onClick={() => { setIsshow(!ishow); } }
         >这个是按钮2</Button>
-      </span>
+        <Button
+          className='kant-button-test2'
+          type='primary'
+          onClick={() => { } }
+        >333</Button>
+      </div>
     </div>
-  </div>
+  );
+};
+
+export default () => (
+  <KantButton></KantButton>
 );
