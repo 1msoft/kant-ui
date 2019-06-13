@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FixedMenu } from '@components/index';
 import '@components/fixed-menu/style';
-import { Icon } from 'antd';
+import { Icon, BackTop  } from 'antd';
 import './FixedMenu.less';
 
 const FinalyFixedMenu = () => {
@@ -49,12 +49,12 @@ const FinalyFixedMenu = () => {
           height: '300px', width: '300px', position: 'relative' }}
       >
         <FixedMenu
-          isShow={true}
-          isAlways={true}
-          showHeight={300}
+          display={'default'}
+          visibilityHeight={300}
           speed={20}
-          FixedMenuDom={FixedMenuDom}
-        />
+        >
+          {FixedMenuDom}
+        </FixedMenu>
       </div>
     </div>
   );

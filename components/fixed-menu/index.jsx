@@ -17,16 +17,15 @@ class FixedMenu extends React.Component {
  * Creates an instance of FixedMenu
  * @memberof FixedMenu
  * @param {Object}   props
- * @param {Number}   [props.showHeight]        悬停菜单出现的滚动高度
- * @param {Boolean}  [props.isShow]            初始是否默认显示悬停菜单
- * @param {Boolean}  [props.isAlways]          悬停菜单栏是否一直存在
+ * @param {function|string|object|reactDOM} [props.children] 子元素
+ * @param {Number}   [props.visibilityHeight]  悬停菜单出现的滚动高度
+ * @param {Boolean}  [props.display]           悬停菜单栏是否一直存在 { "always" || "default" }
  * @param {Number}   [props.speed]             回到顶部的速度
- * @param {Function} [props.FixedMenuDom]      悬停菜单自定义Dom
 */
   constructor(props){
     super(props);
     this.state = {
-      isShow: this.props.isShow,
+      isShow: this.props.display === 'always' ? true : false,
     };
   }
   componentDidMount(){
@@ -37,10 +36,10 @@ class FixedMenu extends React.Component {
     document.removeEventListener('scroll', this.onScroll);
   }
   render(){
-    const FixedMenuDom = this.props.FixedMenuDom;
     return (
       <div className={`${this.sideBlockClassName} kant-fixedmenu-content ${this.props.className}`}>
-        { FixedMenuDom ? FixedMenuDom({ 'scrollToTop': this.scrollToTop }) : '' }
+        { typeof(this.props.children) === 'function'
+          ? <this.props.children scrollToTop={this.scrollToTop}/> : this.props.children }
       </div>
     );
   }
@@ -89,12 +88,14 @@ class FixedMenu extends React.Component {
    * @param {Event} e
    */
   onScroll = (e) => {
-    const showHeight = this.props.showHeight;
-    if (this.props.isAlways === true) {
+    const visibilityHeight = this.props.visibilityHeight;
+    if (this.props.display === 'always') {
       this.setState({ isShow: true });
-    } else if (!this.props.isAlways && this.scrollTop > showHeight && !this.state.isShow ){
+    } else if (this.props.display === 'default'
+      && this.scrollTop > visibilityHeight && !this.state.isShow ){
       this.setState({ isShow: true });
-    } else if ( !this.props.isAlways && this.scrollTop < showHeight && this.state.isShow ){
+    } else if ( this.props.display === 'default'
+      && this.scrollTop < visibilityHeight && this.state.isShow ){
       this.setState({ isShow: false });
     }
   }
@@ -121,18 +122,14 @@ class FixedMenu extends React.Component {
 }
 
 FixedMenu.propTypes = {
-  isShow: PropTypes.bool,
-  isAlways: PropTypes.bool,
-  showHeight: PropTypes.number,
+  display: PropTypes.bool,
+  visibilityHeight: PropTypes.number,
   speed: PropTypes.number,
-  FixedMenuDom: PropTypes.func,
 };
 
 FixedMenu.defaultProps = {
-  isShow: false,
-  isAlways: false,
-  showHeight: 0,
-  fixedmenuDom: null,
+  display: 'default',
+  visibilityHeight: 0,
   speed: 100,
 };
 

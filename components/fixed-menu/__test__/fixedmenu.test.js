@@ -14,9 +14,8 @@ describe('<FixedMenu>', function () {
     const app = mount(
       <FixedMenu
         className={'kant-test'}
-        showHeight={200}
-        isShow={true}
-        isAwayls={false}
+        visibilityHeight={200}
+        display={'default'}
         speed={100}
       />);
 
@@ -38,8 +37,7 @@ describe('<FixedMenu>', function () {
     const app = mount(
       <FixedMenu
         className={'kant-test'}
-        showHeight={200}
-        isShow={true}
+        visibilityHeight={200}
       />);
 
     FixedMenu.prototype.componentDidMount.restore();
@@ -53,8 +51,7 @@ describe('<FixedMenu>', function () {
     const app = mount(
       <FixedMenu
         className={'kant-test'}
-        showHeight={200}
-        isShow={false}
+        visibilityHeight={200}
       />);
     assert.equal((app.find('.kant-hidden').at(0)).length, 1);
   });
