@@ -19,17 +19,23 @@
   box-shadow: @box-shadow-base;
 }
 
-.kant-sidermenu-content .ant-menu-inline {
+.kant-scroll {
+  overflow-x:hidden;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.kant-sidermenu-content .kant-scroll .ant-menu-inline {
   border-right: 0px !important;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-item {
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-item {
   margin: 0 !important;
   width: 279px;
   height: 69px;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu
   > li.ant-menu-submenu > .ant-menu-submenu-title > .kant-submenu-title {
   height: 40px;
   line-height: 40px;
@@ -37,19 +43,20 @@
   margin-top:14.5px;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu
   > li.ant-menu-submenu > .ant-menu-submenu-title {
   margin: 0 !important;
   height: 69px !important;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-item
-  > .kant-menuitem-title {
-  height: 40px;
-  margin-top:14.5px;
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-item > div > a {
+  display:inline-block;
+  width: 100%;
+  height: 100%;
+  padding-top:14.5px;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-submenu
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-submenu
   > .ant-menu-submenu-title > .kant-submenu-title > .kant-sub-icon {
   display: inline-block;
   padding-left: 12px;
@@ -57,7 +64,7 @@
   height: 40px;
   color:@heading-color;
 }
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-submenu
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-submenu
   > .ant-menu-submenu-title > .kant-submenu-title > .kant-sub-text {
   display: inline-block;
   margin-left: 16px;
@@ -68,7 +75,7 @@
   line-height:34px;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-item
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-item
   > .kant-menuitem-title > a > .kant-menuitem-icon {
     display: inline-block;
     padding-left: 12px;
@@ -89,7 +96,7 @@
   background: @primary-color !important;
 }
 
-.kant-sidermenu-content .ant-layout-sider-children > .ant-menu > li.ant-menu-item
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-item
   > .kant-menuitem-title > a > .kant-menuitem-text {
     display: inline-block;
     margin-left: 16px;

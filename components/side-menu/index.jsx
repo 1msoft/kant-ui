@@ -43,6 +43,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {Object}   [props.subMenuProps]               subMenu的api
  * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom
  * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
+ * @param {Function} [props.onJumpway]                  使用默认a标签时的跳转方法
  * @returns {ReactComponent} 侧边栏
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
@@ -79,6 +80,14 @@ const SideMenu = (props) => {
   const [openKeysState, setOpenKeys] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const [mark, setMark] = useState(0);
+
+  const jumpWay = (url) => {
+    if (!props.onJumpway) {
+      return { 'href': url };
+    } else {
+      return { 'onClick': () => {props.onJumpway(url);} };
+    }
+  };
 
   const menuNode = (data) => {
     const menuElement = menu => menu.map(item => {
@@ -140,7 +149,7 @@ const SideMenu = (props) => {
             {
               props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
-                  <a href={item.url}>
+                  <a {...jumpWay(item.url)}>
                     {
                       item.icon ? (typeof(item.icon) === 'string' ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
@@ -319,11 +328,6 @@ const SideMenu = (props) => {
     element.className = element.className.replace(/kant-sider-free/g, ' ');
   };
 
-  const halfRetractHeaderDom = props.halfRetractHeader ? props.halfRetractHeader : null;
-  const halfRetractFooterDom = props.halfRetractFooter ? props.halfRetractFooter : null;
-  const headerDom = props.header ? props.header : null;
-  const footerDom = props.footer ? props.footer : null;
-
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
@@ -365,20 +369,22 @@ const SideMenu = (props) => {
           :
           (props.header ? props.header(retractMenu) : '')
       }
-      <Menu
-        onSelect={onSelect}
-        selectedKeys={selectedKeysState}
-        {...toogelOpenChildMode(props.openChildMode, menuProps)}
-      >
-        {
-          menuNode(props.dataSource)
-        }
-      </Menu>
+      <div className="kant-scroll">
+        <Menu
+          onSelect={onSelect}
+          selectedKeys={selectedKeysState}
+          {...toogelOpenChildMode(props.openChildMode, menuProps)}
+        >
+          {
+            menuNode(props.dataSource)
+          }
+        </Menu>
+      </div>
       {
         props.retractMode === 'half' && collapsed && props.halfRetractFooter ?
-          halfRetractFooterDom
+          props.halfRetractFooter()
           :
-          (props.footer ? footerDom : '')
+          (props.footer ? props.footer() : '')
       }
     </AntSider>
   );
@@ -404,9 +410,9 @@ SideMenu.propTypes = {
   retractMode: PropTypes.string,
   openChildMode: PropTypes.string,
   header: PropTypes.func,
-  footer: PropTypes.object,
+  footer: PropTypes.func,
   halfRetractHeader: PropTypes.func,
-  halfRetractFooter: PropTypes.object,
+  halfRetractFooter: PropTypes.func,
   siderStyle: PropTypes.object,
   inlineOpenStyle: PropTypes.string,
   isShowChildMenu: PropTypes.bool,
@@ -419,6 +425,7 @@ SideMenu.propTypes = {
   subMenuProps: PropTypes.object,
   subMenuTitleDom: PropTypes.func,
   menuItemGroupDom: PropTypes.func,
+  onJumpway: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
@@ -438,6 +445,7 @@ SideMenu.defaultProps = {
   halfRetractFooter: null,
   subMenuTitleDom: null,
   menuItemGroupDom: null,
+  onJumpway: null,
 };
 
 export default SideMenu;
