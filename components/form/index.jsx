@@ -150,7 +150,7 @@ const FormItem = (props) => {
         child.type &&
         (
           child.type === FormItem ||
-          child.type.displayName === 'FormItem'
+          child.type.elementType === 'FormItem'
         )
       ) {
         continue;
@@ -314,6 +314,7 @@ const getLabelWidthValidator = (props, propsName) => {
     !isString(value)
   ) return new Error(`无效类型： ${propsName}类型只支持【string | number】`);
 };
+FormItem.elementType = 'FormItem';
 
 FormItem.propTypes = {
   ...COMMON_PARAMS_TYPES,
@@ -368,8 +369,10 @@ const FormLayout = (props) => {
     if (
       !isObject(child) ||
       !('type' in child) ||
-      child.type !== FormItem ||
-      child.type.name !== 'FormItem'
+      !(
+        child.type === FormItem ||
+        child.type.elementType === 'FormItem'
+      )
     ) return;
 
     const childProps = child.props || {};
