@@ -61,32 +61,32 @@ const useStateHook = (props) => {
         </Option>
       );
     });
-    props.apendDom && hOptions.push(
+    props.appendDom && hOptions.push(
       <Option value={UNIQUE} key={UNIQUE} disabled={true} className="kant-append-option" >
         <div className="kant-append-option-wrapper">
-          {props.apendDom}
+          {props.appendDom}
         </div>
       </Option>
     );
     return hOptions;
-  }, [props.data, props.children, props.apendDom]);
+  }, [props.data, props.children, props.appendDom]);
 
   // 选择器下拉滚动事件
   const onPopupScroll = useCallback(e => {
     const { scrollHeight, scrollTop, clientHeight } = e.target;
     // 1. 触底处理
-    if (scrollHeight - clientHeight - scrollTop < props.faultTolerant){
+    if (scrollHeight - clientHeight - scrollTop < props.touchBottomDistance){
       props.onTouchBottom && props.onTouchBottom(e);
     }
     // 2. 调用 props.onPopupScroll
     props.onPopupScroll && props.onPopupScroll(e);
-  }, [props.onTouchBottom, props.faultTolerant, props.onPopupScroll]);
+  }, [props.onTouchBottom, props.touchBottomDistance, props.onPopupScroll]);
 
   // 自定义下拉框内容
   const dropdownRender = useCallback((menuNode, currProps) => {
     const loading = [
       props.loading,
-      [LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingType),
+      [LOADING_TYPE.MENU, LOADING_TYPE.ALL].includes(props.loadingPosition),
     ].every(v => v);
     const render = (
       <div className="kant-menu">
@@ -99,7 +99,7 @@ const useStateHook = (props) => {
       </div>
     );
     return (props.dropdownRender ? props.dropdownRender(render, currProps) : render);
-  }, [props.loading, props.loadingType, props.dropdownRender, props.spin]);
+  }, [props.loading, props.loadingPosition, props.dropdownRender, props.spin]);
 
   // 计算其余 props
   const otherProps = useMemo(() => {
@@ -109,7 +109,7 @@ const useStateHook = (props) => {
       'dropdownClassName',
       'onDropdownVisibleChange',
     ];
-    if (props.loadingType === LOADING_TYPE.MENU){filter.push('loading');}
+    if (props.loadingPosition === LOADING_TYPE.MENU){filter.push('loading');}
     return omit(props, filter);
   });
 
@@ -157,9 +157,9 @@ const useStateHook = (props) => {
  * @param {String|Function} [props.formatValue]     String: 指定下拉项 value 字段，
  *                                                  function: (item) => {}, 自定义下拉框显示字段
  * @param {Function} [props.onTouchBottom]          触底事件
- * @param {Number} [props.faultTolerant]            指定下拉项滚动条距离底部的距离小于多少值时触发 onTouchBottom 事件
- * @param {ReactDom} [props.apendDom]               在下拉项中追加 dom(不可选)
- * @param {String} [props.loadingType]              加载中类型（menu | field | all）
+ * @param {Number} [props.touchBottomDistance]      触底距离，设置距离下拉菜单底部多少时触发 onTouchBottom 事件
+ * @param {ReactDom} [props.appendDom]              在下拉项中追加 dom(不可选)
+ * @param {String} [props.loadingPosition]          加载状态存放位置： menu(下拉菜单)，field(输入框控件), all(所有位置)
  * @param {Boolean} [props.loading]                 是否显示加载中
  * @param {Object} [props.spin]                     设置下拉列表加载组件 Spin.props
  * @link props.spin参数参考  [antd 官网](https://ant.design/components/spin-cn/#API)
@@ -198,12 +198,12 @@ Select.propTypes = {
     PropTypes.func
   ]),
   onPopupScroll: PropTypes.func,
-  faultTolerant: PropTypes.number,
+  touchBottomDistance: PropTypes.number,
 };
 
 Select.defaultProps = {
-  faultTolerant: 10,
-  loadingType: LOADING_TYPE.FIELD,
+  touchBottomDistance: 10,
+  loadingPosition: LOADING_TYPE.FIELD,
 };
 
 export default Select;
