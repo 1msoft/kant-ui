@@ -27,23 +27,24 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {Boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
  * @param {String}   [props.retractMode='half']         收缩模式       'half' | 'all'
  * @param {String}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
- * @param {Function} [props.header]                     未收缩头部组件
+ * @param {Function} [props.header]                     未收缩头部组件 参数(retractMode(处理收缩特效函数)
  * @param {Function} [props.footer]                     未收缩底部组件
  * @param {Function} [props.halfRetractHeader]          半收缩头部组件
  * @param {Function} [props.halfRetractFooter]          半收缩底部组件
  * @param {Object}   [props.siderStyle]                 侧边栏样式覆盖
  * @param {String}   [props.inlineOpenStyle='normal']   mode=inline时的子菜单展开方式 'normal' | 'hideOther'
  * @param {Boolean}  [props.isShowChildMenu=true]       关闭菜单是否收缩子菜单
- * @param {Array}    [props.selectKeys=[]]              当前selectKeys的数据
+ * @param {Array}    [props.selectedKeys=[]]            当前selectedKeys的数据
  * @param {Array}    [props.openKeys=[]]                当前openKeys的数据
- * @param {Function} [props.menuItemDom]                处理menuItem链接的自定义dom
+ * @param {Function} [props.menuItemDom]                处理menuItem链接的自定义dom 参数(item)
  * @param {Obeject}  [props.siderProps]                 layout.sider的api
  * @param {Obeject}  [props.menuProps]                  menu的api
  * @param {Object}   [props.menuItemProps]              menuItem的api
  * @param {Object}   [props.subMenuProps]               subMenu的api
- * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom
- * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom
- * @param {Function} [props.onJumpway]                  使用默认a标签时的跳转方法
+ * @param {Function} [props.subMenuTitleDom]            subMenu标题内自定义dom 参数(item)
+ * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom 参数(item)
+ * @param {Function} [props.onJumpway]                  使用默认a标签时的跳转方法 参数(url, e)
+ * @param {Function} [props.menuItemOnClick]            覆盖antd中menuItem的onClick事件
  * @returns {ReactComponent} 侧边栏
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
@@ -63,17 +64,23 @@ const SideMenu = (props) => {
     'siderStyle',
     'inlineOpenStyle',
     'isShowChildMenu',
-    'selectKeys',
+    'selectedKeys',
     'openKeys',
     'menuItemDom',
     'subMenuTitleDom',
     'menuItemGroupDom',
     'className',
+    'href',
+    'menuItemOnClick',
   ];
+  const filterMenuItem = [
+    'onClick'
+  ];
+  const filterMenuItemArr = [...filterArr, ...filterMenuItem];
 
   const siderProps = omit(props.siderProps, filterArr);
   const menuProps = omit(props.menuProps, filterArr);
-  const menuItemProps = omit(props.menuItemProps, filterArr);
+  const menuItemProps = omit(props.menuItemProps, filterMenuItemArr);
   const subMenuProps = omit(props.subMenuProps, filterArr);
 
   const [selectedKeysState, setSelectedKeys] = useState([]);
@@ -82,10 +89,21 @@ const SideMenu = (props) => {
   const [mark, setMark] = useState(0);
 
   const jumpWay = (url) => {
-    if (!props.onJumpway) {
-      return { 'href': url };
+    if (!props.menuItemDom) {
+      if (!props.onJumpway) {
+        return {
+          'onClick': (e) => {
+            location.href = url;
+            _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null;
+          },
+        };
+      } else {
+        return {
+          'onClick': (e) => { props.onJumpway(url, e);
+            _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null; } };
+      }
     } else {
-      return { 'onClick': () => {props.onJumpway(url);} };
+      return {};
     }
   };
 
@@ -145,11 +163,12 @@ const SideMenu = (props) => {
             className={ item.className ? `${item.className}` : '' }
             key={item.key}
             {...menuItemProps}
+            {...jumpWay(item.url)}
           >
             {
               props.menuItemDom ? props.menuItemDom(item) :
                 <div className="kant-menuitem-title">
-                  <a {...jumpWay(item.url)}>
+                  <a>
                     {
                       item.icon ? (typeof(item.icon) === 'string' ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
@@ -262,13 +281,13 @@ const SideMenu = (props) => {
 
   const resetMenuKeys = () => {
     const dataSource = props.dataSource;
-    const selectKeys = props.selectKeys;
+    const selectedKeys = props.selectedKeys;
     let childMenu = loopChildMenu(dataSource);
     let childMenuArr = childMenu.childMenuArr;
-    if (selectKeys.length === 0 && childMenuArr) {
+    if (selectedKeys.length === 0 && childMenuArr) {
       setSelectedKeys([childMenuArr[0].key]);
     } else {
-      setSelectedKeys(selectKeys);
+      setSelectedKeys(selectedKeys);
     }
   };
 
@@ -331,6 +350,7 @@ const SideMenu = (props) => {
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
+      cascadeKeys();
     }
   }, []);
 
@@ -343,7 +363,7 @@ const SideMenu = (props) => {
       setClass();
       setTimeout(() => {
         cascadeKeys();
-      }, 1400);
+      }, 1000);
     } else if (collapsed === true && mark !== 0) {
       removeClass();
       setOpenKeys([]);
@@ -357,7 +377,6 @@ const SideMenu = (props) => {
         `kant-sidermenu-content ${props.className}`
         : 'kant-sidermenu-content'}
       style={props.siderStyle}
-      // collapsed={props.useCollapsed ? props.isCollapsed : false}
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}
       {...toggelRetractMode(props.retractMode, {})}
@@ -367,7 +386,20 @@ const SideMenu = (props) => {
         props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
           props.halfRetractHeader(retractMenu)
           :
-          (props.header ? props.header(retractMenu) : '')
+          (props.header ? props.header(retractMenu) :
+            <div className="kant-menu-head">
+              <span className="kant-head-icon"
+                onClick={ () => {
+                  retractMenu();
+                } }
+              >
+                <Icon type="swap"
+                  style={{ width: '28px', height: '28px', margin: 'auto'
+                  }}>
+                </Icon>
+              </span>
+            </div>
+          )
       }
       <div className="kant-scroll">
         <Menu
@@ -416,7 +448,7 @@ SideMenu.propTypes = {
   siderStyle: PropTypes.object,
   inlineOpenStyle: PropTypes.string,
   isShowChildMenu: PropTypes.bool,
-  selectKeys: PropTypes.array,
+  selectedKeys: PropTypes.array,
   openKeys: PropTypes.array,
   menuItemDom: PropTypes.func,
   siderProps: PropTypes.object,
@@ -426,6 +458,7 @@ SideMenu.propTypes = {
   subMenuTitleDom: PropTypes.func,
   menuItemGroupDom: PropTypes.func,
   onJumpway: PropTypes.func,
+  menuItemOnClick: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
@@ -436,7 +469,7 @@ SideMenu.defaultProps = {
   openChildMode: 'inline',
   inlineOpenStyle: 'normal',
   isShowChildMenu: true,
-  selectKeys: [],
+  selectedKeys: [],
   openKeys: [],
   menuItemDom: null,
   header: null,
