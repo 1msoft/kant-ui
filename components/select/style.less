@@ -1,13 +1,5 @@
 @import '../assets/styles/vars.less';
 .kant-select {
-  .kant-append-option {
-    padding: 0;
-    margin: 0;
-    &-wrapper{
-      cursor: default;
-    }
-  }
-
   .ant-select {
     border-radius: 4px;
   }
@@ -20,9 +12,16 @@
 }
 
 .kant-select-dropdown {
+  .kant-append-option {
+    padding: 0;
+    margin: 0;
+    &-wrapper{
+      cursor: default;
+    }
+  }
   // 清除样式
-  box-shadow: none !important;
-  background: transparent !important;
+  box-shadow: none;
+  background: transparent;
 
   .kant-menu {
     overflow: hidden;
@@ -39,7 +38,7 @@
   }
 
   &.ant-select-dropdown-hidden {
-    display: block !important;
+    display: block;
     .kant-menu-wrapper {
       transform: translateY(-110%);
       transition: transform 0.5s;
@@ -47,7 +46,7 @@
   }
 
   &.dropdown-hidden {
-    display: none !important;
+    display: none;
   }
 
   &.dropdown-show {
