@@ -93,7 +93,7 @@ const SideMenu = (props) => {
       if (!props.onJumpway) {
         return {
           'onClick': (e) => {
-            location.href = url;
+            // location.href = url;
             _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null;
           },
         };
@@ -107,14 +107,30 @@ const SideMenu = (props) => {
     }
   };
 
+  const focuChildKey = (child, selectedKey) => {
+    let isKey = false;
+    if (child && child.length !== 0) {
+      for (let i = 0; i < child.length; i++) {
+        if (child[i].key === selectedKey) {
+          isKey = true;
+        }
+      }
+    }
+    return isKey;
+  };
+
   const menuNode = (data) => {
     const menuElement = menu => menu.map(item => {
-
+      if (item.key === selectedKeysState[0] || focuChildKey(item.child, selectedKeysState[0])) {
+        item.selectedClassName = "kant-selectedKeys";
+      } else {
+        delete item.selectedClassName;
+      }
       if (item.child) {
         return (
           <AntSubMenu
-            className={ ` ${item.className
-              ? `${item.className}` : ''} kant-submenu-overlay` }
+            className={ item.className ? `${item.className} ${item.selectedClassName}`
+              : `${item.selectedClassName}`}
             key={item.key}
             title={
               props.subMenuTitleDom ? props.subMenuTitleDom(item)
@@ -173,7 +189,8 @@ const SideMenu = (props) => {
                       item.icon ? (typeof(item.icon) === 'string' ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
                           &nbsp;
-                        </span> : item.icon) : ''
+                        </span> : item.icon)
+                        : ''
                     }
                     <span className="kant-menuitem-text">{item.title}</span>
                   </a>
@@ -379,6 +396,7 @@ const SideMenu = (props) => {
       style={props.siderStyle}
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}
+      theme="light"
       {...toggelRetractMode(props.retractMode, {})}
       {...siderProps}
     >
@@ -463,7 +481,7 @@ SideMenu.propTypes = {
 
 SideMenu.defaultProps = {
   dataSource: [],
-  useCollapsed: false,
+  useCollapsed: true,
   isCollapsed: false,
   retractMode: 'half',
   openChildMode: 'inline',
