@@ -93,7 +93,7 @@ const SideMenu = (props) => {
       if (!props.onJumpway) {
         return {
           'onClick': (e) => {
-            // location.href = url;
+            location.href = url;
             _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null;
           },
         };
@@ -419,7 +419,7 @@ const SideMenu = (props) => {
             </div>
           )
       }
-      <div className="kant-scroll">
+      <div className="kant-scroll" id="kant-scroll">
         <Menu
           onSelect={onSelect}
           selectedKeys={selectedKeysState}
