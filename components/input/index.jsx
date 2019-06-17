@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
  * @param {Object}  props
  * @param {Object}  ref                       自动接收表单校验的ref
  * @param {Boolean} [props.autosize=false]    文本域自适应内容高度
- * @param {Function} [props.onFocus]          聚焦事件
- * @param {Function} [props.onBlur]           失焦事件
  * @returns {ReactComponent} 文本输入框组件
  * @see {@link https://ant.design/components/input-cn/#Input 更多参数 详见antd文本输入框 Input文档}
  */
@@ -21,7 +19,7 @@ let Input = (props, ref) => {
 
   return (
     <span ref={ref} className={props.className ?
-      `${props.className} kant-input` : 'kant-input'}>
+      `${props.className}` : ''}>
       <AntInput
         {...otherProps}
       />
@@ -38,7 +36,7 @@ let InputTextArea = (props, ref) => {
   const otherProps = omit(props, filterArr);
   return (
     <span ref={ref} id="kan-textArea" className={props.className
-      ? `${props.className} kant-input` : 'kant-input'}>
+      ? `${props.className} kant-textarea-input` : 'kant-textarea-input'}>
       <AntInput.TextArea
         {...otherProps}
       />
@@ -56,7 +54,7 @@ let AntInputSearch = (props, ref) => {
 
   return (
     <span ref={ref} className={props.className ?
-      `${props.className} kant-input` : 'kant-input'}>
+      `${props.className}` : ''}>
       <AntInput.Search
         {...otherProps}
       />
@@ -74,7 +72,7 @@ let AntInputPassword = (props, ref) => {
 
   return (
     <span ref={ref} className={props.className ?
-      `${props.className} kant-input` : 'kant-input'}>
+      `${props.className}` : ''}>
       <AntInput.Password
         {...otherProps}
       />
