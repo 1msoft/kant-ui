@@ -3,7 +3,7 @@
  * @author kjx
  * @module DatePicker
  */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import omit from 'omit.js';
@@ -15,6 +15,21 @@ import locale from 'antd/lib/date-picker/locale/zh_CN';
 AntDatePicker.YearPicker = YearPicker;
 
 moment.locale('zh-cn');
+const ruleKey = 'autoVerify';
+const filterPropKeys = [
+  "type",
+  "theme",
+  "value",
+  "defaultValue",
+  "onChange",
+  "className",
+  "starPickerConfig",
+  "endPickerConfig",
+  "startDate",
+  "setStartDate",
+  "endDate",
+  "setEndDate",
+];
 
 // 渲染日期选择框
 const renderPicker = (type, pickerProps) => {
@@ -26,22 +41,26 @@ const renderPicker = (type, pickerProps) => {
   }
 };
 
+// form表单重置字段时，修改选择器的props
+const changePropsByResetField = (props, pickerProps, isStartPicker) => {
+  pickerProps.value = null;
+  pickerProps.disabledDate = () => {
+    return false;
+  };
+  pickerProps.onChange = (date, dateString) => {
+    if (isStartPicker) {
+      props.setStartDate(date);
+      props.setEndDate(null);
+    } else {
+      props.setStartDate(null);
+      props.setEndDate(date);
+    }
+  };
+};
+
 // 解析选择器的props
-const getPickerProps = (props, index) => {
-  const otherProps = omit(props, [
-    "type",
-    "theme",
-    "value",
-    "defaultValue",
-    "onChange",
-    "className",
-    "starPickerConfig",
-    "endPickerConfig",
-    "startDate",
-    "setStartDate",
-    "endDate",
-    "setEndDate",
-  ]);
+const getPickerProps = (props, index, ref) => {
+  const otherProps = omit(props, filterPropKeys);
   const isStartPicker = index === 0;
   const config = isStartPicker ? props.starPickerConfig : props.endPickerConfig;
   const kantContext = useContext(Context);
@@ -66,39 +85,74 @@ const getPickerProps = (props, index) => {
     ...otherProps,
     ...config,
   };
-  props.value[index] && (pickerProps.value = props.value[index]);
-  props.defaultValue[index] && (pickerProps.defaultValue = props.defaultValue[index]);
+  props.value && (pickerProps.value = props.value[index]);
+  props.defaultValue && (pickerProps.defaultValue = props.defaultValue[index]);
+  if (ref && !props.value) {
+    changePropsByResetField(props, pickerProps, isStartPicker);
+  }
   return pickerProps;
+};
+
+// 改变 getFieldDecorator下的options.rules
+const changeRules = (props) => {
+  const rules = props['data-__meta'].rules;
+  const validate = props['data-__meta'].validate;
+  const requiredRule = rules.find(rule => rule.hasOwnProperty('required'));
+  const autoVerifyRule = !rules.find(rule => rule.key === ruleKey);
+  if (requiredRule.required && autoVerifyRule) {
+    const addRule = {
+      type: 'number', min: 2, max: 2, message: requiredRule.message || 'required', key: ruleKey,
+      transform: (date) => { return date && date.filter(v => v).length; }
+    };
+    props['data-__meta'].rules = [...rules, addRule];
+    validate[0] &&
+    (props['data-__meta'].validate[0] = {
+      trigger: validate[0].trigger,
+      rules: props['data-__meta'].rules,
+    });
+  }
 };
 
 /**
  * 日期范围输入框
  * @param {Object}   props
+ * @param {Object}   ref                       自动接收表单校验的ref
  * @param {String}   [props.type='Date']             类型('Date' | 'Month' | 'Week' | 'Year')
  * @param {String}   [props.theme='box']             主题('box' | 'underline')
- * @param {Array}    [props.value=[]]                指定时间[moment, moment]
- * @param {Array}    [props.defaultValue=[]]         默认时间[moment, moment]
+ * @param {Array}    [props.value]                   指定时间[moment, moment]
+ * @param {Array}    [props.defaultValue]            默认时间[moment, moment]
  * @param {Number}   [props.minYear]                 最小年份 年份选择器专用
  * @param {Number}   [props.maxYear]                 最大年份 年份选择器专用
  * @param {Function} [props.onChange=() => {}]       时间发生变化的回调
  * @param {Object}   [props.starPickerConfig]        起始时间配置
  * @param {Object}   [props.endPickerConfig]         结束时间配置
+ * @param {Boolean}  [startAutoVerify]               启动默认过滤假值的功能，基于form表单的getFieldDecorator
  * @see {@link https://ant.design/components/date-picker-cn/#API 更多参数详见 antd 日期选择器 DatePicker 文档}
  * @returns {ReactComponent} 日期组件
  */
-const DatePicker = (props) => {
+let DatePicker = (props, ref) => {
+  let staticVariable = useMemo(() => ({
+    triggerChange: false
+  }), []);
+
   const [startDate, setStartDate] = useState(
-    props.value[0] ||
-    props.defaultValue[0] ||
+    (props.value && props.value[0]) ||
+    (props.defaultValue && props.defaultValue[0]) ||
     null
   );
   const [endDate, setEndDate] = useState(
-    props.value[1] ||
-    props.defaultValue[1] ||
+    (props.value && props.value[1]) ||
+    (props.defaultValue && props.defaultValue[1]) ||
     null
   );
+
+  ref && props.startAutoVerify && useEffect(() => {
+    changeRules(props);
+  });
+
   useEffect(() => {
-    props.onChange(startDate, endDate);
+    staticVariable.triggerChange && props.onChange([startDate, endDate]);
+    staticVariable.triggerChange = true;
   }, [startDate, endDate]);
   props = Object.assign({}, props, {
     startDate,
@@ -107,16 +161,19 @@ const DatePicker = (props) => {
     setEndDate
   });
 
-  const startPickerProps = getPickerProps(props, 0);
-  const endPickerProps = getPickerProps(props, 1);
+  const startPickerProps = getPickerProps(props, 0, ref);
+  const endPickerProps = getPickerProps(props, 1, ref);
+
   return (
-    <div className="kant-date-picker-layout">
+    <div className="kant-date-picker-layout" ref={ref}>
       {renderPicker(props.type, startPickerProps)}
       {` ~ `}
       {renderPicker(props.type, endPickerProps)}
     </div>
   );
 };
+
+DatePicker = forwardRef(DatePicker);
 
 /**
  * 自定义日期校验
@@ -144,14 +201,14 @@ DatePicker.propTypes = {
   onChange: PropTypes.func,
   starPickerConfig: PropTypes.object,
   endPickerConfig: PropTypes.object,
+  startAutoVerify: PropTypes.bool,
 };
 
 DatePicker.defaultProps = {
   type: "Date",
-  value: [],
   locale,
-  defaultValue: [],
   onChange: () => {},
+  startAutoVerify: true,
 };
 
 export default DatePicker;

@@ -8,10 +8,11 @@ import Breadcrumb from './breadcrumb/Breadcrumb';
 import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
 import Form from './form/Form';
-import DatePickerComponent from './form/DatePicker';
+import DatePicker from './form/DatePicker';
 import Context from './other/Context';
 import Button from './button/Button';
 import Checkbox from './checkbox/Checkbox';
+import ProgressBar from './progress-bar/ProgressBar';
 
 export default [
   {
@@ -47,11 +48,7 @@ export default [
       },
       {
         title: 'DatePicker 日期范围选择器',
-        component: DatePickerComponent,
-      },
-      {
-        title: 'Button 按钮',
-        component: Button,
+        component: DatePicker,
       },
       {
         title: 'Checkbox 多选框',
@@ -81,11 +78,19 @@ export default [
     ]
   },
   {
-    title: '其他',
+    title: '功能',
     parents: [
       {
         title: 'Context 上下文',
         component: Context,
+      },
+      {
+        title: 'Button 按钮',
+        component: Button,
+      },
+      {
+        title: 'ProgressBar 加载进度条',
+        component: ProgressBar,
       },
     ]
   },
