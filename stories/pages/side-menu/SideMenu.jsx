@@ -62,7 +62,7 @@ const MenuBlock = () => {
   // const menuItemDom = (item) => {
   //   return (
   //     <div className="kant-menuitem-title">
-  //       <a href={item.url}>
+  //       <a href={item.url} onClick={() => {console.log('aaaaaaa');}}>
   //         {
   //           item.icon ? (typeof(item.icon) === 'string' ?
   //             <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
@@ -83,13 +83,13 @@ const MenuBlock = () => {
         siderProps={{
           // theme: 'dark',
         }}
-        // // menuItemDom={menuItemDom}
+        // menuItemDom={menuItemDom}
         // useCollapsed={true}
         // inlineOpenStyle="normal"
         // openKeys={['678']}
         // footer={headDom}
         // selectedKeys={['978266']}
-        // onJumpway={(url,e) => {console.log(url); console.log('----->',e);}}
+        onJumpway={(url,e) => {console.log(url); console.log('----->',e);}}
         // menuItemOnClick={(e) => { console.log(1111,'00---222', e);}}
       />
     </Layout>

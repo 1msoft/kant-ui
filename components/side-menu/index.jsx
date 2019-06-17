@@ -89,22 +89,12 @@ const SideMenu = (props) => {
   const [mark, setMark] = useState(0);
 
   const jumpWay = (url) => {
-    if (!props.menuItemDom) {
-      if (!props.onJumpway) {
-        return {
-          'onClick': (e) => {
-            location.href = url;
-            _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null;
-          },
-        };
-      } else {
-        return {
-          'onClick': (e) => { props.onJumpway(url, e);
-            _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null; } };
-      }
-    } else {
-      return {};
-    }
+    return {
+      'onClick': !props.menuItemDom ? (e) => {
+        !props.onJumpway ?  location.href = url :  props.onJumpway(url, e);
+        _.isFunction(props.menuItemOnClick) ? props.menuItemOnClick(e) : null;
+      } : ''
+    };
   };
 
   const focuChildKey = (child, selectedKey) => {
@@ -411,10 +401,7 @@ const SideMenu = (props) => {
                   retractMenu();
                 } }
               >
-                <Icon type="swap"
-                  style={{ width: '28px', height: '28px', margin: 'auto'
-                  }}>
-                </Icon>
+                <Icon type="swap" />
               </span>
             </div>
           )
