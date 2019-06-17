@@ -17,9 +17,7 @@ class FixedMenu extends React.Component {
  * Creates an instance of FixedMenu
  * @memberof FixedMenu
  * @param {Object}   props
- * @param {function|string|object|reactDOM} [props.children] 子元素
- * @param {Function} [props.scrollToTop]
- *  传入子元素为函数可以接收scrollToTop函数 props.children(props.scrollToTop)
+ * @param {Function|String|Object|ReactDOM} [props.children] 子元素 ({scrollToTop}) => window
  * @param {Number}   [props.visibilityHeight]  悬停菜单出现的滚动高度
  * @param {Boolean}  [props.display]           悬停菜单栏是否一直存在 { "always" || "default" }
  * @param {Number}   [props.speed]             回到顶部的速度
