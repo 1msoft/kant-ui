@@ -33,29 +33,16 @@ Input = React.forwardRef(Input);
 
 let InputTextArea = (props, ref) => {
   const filterArr = [
-    'onFocus',
-    'onBlur',
     'className',
   ];
   const otherProps = omit(props, filterArr);
-
-  const [isFocus, setIsFocus] = useState(false);
-
-  const setFocusClassName = () => {
-    return isFocus ? 'kant-textarea-focus' : 'kant-textarea-blur';
-  };
-
   return (
-    <div className={props.className ?
-      `${props.className} ${setFocusClassName()} kant-input`
-      : `${setFocusClassName()} kant-input`} ref={ref} >
+    <span ref={ref} id="kan-textArea" className={props.className
+      ? `${props.className} kant-input` : 'kant-input'}>
       <AntInput.TextArea
-        autosize={false}
-        onFocus={() => { setIsFocus(true); props.onFocus ? props.onFocus() : null; } }
-        onBlur={() => { setIsFocus(false); props.onBlur ? props.onBlur() : null; } }
         {...otherProps}
       />
-    </div>
+    </span>
   );
 };
 
@@ -88,7 +75,7 @@ let AntInputPassword = (props, ref) => {
   return (
     <span ref={ref} className={props.className ?
       `${props.className} kant-input` : 'kant-input'}>
-      <AntInput.Search
+      <AntInput.Password
         {...otherProps}
       />
     </span>

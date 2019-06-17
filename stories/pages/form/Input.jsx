@@ -1,10 +1,12 @@
 import React from 'react';
 import { Input } from '@components/index';
+import { Divider } from "antd";
 import '@components/input/style';
 
 export default () => (
-  <div style={{ width: '300px' }}>
-    输入框组件介绍页面 <br/>
+  <div style={{ width: '300px', margin: '30px' }}>
+    <Divider orientation="left">文本框展示</Divider>
+    <p>普通文本框</p>
     <Input
       onFocus={() => { console.log('我聚焦了文本框！'); }}
       size='small'

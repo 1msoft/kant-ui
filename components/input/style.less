@@ -4,60 +4,29 @@
 @kant-raduis: @border-radius-base; //组件圆角
 @kant-normal-bodxShadow-color: @box-shadow-base; //普通阴影
 
-.kant-input .ant-input {
-  border: 1px solid @kant-normal-borderColor !important;
-}
-
-.kant-input .ant-input:focus {
-  border: 1px solid @kant-focus-border !important;
-  box-shadow: @kant-focus-boxShadow-color !important;
-}
-
 .kant-input > textarea.ant-input {
   display: block;
-  padding: 0 !important;
-  padding-right: 30px !important;
-  margin: 0 !important;
-  resize: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
+  padding: 2px 20px 2px 10px !important;
+  margin: 0px !important;
+  resize:none;
 }
 
-.kant-input > textarea.ant-input:focus {
-  box-shadow: 0 0px 0 0 rgba(24, 144, 255, 0.2) !important;
-  border: none !important;
-}
-
-.kant-input.kant-textarea-blur {
-  border:1px solid @kant-normal-borderColor;
-  border-radius: @kant-raduis;
-  padding: 13px 11px 15px 21px;
-}
-
-.kant-input.kant-textarea-focus {
-  border:1px solid @kant-focus-border;
-  box-shadow:@kant-focus-boxShadow-color;
-  border-radius: @kant-raduis;
-  padding: 13px 11px 15px 21px;
-}
-
-::-webkit-scrollbar {
+#kan-textArea ::-webkit-scrollbar {
   width:5px;
   border-radius: 2px;
   background:white;
 }
-::-webkit-scrollbar-track {
+#kan-textArea ::-webkit-scrollbar-track {
   border-radius: 2px;
   background:rgba(230,230,230,1);
 }
 
-::-webkit-scrollbar-thumb {
+#kan-textArea ::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background:rgba(179,179,179,1);
 }
 
-::-webkit-scrollbar-button{
-  height: 5px;
+#kan-textArea ::-webkit-scrollbar-button{
+  height: 2px;
   background: white;
 }
