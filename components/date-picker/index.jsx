@@ -95,11 +95,11 @@ const getPickerProps = (props, index, ref) => {
 
 // 改变 getFieldDecorator下的options.rules
 const changeRules = (props) => {
-  const rules = props['data-__meta'].rules;
-  const validate = props['data-__meta'].validate;
+  const rules = props['data-__meta'].rules || [];
+  const validate = props['data-__meta'].validate || [];
   const requiredRule = rules.find(rule => rule.hasOwnProperty('required'));
   const autoVerifyRule = !rules.find(rule => rule.key === ruleKey);
-  if (requiredRule.required && autoVerifyRule) {
+  if (requiredRule && requiredRule.required && autoVerifyRule) {
     const addRule = {
       type: 'number', min: 2, max: 2, message: requiredRule.message || 'required', key: ruleKey,
       transform: (date) => { return date && date.filter(v => v).length; }
