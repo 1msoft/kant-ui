@@ -40,11 +40,18 @@
   display: flex;
   align-items:center;
 }
+.kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu
+  > li.ant-menu-submenu .kant-submenu-title {
+    display: flex;
+    align-items:center;
+  }
 
 .kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-item > div > a {
   display:inline-block;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items:center;
 }
 
 .kant-sidermenu-content .ant-layout-sider-children > .kant-scroll > .ant-menu > li.ant-menu-submenu
@@ -119,7 +126,7 @@
 
 .kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-item > .kant-menuitem-title {
   position: relative;
-  padding-left: 91px !important;
+  padding-left: 106px !important;
 }
 
 .kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-item > .kant-menuitem-title > a > .kant-menuitem-text {
@@ -138,14 +145,17 @@
   border-radius:50%;
   margin-right: 15px;
   vertical-align: center;
-  position: relative;
-  top: -4px;
+  position: absolute;
+  top: 18px;
+  left: 90px;
 }
 
 .kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-item > .kant-menuitem-title > a {
   display: inline-block;
   width: 100%;
   height: 100%;
+  display:flex;
+  align-items:center;
   font-size:16px;
   font-family:PingFang-SC-Regular;
   font-weight:400;
@@ -279,10 +289,14 @@
 }
 
 .kant-sidermenu-content.ant-layout-sider-collapsed .ant-menu > .ant-menu-submenu .ant-menu-submenu-title {
-  padding: 0 43px !important;
+  padding: 0 2px 0 0 !important;
+  display: flex !important;
+  justify-content:center !important;
 }
 .kant-sidermenu-content.ant-layout-sider-collapsed .ant-menu .ant-menu-item {
-    padding: 0 43px !important;
+  padding: 0 2px 0 0 !important;
+  display: flex !important;
+  justify-content:center !important;
 }
 .kant-sidermenu-content.ant-layout-sider-collapsed .ant-menu-submenu {
   position: relative;
@@ -332,6 +346,8 @@
 
 .kant-menuitemgroup-content .ant-menu-item-group-title .kant-itemgroup-title {
   margin-left: 21px;
+  display: flex;
+  align-items:center;
 }
 
 .kant-menuitemgroup-content .ant-menu-item-group-title .kant-itemgroup-text {
@@ -357,13 +373,16 @@
   margin: 0;
   padding: 0;
   height: 50px;
-  line-height: 50px;
   display: flex;
   align-items:center;
 }
 
 .kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-item .kant-menuitem-title {
   margin-left: 51px;
+}
+.kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-item .kant-menuitem-title > a {
+  display: flex;
+  align-items:center;
 }
 
 .kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-item .kant-menuitem-title i {
