@@ -39,7 +39,7 @@ const MenuBlock = () => {
     { key: '978231145', title: '菜单6', url: '/abcde', icon: <Icon type="delete"></Icon> },
     { key: '978254235', title: '菜单6', url: '/abcde', icon: <Icon type="delete"></Icon> },
     { key: '978266236', title: '菜单6', url: '/abcde', icon: <Icon type="delete"></Icon> },
-    { key: '97826588', title: '菜单6', url: '/abcde', icon: <Icon type="delete"></Icon> }
+    { key: '97826588', title: '菜单5', url: '/abcde', icon: <Icon type="delete"></Icon> }
   ];
 
   const headDom = (retractMenu) => {
