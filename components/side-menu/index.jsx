@@ -354,6 +354,19 @@ const SideMenu = (props) => {
     element.className = element.className.replace(/kant-sider-free/g, ' ');
   };
 
+  const setScrollHeight = () => {
+    let headDom = document.getElementsByClassName('kan-head-over')[0];
+    let siderDom = document.getElementsByClassName('kant-sidermenu-content')[0];
+    let scrollDom = document.getElementsByClassName('kant-scroll')[0];
+    let headHeight = headDom.clientHeight;
+    let siderHeight = siderDom.clientHeight;
+    scrollDom.style.height = (siderHeight - headHeight) + 'px';
+  };
+
+  window.onresize = function(){
+    setScrollHeight();
+  };
+
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
@@ -387,25 +400,28 @@ const SideMenu = (props) => {
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}
       theme="light"
+      style={{ height: '100%' }}
       {...toggelRetractMode(props.retractMode, {})}
       {...siderProps}
     >
-      {
-        props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
-          props.halfRetractHeader(retractMenu)
-          :
-          (props.header ? props.header(retractMenu) :
-            <div className="kant-menu-head">
-              <span className="kant-head-icon"
-                onClick={ () => {
-                  retractMenu();
-                } }
-              >
-                <Icon type="swap" />
-              </span>
-            </div>
-          )
-      }
+      <div className={'kan-head-over'}>
+        {
+          props.retractMode === 'half' && collapsed && props.halfRetractHeader ?
+            props.halfRetractHeader(retractMenu)
+            :
+            (props.header ? props.header(retractMenu) :
+              <div className="kant-menu-head">
+                <span className="kant-head-icon"
+                  onClick={ () => {
+                    retractMenu();
+                  } }
+                >
+                  <Icon type="swap" />
+                </span>
+              </div>
+            )
+        }
+      </div>
       <div className="kant-scroll" id="kant-scroll">
         <Menu
           onSelect={onSelect}
