@@ -1,5 +1,6 @@
 import Welcome from './overview/Welcome';
 import Input from './form/Input';
+import FixedMenu_ from './fixed-menu/FixedMenu';
 import SideMenu from './side-menu/SideMenu';
 import SelectDoc from './form/SelectDoc';
 import Breadcrumb from './breadcrumb/Breadcrumb';
@@ -64,7 +65,11 @@ export default [
       },
       {
         title: 'SideMenu 侧边栏',
-        component: SideMenu
+        component: SideMenu,
+      },
+      {
+        title: 'FixedMenu 悬停菜单',
+        component: FixedMenu_,
       },
       {
         title: 'Breadcrumb 面包屑导航',
