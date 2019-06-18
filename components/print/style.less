@@ -1,0 +1,30 @@
+@import '../assets/styles/vars.less';
+@width: 210mm;
+@height: 297mm;
+@padding: 5mm;
+
+.kant-print-preview {
+  display: flex;
+  min-height: 100%;
+
+  &-view {
+    flex: 0 0 @width;
+    width: @width;
+  }
+
+  &-tool {
+    padding: @padding;
+    border-left: 1px solid #e8e8e8;
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+// 表格打印 - 表格列表
+.kant-print-table-list {
+  .kant-print-page {
+    height: @height;
+    overflow: hidden;
+    border-bottom: 1px solid red;
+  }
+}

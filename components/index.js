@@ -12,6 +12,7 @@ export { default as Form } from './form';
 export { default as DatePicker } from './date-picker';
 export { default as Button } from './button';
 export { default as Input } from './input';
+export { default as Print } from './print';
 
 export { default as Context } from './context';
 export { default as Checkbox } from './checkbox';

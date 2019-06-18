@@ -1,0 +1,25 @@
+@import '../assets/styles/vars.less';
+@width: 210mm;
+@height: 297mm;
+@padding: 5mm;
+.kant-print-iframe {
+  .kant-print-page {
+    width: @width;
+    height: @height;
+    border-bottom: 1px solid #e8e8e8;
+  }
+}
+
+.kant-print-preview {
+  display: flex;
+  &-view {
+    flex: 0 0 @width;
+    width: @width;
+  }
+  &-tool {
+    padding: @padding;
+    border-left: 1px solid #e8e8e8;
+    flex: 1;
+    overflow: hidden;
+  }
+}
