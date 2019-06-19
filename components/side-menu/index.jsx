@@ -372,6 +372,7 @@ const SideMenu = (props) => {
       resetMenuKeys();
       cascadeKeys();
     }
+    setScrollHeight();
   }, []);
 
   //设置收缩/展开
