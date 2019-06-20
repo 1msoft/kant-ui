@@ -13,7 +13,7 @@ const useStateHook = (props) => {
   // 计算样式
   const style = useMemo(() => {
     const setting = {};
-    props.params.margin && (setting.padding = `${props.params.margin}mm`);
+    props.params.padding && (setting.padding = `${props.params.padding}px`);
     return setting;
   }, [props.params]);
 
@@ -26,6 +26,8 @@ const useStateHook = (props) => {
 export default (props) => {
   const state = useStateHook(props);
   return (
-    <div className="kant-print-custom-content" style={state.style}></div>
+    <div className="kant-print-custom-content" style={state.style}>
+      {!props.content.current ? props.content : null}
+    </div>
   );
 };

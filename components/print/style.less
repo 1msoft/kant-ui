@@ -1,30 +1,78 @@
 @import '../assets/styles/vars.less';
 @width: 210mm;
-@height: 297mm;
+@height: 296mm;
 @padding: 5mm;
+@bg_color: #eee;
 
 .kant-print-preview {
   display: flex;
-  min-height: 100%;
-
-  &-view {
-    flex: 0 0 @width;
-    width: @width;
-  }
+  height: 100%;
+  overflow: hidden;
+  background: @bg_color;
 
   &-tool {
-    padding: @padding;
-    border-left: 1px solid #e8e8e8;
     flex: 1;
+    height: 100%;
     overflow: hidden;
+    padding: 20px;
+    background: #fff;
+  }
+
+  &-view {
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  .kant-print-body {
+    width: @width;
+    background: #fff;
   }
 }
 
 // 表格打印 - 表格列表
-.kant-print-table-list {
-  .kant-print-page {
-    height: @height;
+.kant-print-page {
+  height: @height;
+  margin: 0px;
+  overflow: hidden;
+  page-break-after: always;
+  border: 5px solid @bg_color;
+  // 打印内容块， 高度自适应
+  .kant-print-page-content {
+    position: relative;
+    height: 100%;
     overflow: hidden;
-    border-bottom: 1px solid red;
+    > div {
+      margin: 0;
+      padding: 0;
+      clear: both;
+    }
+
+    .kant-print-page-num {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    &-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 2.5;
+      text-align: center;
+    }
+    // &-header { }
+    // &-footer { }
   }
+}
+
+// 打印时样式清除
+.kant-print-iframe {
+  .kant-print-page {
+    border: none;
+  }
+}
+
+// 隐藏域
+.kant-print-hidden {
+  height: 0;
+  overflow: hidden;
 }
