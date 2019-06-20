@@ -507,7 +507,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 2px;
-  animation: moveHeadRevese 0.6s ease forwards;
+  // animation: moveHeadRevese 0.6s ease forwards;
   padding-left:229px;
 }
 
@@ -534,6 +534,7 @@
 
 .kant-sider-free .kant-menu-head {
   width: 100% !important;
+  animation: moveHeadRevese 0.6s ease forwards;
 }
 
 @keyframes moveHead{
@@ -574,13 +575,13 @@
 
 .roteClass {
   transform:rotate(0);
-  transform-origin: 55% 45%;
+  transform-origin: 50% 50%;
 }
 
 .kant-icon-rote {
   font-size: 10px;
-  transform: rotate(360deg);
-  transform-origin: 55% 45%;
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
   transition: all 0.5s;
 }
 
@@ -596,4 +597,24 @@
   transform:rotate(180deg);
   display:block;
   font-size: 20px;
+}
+
+.kant-icon-rote .bottom-icon {
+  color: #86AAFF;
+}
+.kant-icon-rote .top-icon {
+  color: #CADCFD;
+}
+
+.ant-layout-sider-collapsed .kant-head-icon .bottom-icon {
+  color: #86AAFF !important;
+}
+.ant-layout-sider-collapsed .kant-head-icon .top-icon {
+  color: #CADCFD !important;
+}
+.ant-layout-sider-collapsed .kant-icon-rote .bottom-icon {
+  color: #CADCFD;
+}
+.ant-layout-sider-collapsed .kant-icon-rote .top-icon {
+  color: #86AAFF;
 }
