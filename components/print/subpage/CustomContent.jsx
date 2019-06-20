@@ -10,23 +10,15 @@ const seInnerHTML = ({ props }) => {
 };
 
 const useStateHook = (props) => {
-  // 计算样式
-  const style = useMemo(() => {
-    const setting = {};
-    props.params.padding && (setting.padding = `${props.params.padding}px`);
-    return setting;
-  }, [props.params]);
-
   useEffect(() => {
     seInnerHTML({ props });
   }, []);
-  return { style };
 };
 
 export default (props) => {
   const state = useStateHook(props);
   return (
-    <div className="kant-print-custom-content" style={state.style}>
+    <div className="kant-print-custom-content" style={props.printPageStyle}>
       {!props.content.current ? props.content : null}
     </div>
   );

@@ -5,23 +5,30 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import { findDOMNode } from "react-dom";
 import { Table } from 'antd';
-// 2 维数组渲染数据
+import { findDOMNode } from "react-dom";
 
-const FIRST_APPEND_NUM = 10;
-const PAGE_HEIGHT = 1060;
-const PAGINATION_HEIGHT = 30;
+/**
+ * @constant
+ * 打印布局 （横向： transverse 纵向： portrait）
+ */
+const LAYOUT = {
+  TRANSVERSE: 'transverse',
+  PORTRAIT: 'portrait',
+};
 
+/**
+ * @constant
+ * 布局尺寸： 定义指定布局下，打印页面的宽高
+ */
+
+const LAYOUT_SIZE = {
+  [LAYOUT.TRANSVERSE]: { height: '210mm', width: '297mm' },
+  [LAYOUT.PORTRAIT]: { height: '297mm', width: '210mm' },
+};
 const useStateHook = (props) => {
   const [list, setList] = useState([[]]);
 
-  // 计算样式
-  const style = useMemo(() => {
-    const setting = {};
-    props.params.padding && (setting.padding = `${props.params.padding}px`);
-    return setting;
-  }, [props.params]);
   /**
    * 显示标题
    * @param {Number} current 当前页
@@ -84,13 +91,14 @@ const useStateHook = (props) => {
 
   // 获取表格内容块高度
   const getTableBodyHeight = (current) => {
-    const { padding = 0 } = props.params;
+    const { paddingTop = 0, paddingBottom = 0 } = props.params;
     const { tableHeader, title, header, footer } = calculatedHeight();
-    let height = PAGE_HEIGHT - tableHeader - 2 * padding;
+    const pageHeight = props.unitScale * parseInt(LAYOUT_SIZE[props.layout].height, 10);
+    let height = pageHeight  - tableHeader - paddingTop - paddingBottom;
     showTitle(current) && (height -= title);
     showPageHeader(current) && (height -= header);
     showPageFooter(current) && (height -= footer);
-    props.showPagination && (height -= PAGINATION_HEIGHT);
+    props.showPagination && (height -= props.paginationHeight);
     return height;
   };
 
@@ -111,11 +119,17 @@ const useStateHook = (props) => {
     setList(data);
   };
 
+  // 打印页面样式
+  const printPageStyle = useMemo(() => ({
+    ...props.printPageStyle,
+    height: LAYOUT_SIZE[props.layout].height,
+  }), [props.layout, props.printPageStyle]);
+
   useEffect(() => {
     handlerData();
-  }, [props.params]);
+  }, [props.printPageStyle]);
 
-  return { list, style, showTitle, showPageHeader, showPageFooter };
+  return { printPageStyle, list, showTitle, showPageHeader, showPageFooter };
 };
 
 export default (props) => {
@@ -127,7 +141,7 @@ export default (props) => {
         state.list.map( (item, index) => (
           <div
             key={index}
-            style={state.style}
+            style={state.printPageStyle}
             className="kant-print-page"
             ref={state.list .length === index + 1 ? state.lastPageRef : null}
           >
@@ -139,6 +153,7 @@ export default (props) => {
                 {state.showPageHeader(index + 1) ? props.pageHeader : null}
               </div>
               <Table
+                bordered
                 rowKey="key"
                 pagination={false}
                 dataSource={item}
@@ -156,6 +171,7 @@ export default (props) => {
       }
       <div className="kant-print-hidden">
         <Table
+          bordered
           rowKey="key"
           pagination={false}
           dataSource={props.dataSource}

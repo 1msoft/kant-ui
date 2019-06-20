@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Table } from 'antd';
 import { Print } from '@components';
+import '@components/print/style';
 
 const dataSource = [];
 
@@ -44,8 +45,8 @@ const PrintDoc = (props) => {
   return (
     <div>
       <Print
-        padding={10}
         title="表格打印"
+        // layout="transverse"
         columns={columns}
         showPagination={true}
         dataSource={dataSource}
@@ -53,6 +54,8 @@ const PrintDoc = (props) => {
         pageFooter="承办方: 福建农林大学东方学院"
         pageHeader="单位: 福建农林大学东方学院"
         alwaysShowPageHeader={false}
+        onPaddingChange={(data) => {console.log(data);}}
+        padding={{ top: 10, left: 30, right: 20, bottom: 15 }}
       >
         打印
       </Print>
