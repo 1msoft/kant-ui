@@ -129,7 +129,6 @@ const SideMenu = (props) => {
                   {
                     item.icon ? (typeof(item.icon) === 'string' ?
                       <span className={`kant-sub-icon iconfont ${item.icon}`}>
-                        &nbsp;
                       </span> : item.icon) : ''
                   }
                   <span className="kant-sub-text">{item.title}</span>
@@ -152,7 +151,6 @@ const SideMenu = (props) => {
                         {
                           item.icon ? (typeof(item.icon) === 'string' ?
                             <span className={`kant-itemgroup-icon iconfont ${item.icon}`}>
-                              &nbsp;
                             </span> : item.icon) : ''
                         }
                         <span className="kant-itemgroup-text">{item.title}</span>
@@ -178,7 +176,6 @@ const SideMenu = (props) => {
                     {
                       item.icon ? (typeof(item.icon) === 'string' ?
                         <span className={`kant-menuitem-icon iconfont ${item.icon}`}>
-                          &nbsp;
                         </span> : item.icon)
                         : ''
                     }
@@ -319,8 +316,8 @@ const SideMenu = (props) => {
     const elementList = [...element].reverse();
     const toggleClass = (element, j) => {
       const ul = element[j].getElementsByClassName('ant-menu-sub');
-      ul[0].className += ' ant-menu-hidden';
       element[j].className = element[j].className.replace(/ant-menu-submenu-open/g, ' ');
+      ul[0].className += ' ant-menu-hidden';
       if (j === element.length - 1 || element.length === 0) {
         setTimeout( () => {
           setCollapsed(!collapsed);
@@ -329,11 +326,11 @@ const SideMenu = (props) => {
     };
     const recur = (j, length) => {
       setTimeout(() => {
-        toggleClass(elementList, j);
-        if( ++j <= element.length) {
+        if( ++j <= element.length || element.length > 0) {
+          toggleClass(elementList, j - 1);
           recur(j, length);
         }
-      }, 400);
+      }, 300);
     };
     if (element.length !== 0) {
       recur(0, element.length);
@@ -361,6 +358,19 @@ const SideMenu = (props) => {
     let headHeight = headDom.clientHeight;
     let siderHeight = siderDom.clientHeight;
     scrollDom.style.height = (siderHeight - headHeight) + 'px';
+  };
+
+  const roteIcon = () => {
+    let ele = document.getElementsByClassName('roteClass')[0];
+    let mark = 0;
+    if (mark === 0) {
+      ele.className += ' kant-icon-rote';
+      mark = 1;
+    }
+    setTimeout(() => {
+      ele.className = ele.className.replace(/kant-icon-rote/g, '');
+      mark = 0;
+    }, 600);
   };
 
   window.onresize = function(){
@@ -412,12 +422,16 @@ const SideMenu = (props) => {
             :
             (props.header ? props.header(retractMenu) :
               <div className="kant-menu-head">
-                <span className="kant-head-icon"
+                <span className="kant-head-icon roteClass"
                   onClick={ () => {
-                    retractMenu();
+                    setTimeout(()=>{
+                      retractMenu();
+                    }, 601);
+                    roteIcon();
                   } }
                 >
-                  <Icon type="swap" />
+                  <Icon type="swap-right" className="bottom-icon"></Icon>
+                  <Icon type="swap-right" className="top-icon"></Icon>
                 </span>
               </div>
             )
