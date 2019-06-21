@@ -39,7 +39,7 @@ const LAYOUT_SIZE = {
  * @param {*} padding 待解析数据 props.padding
  * @returns {Object}
  */
-const getInitParams = (padding) => {
+const parsePadding = (padding) => {
   const parseNumber = (data) => {
     const num = parseInt(data, 10);
     return (isNaN(num) ? 0 : num);
@@ -53,7 +53,7 @@ const getInitParams = (padding) => {
 };
 
 const useStateHook = (props) => {
-  const [params, setParams] = useState(getInitParams(props.padding));
+  const [params, setParams] = useState({});
   const [show, setShow] = useState(false);
   const printBody = useRef();
 
@@ -94,6 +94,10 @@ const useStateHook = (props) => {
     width: LAYOUT_SIZE[props.layout].width,
   }), [props.layout]);
 
+  useEffect(() => {
+    setParams(parsePadding(props.padding));
+  }, [props.padding]);
+
   return {
     show,
     onOpen,
@@ -113,6 +117,7 @@ const useStateHook = (props) => {
  * # 表格打印
  * @param {Object[]} props.dataSource               参考 antd table dataSource
  * @param {Object[]} props.columns                  参考 antd table columns
+ * @param {String|Function} props.rowKey            参考 antd table rowKey
  * @param {Number} props.unitScale                  单位转换比例（mm 转 ps 的比例， 默认为 3.5）
  * @param {Boolean} props.showPagination            显示页码，默认为 true
  * @param {Number} props.paginationHeight           页码高度（默认30）
@@ -122,7 +127,7 @@ const useStateHook = (props) => {
  * @param {Boolean} props.alwaysShowPageHeader      是否一直显示打印页头，默认为 true
  * @param {ReactNode} props.pageFooter              打印页脚
  * @param {Boolean} props.alwaysShowPageFooter      是否一直显示打印页脚，默认为 true
- * # 私有属性
+ * # 公有
  * @param {String} props.layout                     布局（横向 transverse 、纵向 portrait）
  * @param {Number | String | Object} padding        打印页面内边距
  * @param {Function} props.onPaddingChange          边距改变触发该事件
@@ -218,6 +223,7 @@ let Print = (props) => {
 };
 
 Print.defaultProps = {
+  rowKey: 'key',
   unitScale: 3.5,
   paginationHeight: 30,
   showPagination: true,

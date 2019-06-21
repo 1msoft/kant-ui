@@ -25,6 +25,9 @@
 
 // 打印时样式清除
 .kant-print-iframe {
+  .kant-print-body {
+    min-height: initial;
+  }
   .kant-print-page {
     border: none;
   }
@@ -32,6 +35,7 @@
 
 // 打印页面设置
 .kant-print-body {
+  min-height: 100%;
   color: @kant-print-base-coloe;
   background: #fff;
 

@@ -12,7 +12,7 @@ const seInnerHTML = ({ props }) => {
 const useStateHook = (props) => {
   useEffect(() => {
     seInnerHTML({ props });
-  }, []);
+  }, [props.content]);
 };
 
 export default (props) => {

@@ -127,7 +127,7 @@ const useStateHook = (props) => {
 
   useEffect(() => {
     handlerData();
-  }, [props.printPageStyle]);
+  }, [props]);
 
   return { printPageStyle, list, showTitle, showPageHeader, showPageFooter };
 };
@@ -154,9 +154,9 @@ export default (props) => {
               </div>
               <Table
                 bordered
-                rowKey="key"
                 pagination={false}
                 dataSource={item}
+                rowKey={props.rowKey}
                 columns={props.columns || []}
               />
               <div className="kant-print-page-content-footer">
