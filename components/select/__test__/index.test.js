@@ -112,12 +112,12 @@ describe('Select: 选择器', function () {
   it('加载中是否能够正确显示、类型是否正确', function (){
     const data =  [{ title: '红色', value: 'red' }];
     const defaultWrapper = mount( <Select data={data} loading/>);
-    const fieldWrapper = mount( <Select data={data} loading loadingType="field"/>);
+    const fieldWrapper = mount( <Select data={data} loading loadingPosition="field"/>);
     const allWrapper = mount(
       <Select
         loading
         data={data}
-        loadingType="all"
+        loadingPosition="all"
         spin={{ indicator: (
           <Icon
             type="loading"
@@ -131,7 +131,7 @@ describe('Select: 选择器', function () {
       <Select
         loading
         data={data}
-        loadingType="menu"
+        loadingPosition="menu"
         spin={{ indicator: (
           <Icon
             type="loading"
@@ -173,7 +173,7 @@ describe('Select: 选择器', function () {
     const wrapper = mount(
       <Select
         data = {data}
-        faultTolerant={20}
+        touchBottomDistance={20}
         onTouchBottom={onTouchBottom}
         onPopupScroll={onPopupScroll}
       />
@@ -197,7 +197,7 @@ describe('Select: 选择器', function () {
     const wrapper = mount(
       <Select
         data = {data}
-        apendDom={(<div onClick={onClick} className="kant-append">加载更多</div>)}
+        appendDom={(<div onClick={onClick} className="kant-append">加载更多</div>)}
         dropdownRender={(dom) => (<div>{dom}<div className="kant-dropdown-render"></div></div>)}
       />
     );

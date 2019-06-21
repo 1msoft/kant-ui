@@ -2,6 +2,8 @@
 export { default as Example } from './example';
 export { default as Select } from './select';
 
+//悬停菜单
+export { default as FixedMenu } from './fixed-menu';
 // 侧边栏
 export { default as SideMenu } from './side-menu';
 //面包屑导航

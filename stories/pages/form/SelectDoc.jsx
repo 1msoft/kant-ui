@@ -222,7 +222,7 @@ const LoadingBlock = () => {
             loading
             data={data}
             onChange={onChange}
-            loadingType="field"
+            loadingPosition="field"
             placeholder="请选择颜色"
             style={{ width: '100%' }}
           />
@@ -232,7 +232,7 @@ const LoadingBlock = () => {
             loading
             data={data}
             onChange={onChange}
-            loadingType="menu"
+            loadingPosition="menu"
             placeholder="请选择颜色"
             style={{ width: '100%' }}
           />
@@ -242,7 +242,7 @@ const LoadingBlock = () => {
             loading
             data={data}
             onChange={onChange}
-            loadingType="all"
+            loadingPosition="all"
             placeholder="请选择颜色"
             style={{ width: '100%' }}
             spin={{
@@ -303,7 +303,7 @@ const TouchBottom = () => {
     <div>
       <Select
         data={data}
-        loadingType="all"
+        loadingPosition="all"
         loading={spinning}
         placeholder="请选择颜色"
         onTouchBottom={onTouchBottom}
@@ -347,7 +347,7 @@ const ClickLoadingMore = () => {
     });
   }, [data, spinning]);
 
-  const apendDom = useMemo(() => (
+  const appendDom = useMemo(() => (
     <div className="kant-select-apend" onClick={onClick}>
       { data.length === 12 ? '没有更多数据' : '加载更多' }
     </div>
@@ -357,9 +357,9 @@ const ClickLoadingMore = () => {
     <div>
       <Select
         data={data}
-        loadingType="all"
+        loadingPosition="all"
         loading={spinning}
-        apendDom={apendDom}
+        appendDom={appendDom}
         placeholder="请选择颜色"
         style={{ width: '100%' }}
       />
