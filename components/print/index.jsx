@@ -31,8 +31,8 @@ const LAYOUT = {
  * 布局尺寸： 定义指定布局下，打印页面的宽高
  */
 const LAYOUT_SIZE = {
-  [LAYOUT.TRANSVERSE]: { height: '210mm', width: '297mm' },
-  [LAYOUT.PORTRAIT]: { height: '297mm', width: '210mm' },
+  [LAYOUT.TRANSVERSE]: { height: '209mm', width: '296mm' },
+  [LAYOUT.PORTRAIT]: { height: '296mm', width: '209mm' },
 };
 
 /**
@@ -130,7 +130,7 @@ const useStateHook = (props) => {
  * @param {Boolean} props.alwaysShowPageFooter      是否一直显示打印页脚，默认为 true
  * # 公有
  * @param {String} props.layout                     布局（横向 transverse 、纵向 portrait）
- * @param {Number | Object} padding        打印页面内边距
+ * @param {Number | Object} padding                 打印页面内边距
  * @param {Function} props.onPaddingChange          边距改变触发该事件
  * @param {Function} props.onAfterPrint             关闭打印预览界面时触发的事件,
  *                                                  需手动调用 close 方法关闭打印预览界面 ({ close }) => {}

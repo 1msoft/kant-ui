@@ -1,5 +1,4 @@
 @import '../assets/styles/vars.less';
-@height: 297mm;
 
 // 打印预览
 .kant-print-preview {
@@ -29,7 +28,7 @@
     min-height: initial;
   }
   .kant-print-page {
-    border: none;
+    border: none !important;
   }
 }
 
@@ -41,7 +40,6 @@
 
   // 表格打印 - 打印页面样式
   .kant-print-page {
-    height: @height;
     margin: 0px;
     overflow: hidden;
     page-break-after: always;
@@ -80,6 +78,10 @@
     }
     table, th, td {
       border-color: @kant-print-table-border-coloe !important;
+    }
+
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+      padding: 10px;
     }
   }
 }

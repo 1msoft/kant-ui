@@ -21,11 +21,11 @@ const LAYOUT = {
  * @constant
  * 布局尺寸： 定义指定布局下，打印页面的宽高
  */
-
 const LAYOUT_SIZE = {
-  [LAYOUT.TRANSVERSE]: { height: '210mm', width: '297mm' },
-  [LAYOUT.PORTRAIT]: { height: '297mm', width: '210mm' },
+  [LAYOUT.TRANSVERSE]: { height: '209mm', width: '296mm' },
+  [LAYOUT.PORTRAIT]: { height: '296mm', width: '209mm' },
 };
+
 const useStateHook = (props) => {
   const [list, setList] = useState([[]]);
 
