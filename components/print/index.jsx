@@ -6,6 +6,7 @@ import React, {
   Fragment,
 } from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 import ReactToPrint from 'react-to-print';
 import { findDOMNode } from "react-dom";
 import { Drawer, Button } from 'antd';
@@ -129,6 +130,7 @@ const useStateHook = (props) => {
  * @param {ReactNode} props.pageFooter              打印页脚
  * @param {Boolean} props.alwaysShowPageFooter      是否一直显示打印页脚，默认为 true
  * # 公有
+ * @param {String} props.className                  为打印内容块添加 className
  * @param {String} props.layout                     布局（横向 transverse 、纵向 portrait）
  * @param {Number | Object} padding                 打印页面内边距
  * @param {Function} props.onPaddingChange          边距改变触发该事件
@@ -153,7 +155,7 @@ let Print = (props) => {
             <div
               ref={state.printBody}
               style={state.printBodyStyle}
-              className="kant-print-body"
+              className={classNames('kant-print-body', props.className)}
             >
               {props.content ?
                 <CustomContent
@@ -251,6 +253,7 @@ Print.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
+  className: PropTypes.string,
   alwaysShowPageFooter: PropTypes.bool,
   layout: PropTypes.string,
   padding: PropTypes.oneOfType([

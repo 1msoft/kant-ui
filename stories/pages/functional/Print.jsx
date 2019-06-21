@@ -80,6 +80,9 @@ const PrintDoc = (props) => {
       <PrintTablePadding />
       <DividerBlock>表格打印 - 异步加载数据</DividerBlock>
       <PrintTableAsync />
+      <DividerBlock>表格打印 - 修改默认打印样式</DividerBlock>
+      <PrintTableStyle />
+
     </div>
   );
 };
@@ -348,6 +351,19 @@ const PrintTableAsync = () => {
       dataSource={data}
       onBeforePrint={onBeforePrint}
       onAfterPrint={onAfterPrint}
+    >
+      <Button>打印</Button>
+    </Print>
+  );
+};
+
+// 表格打印 - 修改默认打印样式PrintTableStyle
+const PrintTableStyle = () => {
+  return (
+    <Print
+      columns={columns}
+      dataSource={dataSource}
+      className="kant-print-reset-style"
     >
       <Button>打印</Button>
     </Print>
