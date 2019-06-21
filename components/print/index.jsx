@@ -10,6 +10,7 @@ import ReactToPrint from 'react-to-print';
 import { findDOMNode } from "react-dom";
 import { Drawer, Button } from 'antd';
 import { Form, InputNumber } from '..';
+import PropTypes from 'prop-types';
 
 import CustomContent from './subpage/CustomContent';
 import TableList from './subpage/TableList';
@@ -129,7 +130,7 @@ const useStateHook = (props) => {
  * @param {Boolean} props.alwaysShowPageFooter      是否一直显示打印页脚，默认为 true
  * # 公有
  * @param {String} props.layout                     布局（横向 transverse 、纵向 portrait）
- * @param {Number | String | Object} padding        打印页面内边距
+ * @param {Number | Object} padding        打印页面内边距
  * @param {Function} props.onPaddingChange          边距改变触发该事件
  * @param {Function} props.onAfterPrint             关闭打印预览界面时触发的事件,
  *                                                  需手动调用 close 方法关闭打印预览界面 ({ close }) => {}
@@ -220,6 +221,44 @@ let Print = (props) => {
       </span>
     </div>
   );
+};
+
+Print.propTypes = {
+  content: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.element,
+  ]),
+  dataSource: PropTypes.arrayOf(PropTypes.object),
+  columns: PropTypes.arrayOf(PropTypes.object),
+  rowKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
+  unitScale: PropTypes.number,
+  showPagination: PropTypes.bool,
+  paginationHeight: PropTypes.number,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  alwaysShowTitle: PropTypes.bool,
+  pageHeader: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  alwaysShowPageHeader: PropTypes.bool,
+  pageFooter: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]),
+  alwaysShowPageFooter: PropTypes.bool,
+  layout: PropTypes.string,
+  padding: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object,
+  ]),
+  onAfterPrint: PropTypes.func,
+  onBeforePrint: PropTypes.func,
 };
 
 Print.defaultProps = {
