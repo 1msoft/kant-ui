@@ -87,7 +87,7 @@ module.exports = function(config) {
 
     files: [
       './node_modules/@babel/polyfill/dist/polyfill.min.js',
-      'components/**/*.test.js'
+      'components/fixed-menu/**/*.test.js'
     ],
 
     frameworks: ['mocha'],
@@ -124,7 +124,7 @@ module.exports = function(config) {
       require("karma-mocha-reporter"),
       require("karma-coverage-istanbul-reporter"),
       require("istanbul-instrumenter-loader"),
-      require('karma-jasmine'),
+      // require('karma-jasmine'),
     ],
     browsers: ['ChromeHeadless'],
     customLaunchers: {

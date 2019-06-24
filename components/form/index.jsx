@@ -150,7 +150,7 @@ const FormItem = (props) => {
         child.type &&
         (
           child.type === FormItem ||
-          child.type.displayName === 'FormItem'
+          child.type.elementType === 'FormItem'
         )
       ) {
         continue;
@@ -261,13 +261,18 @@ const FormItem = (props) => {
               [`kant-wrapper-container-center`]: isEqual(mergewrapperAlign, 'center'),
             },
           );
+
+          const labelWidth =
+            'labelWidth' in props ?
+              props.labelWidth :
+              context.labelWidth;
           return (
             <div className={containerClassName}>
               {
                 props.label ?
                   <div
                     className={labelWrapperClassName}
-                    style={{ width: getLabelWidth(props.labelWidth) }}
+                    style={{ width: getLabelWidth(labelWidth) }}
                   >
                     <label
                       htmlFor=""
@@ -309,6 +314,7 @@ const getLabelWidthValidator = (props, propsName) => {
     !isString(value)
   ) return new Error(`无效类型： ${propsName}类型只支持【string | number】`);
 };
+FormItem.elementType = 'FormItem';
 
 FormItem.propTypes = {
   ...COMMON_PARAMS_TYPES,
@@ -338,6 +344,7 @@ FormItem.defaultProps = {
  * @param {String} [props.direction='row']                 FormItem排列方式 row | column
  * @param {Number|Object} [props.gutter]                   栅格间隔  gutter=15 | gutter={{ xs: 8 }}
  * @param {String} [props.labelAlign='right']              label标签对齐方式
+ * @param {String} [props.labelWidth='80px']               label标签默认宽度
  * @param {Boolean} [props.inlineLabel=false]              label标签宽度自适应
  * @param {String} [props.wrapperAlign='left']             wrapper标签对齐方式
  * @param {String} [props.locationRequired='beforeLabel']  必填标识位置
@@ -350,6 +357,7 @@ const FormLayout = (props) => {
     colon: props.colon,
     direction: props.direction,
     inlineLabel: props.inlineLabel,
+    labelWidth: props.labelWidth,
     labelAlign: props.labelAlign,
     wrapperAlign: props.wrapperAlign,
     locationRequired: props.locationRequired,
@@ -361,8 +369,10 @@ const FormLayout = (props) => {
     if (
       !isObject(child) ||
       !('type' in child) ||
-      child.type !== FormItem ||
-      child.type.name !== 'FormItem'
+      !(
+        child.type === FormItem ||
+        child.type.elementType === 'FormItem'
+      )
     ) return;
 
     const childProps = child.props || {};
@@ -420,6 +430,7 @@ FormLayout.defaultProps = {
   direction: 'row',
   inlineLabel: false,
   labelAlign: 'right',
+  labelWidth: '80px',
   wrapperAlign: 'left',
   hideRequiredMark: false,
   locationRequired: 'beforeLabel',

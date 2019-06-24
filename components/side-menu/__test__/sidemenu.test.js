@@ -119,7 +119,7 @@ describe('侧边栏菜单', function () {
         siderProps={{ onClick: onClick }}
         inlineOpenStyle={'hideOther'}
         openKeys={['678']}
-        selectKeys={['3456']}
+        selectedKeys={['3456']}
         isShowChildMenu={true}
       />
     );
