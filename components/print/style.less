@@ -1,0 +1,93 @@
+@import '../assets/styles/vars.less';
+
+// 打印预览
+.kant-print-preview {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background: @kant-print-view-pg;
+
+  &-tool {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    padding: 20px;
+    background: #fff;
+  }
+
+  &-view {
+    padding: 5px;
+    min-height: 100%;
+    overflow: auto;
+  }
+}
+
+// 打印时样式清除
+.kant-print-iframe {
+  .kant-print-body {
+    min-height: initial;
+  }
+  .kant-print-page {
+    border: none !important;
+  }
+}
+
+// 打印页面设置
+.kant-print-body {
+  min-height: 100%;
+  color: @kant-print-base-coloe;
+  background: #fff;
+
+  // 表格打印 - 打印页面样式
+  .kant-print-page {
+    margin: 0px;
+    overflow: hidden;
+    page-break-after: always;
+    border: 5px solid @kant-print-view-pg;
+    // 打印内容块， 高度自适应
+    .kant-print-page-content {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      > div {
+        margin: 0;
+        padding: 0;
+        clear: both;
+      }
+
+      .kant-print-page-num {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      &-title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 2.5;
+        text-align: center;
+      }
+    }
+  }
+
+  // 表格打印 - antd table 样式重写
+  .ant-table {
+    color: @kant-print-base-coloe;
+    .ant-table-thead > tr > th {
+      color: @kant-print-table-head-coloe;
+    }
+    table, th, td {
+      border-color: @kant-print-table-border-coloe !important;
+    }
+
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+      padding: 10px;
+    }
+  }
+}
+
+// 隐藏域
+.kant-print-hidden {
+  height: 0;
+  overflow: hidden;
+}

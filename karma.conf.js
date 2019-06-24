@@ -87,7 +87,7 @@ module.exports = function(config) {
 
     files: [
       './node_modules/@babel/polyfill/dist/polyfill.min.js',
-      'components/fixed-menu/**/*.test.js'
+      'components/**/*.test.js'
     ],
 
     frameworks: ['mocha'],
