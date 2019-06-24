@@ -8,7 +8,6 @@ import React, {
 import _ from 'lodash';
 import classNames from 'classnames';
 import ReactToPrint from 'react-to-print';
-import { findDOMNode } from "react-dom";
 import { Drawer, Button } from 'antd';
 import { Form, InputNumber } from '..';
 import PropTypes from 'prop-types';
