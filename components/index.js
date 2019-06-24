@@ -17,5 +17,6 @@ export { default as Input } from './input';
 export { default as Print } from './print';
 
 export { default as Context } from './context';
+export { default as ImagePreviewer } from './image-previewer';
 export { default as Checkbox } from './checkbox';
 export { default as ProgressBar } from './progress-bar';
