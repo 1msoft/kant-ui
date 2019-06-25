@@ -196,8 +196,6 @@
   height: 16px;
   position: absolute;
   right: 24px;
-  top: 24px;
-  font-size: 14px !important;
   transform: rotate(0);
   transition: all 0.3s;
   color: @heading-color;
@@ -252,7 +250,7 @@
   color:  @primary-color !important;
 }
 
-.kant-sidermenu-content .ant-menu-submenu-selected .ant-menu-submenu-title .kant-sub-text {
+.kant-sidermenu-content .ant-menu-submenu-selected > .ant-menu-submenu-title > .kant-submenu-title > .kant-sub-text {
   color: @primary-color !important;
 }
 .kant-sidermenu-content .ant-menu-submenu-selected .ant-menu-submenu-title .kant-sub-icon {
@@ -554,7 +552,7 @@
   }
 }
 
-.kant-selectedKeys ul .kant-menuitemgroup-content .ant-menu-item-group-title .kant-itemgroup-title > i {
+.kant-selectedKeys > ul > .kant-menuitemgroup-content > .ant-menu-item-group-title > .kant-itemgroup-title > i {
   color:  @primary-color;
 }
 
@@ -617,4 +615,52 @@
 }
 .ant-layout-sider-collapsed .kant-icon-rote .top-icon {
   color: #86AAFF;
+}
+
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu .ant-menu-submenu-title .kant-submenu-title .kant-icon-allow {
+  color: @kant-and-menu !important;
+  transform: rotate(0);
+  transition: all 0.3s;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu .ant-menu-submenu-title .kant-submenu-title i {
+  color: @kant-and-menu !important;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-selected .ant-menu-submenu-title .kant-submenu-title .kant-icon-allow {
+  color: @primary-color !important;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-open .ant-menu-submenu-title .kant-submenu-title .kant-icon-allow {
+  transform: rotate(90deg);
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-selected .ant-menu-submenu-title .kant-submenu-title i {
+  color:@primary-color !important;
+}
+
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu .ant-menu-submenu-title {
+  color: @kant-and-menu !important;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-selected .ant-menu-submenu-title .kant-sub-text {
+  color: @primary-color !important;
+}
+
+.kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-submenu .ant-menu-submenu-title .kant-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+.kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-submenu .ant-menu-submenu-title
+  .kant-submenu-title .kant-icon-allow {
+  display: none;
+}
+.kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-submenu-selected
+  .ant-menu-submenu-title .ant-menu-submenu-arrow::after{
+    background: @primary-color !important;
+}
+.kant-menuitemgroup-content .ant-menu-item-group-list .ant-menu-submenu-selected
+  .ant-menu-submenu-title .ant-menu-submenu-arrow::before{
+    background: @primary-color !important;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-active .ant-menu-submenu-title .kant-submenu-title i {
+  color: @primary-color !important;
+}
+.kant-sidermenu-content .ant-menu-submenu > ul > .ant-menu-submenu-active .ant-menu-submenu-title .kant-submenu-title .kant-icon-allow {
+  color: @primary-color !important;
 }
