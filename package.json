@@ -29,7 +29,7 @@
     "build:lib": "cross-env OUTPUT_MODULE=commonjs babel components -d lib --ignore **/__tests__",
     "build:publish": "npm run clean && npm run build:lib && npm run build:es && npm run build:umd && npm run build:css",
     "storybook": "start-storybook -p 8080 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o .out",
+    "storybook:build": "build-storybook -c .storybook -o docs",
     "storybook:docs": "npm run storybook:build && storybook-to-ghpages --existing-output-dir=.out",
     "eslint:fix": "eslint ./stories/**/*.js ./stories/**/*.jsx ./components/**/*.js ./components/**/*.jsx --fix",
     "release": "standard-version"
