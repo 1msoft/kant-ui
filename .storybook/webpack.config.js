@@ -17,6 +17,8 @@ module.exports = {
             loader: "babel-loader",
           }, {
             loader: "eslint-loader",
+          }, {
+            loader: path.resolve(__dirname, '../scripts/loader-demo.js'),
           }
         ],
         exclude: /node_modules/,
@@ -82,6 +84,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(txt | md)$/,
+        use: 'raw-loader'
+      }
     ],
   },
   resolve: {

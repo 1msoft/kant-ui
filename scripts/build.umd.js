@@ -21,6 +21,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const { version, name, description } = require("../package.json");
 
+const NAME='kant-ui';
 const LOGO = `
               __                    _
   _______  __/ /_____        __  __(_)
@@ -33,7 +34,7 @@ const LOGO = `
 const config = {
   mode: "production",
   entry: {
-    [name]: ["./components/index.js"]
+    [NAME]: ["./components/index.js"]
   },
 
   //umd 模式打包
