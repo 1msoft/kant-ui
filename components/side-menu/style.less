@@ -262,14 +262,14 @@
 }
 
 .kant-sidermenu-content.ant-layout-sider-collapsed {
-  animation: moveSider 0.6s ease forwards;
+  animation: moveSider 0.3s ease forwards;
   height: 100% !important;
   flex: none !important;
   box-shadow: @box-shadow-base;
 }
 
 .kant-sidermenu-content .ant-menu-inline-collapsed {
-  animation: moveMenu 0.6s ease forwards;
+  animation: moveMenu 0.3s ease forwards;
   border: none;
 }
 
@@ -428,7 +428,7 @@
 
 .kant-sider-free {
   min-width: 0 !important;
-  animation: moveSiderNormal 0.8s ease;
+  animation: moveSiderNormal 0.4s ease;
 }
 
 .kant-sider-free .ant-menu-inline {
@@ -505,7 +505,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 2px;
-  // animation: moveHeadRevese 0.6s ease forwards;
+  animation: moveHeadRevese 0.3s ease forwards;
   padding-left:229px;
 }
 
@@ -519,7 +519,7 @@
   height: 50px;
   box-shadow:1px 1px 20px 0px rgba(40,40,40,0.1);
   margin-bottom: 2px;
-  animation: moveHead 0.6s ease forwards;
+  animation: moveHead 0.2s ease forwards;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -532,7 +532,7 @@
 
 .kant-sider-free .kant-menu-head {
   width: 100% !important;
-  animation: moveHeadRevese 0.6s ease forwards;
+  animation: moveHeadRevese 0.2s ease forwards;
 }
 
 @keyframes moveHead{
@@ -544,10 +544,13 @@
 }
 
 @keyframes moveHeadRevese{
-  from {
+  0% {
     padding-left: 0px;
   }
-  to {
+  50% {
+    padding-left: 100px;
+  }
+  100% {
     padding-left: 229px;
   }
 }
