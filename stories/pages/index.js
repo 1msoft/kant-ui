@@ -28,10 +28,6 @@ export default [
         title: '欢迎页面',
         component: Welcome
       },
-      {
-        title: '欢迎页面111',
-        component: Welcome
-      },
     ]
   },
   {

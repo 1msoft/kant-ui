@@ -14,7 +14,8 @@ const cssnano = require("gulp-cssnano");
 const size = require("gulp-filesize");
 const sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
-const { name } = require("../package.json");
+
+const NAME = 'kant-ui';
 const browserList = [
   "last 2 versions",
   "Android >= 4.0",
@@ -66,20 +67,20 @@ gulp.task("dist", () => {
       })
     )
     .pipe(autoprefixer({ browsers: browserList }))
-    .pipe(concat(`${name}.css`))
+    .pipe(concat(`${NAME}.css`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))
     .pipe(sourcemaps.write())
-    .pipe(rename(`${name}.css.map`))
+    .pipe(rename(`${NAME}.css.map`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))
 
     .pipe(cssnano())
-    .pipe(concat(`${name}.min.css`))
+    .pipe(concat(`${NAME}.min.css`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist))
     .pipe(sourcemaps.write())
-    .pipe(rename(`${name}.min.css.map`))
+    .pipe(rename(`${NAME}.min.css.map`))
     .pipe(size())
     .pipe(gulp.dest(DIR.dist));
 });
