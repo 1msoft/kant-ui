@@ -5,6 +5,8 @@ import SideMenu from './side-menu/SideMenu';
 import SelectDoc from './form/SelectDoc';
 import Breadcrumb from './breadcrumb/Breadcrumb';
 
+import Table from './data/Table';
+
 import HeaderComponent from './layout/HeaderComponent';
 import InputNumber from './form/InputNumber';
 import Form from './form/Form';
@@ -24,10 +26,6 @@ export default [
     parents: [
       {
         title: '欢迎页面',
-        component: Welcome
-      },
-      {
-        title: '欢迎页面111',
         component: Welcome
       },
     ]
@@ -57,6 +55,15 @@ export default [
       {
         title: 'Checkbox 多选框',
         component: Checkbox,
+      },
+    ]
+  },
+  {
+    title: '数据展示',
+    parents: [
+      {
+        title: 'Table 表格',
+        component: Table,
       },
     ]
   },

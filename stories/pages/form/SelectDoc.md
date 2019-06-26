@@ -1,56 +1,9 @@
-import React, {
-  useMemo,
-  useState,
-  Fragment,
-  useCallback,
-  useEffect,
-} from 'react';
-import { Select } from '@components/index';
-import { Markdown } from '../../components';
-import '@components/select/style';
-import './SelectDoc.less';
-import markdownData from './SelectDoc.md';
 
-import {
-  Row,
-  Col,
-  Spin,
-  Icon,
-  Button,
-  Divider,
-  Collapse,
-  Select as AntSelect,
-} from 'antd';
-
-const Panel = Collapse.Panel;
-const Option = AntSelect.Option;
-
-export default () => {
-  return (
-    <div style={{ padding: 20 }}>
-      <Markdown data={markdownData} />
-      <DividerBlock>基础调用</DividerBlock>
-      <BaseUse />
-      <DividerBlock>支持 antd Option 写法</DividerBlock>
-      <CustomOption />
-      <DividerBlock>混杂类型data类型数据渲染</DividerBlock>
-      <HybridData />
-      <DividerBlock>通过 formatTitle formatValue 自定义数据 key</DividerBlock>
-      <CustomDataKey />
-      <DividerBlock>通过 formatTitle formatValue 手动格式化 title value</DividerBlock>
-      <FormatData />
-      <DividerBlock>加载中状态以及类型演示</DividerBlock>
-      <LoadingBlock />
-      <DividerBlock>滚动触底事件</DividerBlock>
-      <TouchBottom />
-      <DividerBlock>追加dom 实现点击加载更多功能, 追加的 dom 不可选</DividerBlock>
-      <ClickLoadingMore />
-      <div style={{ height: 800 }}></div>
-    </div>
-  );
-};
-
-// demo: 基础使用
+## 基础使用
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const BaseUse = () => {
   const [data, setState] = useState([
     { title: '红色', value: 'red', key: '12321' },
@@ -89,9 +42,16 @@ const BaseUse = () => {
     </div>
   );
 };
-// end-demo
 
-// demo: 支持 antd Option 写法
+```
+    
+</details>
+
+## 支持 antd Option 写法
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const CustomOption = () => {
   const data = useMemo(() => ([
     { title: '红色', value: 'red' },
@@ -111,9 +71,16 @@ const CustomOption = () => {
     </Select>
   );
 };
-// end-demo
 
-// demo: 混杂类型数据
+```
+    
+</details>
+
+## 混杂类型数据
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const HybridData =  () => {
   const data = useMemo(() => ([
     { title: '红色', value: 'red' },
@@ -135,9 +102,16 @@ const HybridData =  () => {
     />
   );
 };
-// end-demo
 
-// demo: 通过 formatTitle formatValue 自定义数据 key
+```
+    
+</details>
+
+## 通过 formatTitle formatValue 自定义数据 key
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const CustomDataKey = () => {
   const data = useMemo(() => ([
     { desc: '红色', color: 'red' },
@@ -167,9 +141,16 @@ const CustomDataKey = () => {
     />
   );
 };
-// end-demo
 
-// demo: 通过 formatTitle formatValue 手动格式化 title value
+```
+    
+</details>
+
+## 通过 formatTitle formatValue 手动格式化 title value
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const FormatData = () => {
   const data = useMemo(() => ([
     { community: '国关小区', building: '1', house: '201', id: '123' },
@@ -192,9 +173,16 @@ const FormatData = () => {
     />
   );
 };
-// end-demo
 
-// demo: 加载中状态以及类型演示
+```
+    
+</details>
+
+## 加载中状态以及类型演示
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const LoadingBlock = () => {
   const data = useMemo(() => ([
     { title: '红色', value: 'red' },
@@ -264,9 +252,16 @@ const LoadingBlock = () => {
     </Fragment>
   );
 };
-// end-demo
 
-// demo: 滚动触底事件
+```
+    
+</details>
+
+## 滚动触底事件
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const TouchBottom = () => {
   const [spinning, setSpinning] = useState(false);
   const [data, setData] = useState([
@@ -322,9 +317,16 @@ const TouchBottom = () => {
     </div>
   );
 };
-// end-demo
 
-// demo: 追加dom 实现点击加载更多功能, 追加的 dom 不可选
+```
+    
+</details>
+
+## 追加dom 实现点击加载更多功能, 追加的 dom 不可选
+    
+<details><summary>展开查看</summary>
+    
+```jsx
 const ClickLoadingMore = () => {
   const [spinning, setSpinning] = useState(false);
   const [data, setData] = useState([
@@ -377,15 +379,7 @@ const ClickLoadingMore = () => {
 
   );
 };
-// end-demo
 
-// 虚线
-const DividerBlock = (props) => (
-  <Divider
-    dashed
-    orientation="left"
-    style={{ color: '#999', padding: '20px 0' }}
-  >
-    {props.children}
-  </Divider>
-);
+```
+    
+</details>
