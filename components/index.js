@@ -15,6 +15,7 @@ export { default as DatePicker } from './date-picker';
 export { default as Button } from './button';
 export { default as Input } from './input';
 export { default as Print } from './print';
+export { default as Table } from './table';
 
 export { default as Context } from './context';
 export { default as ImagePreviewer } from './image-previewer';

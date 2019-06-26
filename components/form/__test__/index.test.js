@@ -2,8 +2,9 @@ import React from 'react';
 import { expect, assert } from 'chai';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Form, FormLayout, FormItem } from '../index';
+import Form from '../index';
 
+const { FormLayout, FormItem } = Form;
 const { mount } = Enzyme;
 const getGrid = FormItem.getGrid;
 
