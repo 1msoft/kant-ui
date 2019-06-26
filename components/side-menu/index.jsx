@@ -321,7 +321,7 @@ const SideMenu = (props) => {
       if (j === element.length - 1 || element.length === 0) {
         setTimeout( () => {
           setCollapsed(!collapsed);
-        }, 400);
+        }, 50);
       }
     };
     const recur = (j, length) => {
@@ -330,7 +330,7 @@ const SideMenu = (props) => {
           toggleClass(elementList, j - 1);
           recur(j, length);
         }
-      }, 300);
+      }, 50);
     };
     if (element.length !== 0) {
       recur(0, element.length);
@@ -343,7 +343,7 @@ const SideMenu = (props) => {
   //设置一个类名给sider
   const setClass = () => {
     const element = document.getElementsByClassName('ant-layout-sider')[0];
-    element.className += ' kant-sider-free';
+    // element.className += ' kant-sider-free';
   };
 
   const removeClass = () => {
@@ -370,7 +370,7 @@ const SideMenu = (props) => {
     setTimeout(() => {
       ele.className = ele.className.replace(/kant-icon-rote/g, '');
       mark = 0;
-    }, 600);
+    }, 300);
   };
 
   window.onresize = function(){
@@ -394,7 +394,7 @@ const SideMenu = (props) => {
       setClass();
       setTimeout(() => {
         cascadeKeys();
-      }, 1000);
+      }, 100);
     } else if (collapsed === true && mark !== 0) {
       removeClass();
       setOpenKeys([]);
@@ -426,7 +426,7 @@ const SideMenu = (props) => {
                   onClick={ () => {
                     setTimeout(()=>{
                       retractMenu();
-                    }, 601);
+                    }, 150);
                     roteIcon();
                   } }
                 >
