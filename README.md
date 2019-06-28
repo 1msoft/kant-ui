@@ -13,6 +13,51 @@ npm run start
 npm run storybook:build
 ```
 
+## Storybook 页面显示演示代码
+
+### 生成同名 Markdown 文档
+
+下面包在注释 `// demo:` 和 `// end-demo` 内的代码块将被导出为到 Markdown 文档中
+
+- 示例
+
+```js
+// demo: 标题
+const FormatData = () => {
+  ......
+};
+// end-demo
+```
+
+- 生成 Markdown 内容如下：
+
+```md
+## 标题
+
+<details><summary>展开查看</summary>
+
+```jsx
+const FormatData = () => {
+  ...
+};
+
+```
+
+</details>
+```
+
+### 在演示页面内调用通用组件并导入生成的 Markdown
+
+```jsx
+// 导入 stories/components 下的通用组件 Markdown
+import { Markdown } from '../../components';
+// 导入 Markdown
+import markdownData from './xxxxxxxxxxx.md';
+
+// 调用组件
+<Markdown data={markdownData} />
+```
+
 ## npm 包发布
 
 ### 一 编译
