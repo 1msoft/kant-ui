@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "npm run storybook",
+    "build": "npm run storybook:build && npm run build:publish",
     "test": "karma start",
     "clean": "rimraf dist lib es",
     "build:css": "cd scripts && gulp",

@@ -40,27 +40,16 @@
   &.ant-select-dropdown-hidden {
     display: block;
     .kant-menu-wrapper {
-      transform: translateY(-110%);
+      transform: translateY(-110%) !important;
       transition: transform 0.5s;
     }
   }
 
+  &.dropdown-show {
+    display: block;
+  }
+
   &.dropdown-hidden {
     display: none;
-  }
-
-  &.dropdown-show {
-    .kant-menu-wrapper {
-      animation: dropdown-show 0.5s;
-    }
-  }
-
-  @keyframes dropdown-show {
-    0%{
-      transform: translateY(-110%);
-    }
-    100%{
-      transform: translateY(0);
-    }
   }
 }

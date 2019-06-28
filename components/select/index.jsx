@@ -6,9 +6,11 @@
  * 4. 在 antd Select 的基础上允许对下拉菜单追加 dom
  */
 import React, {
+  useRef,
   useMemo,
   Fragment,
   useState,
+  useEffect,
   useCallback,
 } from 'react';
 import _ from 'lodash';
@@ -22,6 +24,8 @@ const Option = AntSelect.Option;
  * @constant 唯一值
  */
 const UNIQUE = Math.random().toString(36).substring(7).split('').join('.');
+const ANIMATE_STEP = 10;
+const ANIMATE_TIME = 10;
 
 /**
  * @constant 加载类型
@@ -34,6 +38,9 @@ const LOADING_TYPE = {
 
 const useStateHook = (props) => {
   const [open, setOpen] = useState(false);
+  const [translateY, setTranslateY] = useState(-110);
+  const menuWrapperRef = useRef();
+
   /**
    * 处理数据方法： value、title
    * @param {Object | String | number} data 待处理数据
@@ -90,7 +97,11 @@ const useStateHook = (props) => {
     ].every(v => v);
     const render = (
       <div className="kant-menu">
-        <div className="kant-menu-wrapper">
+        <div
+          ref={menuWrapperRef}
+          className="kant-menu-wrapper"
+          style={{ transform: `translateY(${translateY}%)` }}
+        >
           { loading
             ? <Spin spinning={loading} {...props.spin}> {menuNode}</Spin>
             : menuNode
@@ -99,7 +110,7 @@ const useStateHook = (props) => {
       </div>
     );
     return (props.dropdownRender ? props.dropdownRender(render, currProps) : render);
-  }, [props.loading, props.loadingPosition, props.dropdownRender, props.spin]);
+  }, [props.loading, props.loadingPosition, props.dropdownRender, props.spin, translateY]);
 
   // 计算其余 props
   const otherProps = useMemo(() => {
@@ -122,18 +133,36 @@ const useStateHook = (props) => {
     `);
   }, [props.dropdownClassName, open]);
 
+  // 开启菜单栏
+  const onOpen = () => {
+    const animate = (current) => {
+      setTimeout(() => {
+        if (current < 0){
+          setTranslateY(current + ANIMATE_STEP);
+          animate(current + ANIMATE_STEP);
+        } else {
+          setTranslateY(0);
+        }
+      }, ANIMATE_TIME);
+    };
+    setOpen(true);
+    animate(translateY);
+  };
+
+  // 关闭菜单栏
+  const onClose = () => {
+    setTimeout(() => {
+      setOpen(false);
+      setTranslateY(-100);
+    }, 500);
+  };
+
   // 下拉框切换 change 事件
-  const onDropdownVisibleChange = useCallback((value) => {
+  const onDropdownVisibleChange = (value) => {
     props.onDropdownVisibleChange && props.onDropdownVisibleChange(value);
     if (value === open){ return false; }
-    if (!open){
-      setOpen(value);
-    } else {
-      setTimeout(() => {
-        setOpen(value);
-      }, 500);
-    }
-  }, [open]);
+    value ? onOpen() : onClose();
+  };
 
   return {
     options,
