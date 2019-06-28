@@ -343,7 +343,7 @@ const SideMenu = (props) => {
   //设置一个类名给sider
   const setClass = () => {
     const element = document.getElementsByClassName('ant-layout-sider')[0];
-    element.className += ' kant-sider-free';
+    // element.className += ' kant-sider-free';
   };
 
   const removeClass = () => {
