@@ -127,13 +127,9 @@ const usePagination = (props) => {
     return `当前 ${range[0]} - ${range[1]} 总共 ${total} 条`;
   };
 
-  const showQuickJumper = {
-    goButton: <Button size="large" style={{ marginLeft: '6px' }}>确定</Button>
-  };
-
   return {
     showTotal,
-    showQuickJumper,
+    showQuickJumper: true,
     showSizeChanger: true,
     ...props,
   };
