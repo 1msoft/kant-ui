@@ -172,12 +172,16 @@ const sortColumns = [
 ];
 
 const FrontEndSorterTable = () => {
+  const rowSelection = {
+    type: 'checkbox',
+  };
   return (
     <Table
       rowKey={(record) => record.amount}
       bordered
       columns={sortColumns}
       dataSource={greatDataSource}
+      rowSelection={rowSelection}
     />
   );
 };

@@ -1,33 +1,134 @@
 @import '../assets/styles/vars.less';
 
+.custom-checkbox {
+  border-color: @table-primary-color;
+  border-width: 2px;
+}
+
 .kant-table {
-  .ant-table-body {
-    .ant-table-thead {
-      & tr:hover:not(.ant-table-expanded-row) > td,
-      & tr.ant-table-row-hover:not(.ant-table-expanded-row) > td {
-        background: @table-row-background-color;
+  & .ant-table-wrapper {
+    .ant-table-body {
+      .ant-table-thead {
+        // 行选中高亮
+        & .ant-table-selection-column {
+          & .ant-table-header-column {
+            .ant-checkbox-wrapper:hover {
+              .ant-checkbox-inner {
+                .custom-checkbox;
+              }
+            }
+            .ant-checkbox:hover {
+              .ant-checkbox-inner {
+                .custom-checkbox;
+              }
+            }
+            .ant-checkbox-input:focus {
+              & + .ant-checkbox-inner {
+                .custom-checkbox;
+              }
+            }
+            .ant-checkbox-indeterminate {
+              .ant-checkbox-inner {
+                .custom-checkbox;
+              }
+            }
+          }
+        }
+
+        // 表格行背景色跟随主题
+        & tr:hover:not(.ant-table-expanded-row) > td,
+        & tr.ant-table-row-hover:not(.ant-table-expanded-row) > td {
+          background: @table-sub-color !important;;
+        }
+
+
+        // 可伸缩列
+        .react-resizable {
+          position: relative;
+          background-clip: padding-box;
+        }
+
+        .react-resizable-handle {
+          position: absolute;
+          width: 10px;
+          height: 100%;
+          bottom: 0;
+          right: -5px;
+          cursor: col-resize;
+          z-index: 1;
+        }
+
+        // 排序标题列跟随主题色
+        .ant-table-column-sort {
+          .ant-table-column-title {
+            color:  @table-primary-color;
+          }
+          .ant-table-column-sorter {
+            & .ant-table-column-sorter-inner {
+              & .anticon {
+                & .on {
+                  color:  @table-primary-color;
+                }
+              }
+            }
+          }
+        }
       }
 
-      .react-resizable {
-        position: relative;
-        background-clip: padding-box;
-      }
+      .ant-table-tbody {
+        // 表格行背景色跟随主题
+        & tr:hover:not(.ant-table-expanded-row) > td,
+        & tr .ant-table-row-hover:not(.ant-table-expanded-row) > td {
+          background: @table-sub-color !important;;
+        }
 
-      .react-resizable-handle {
-        position: absolute;
-        width: 10px;
-        height: 100%;
-        bottom: 0;
-        right: -5px;
-        cursor: col-resize;
-        z-index: 1;
+        // 排序标题列跟随主题色
+        & tr {
+          .ant-table-column-sort {
+            background-color: @table-color !important;
+          }
+        }
+
+        // 调整选中框偏左
+        & .ant-table-selection-column {
+          & .ant-checkbox-inner:after {
+            left: 22%;
+          }
+        }
+
+        // 行选中高亮
+        & .ant-table-row-selected {
+          td {
+            background-color: @table-selected-color;
+          }
+        }
       }
     }
 
-    .ant-table-tbody {
-      & tr:hover:not(.ant-table-expanded-row) > td,
-      & tr.ant-table-row-hover:not(.ant-table-expanded-row) > td {
-        background: @table-row-background-color;
+    // 表格分页跟随主题色
+    .ant-table-pagination {
+      // 调整分页hover时的边框色
+      & .ant-pagination-item:hover {
+        color: @table-primary-color;
+      }
+
+      // 当前分页添加背景色
+      & .ant-pagination-item-active {
+        border-color: @table-primary-color;
+        background-color: @table-color;
+      }
+
+      // 调整分页不可操作字体颜色
+      & .ant-pagination-total-text {
+        color: #999999;
+        line-height: 33px;
+      }
+
+      // 调整分页不可操作字体颜色
+      & .ant-pagination-options {
+        & .ant-pagination-options-quick-jumper {
+          color: #999999;
+        }
       }
     }
   }
