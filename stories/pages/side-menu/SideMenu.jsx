@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SideMenu } from '@components/index';
+import { Button } from 'antd';
 import { Icon, Layout } from 'antd';
 import '@components/side-menu/style';
 import './SideMenu.less';
@@ -8,7 +9,7 @@ import { isArray, isRegExp } from 'util';
 
 const MenuBlock = () => {
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState({ test: false });
   const [mark, setMark] = useState(0);
   const [openKeys, setOpenKeys] = useState([]);
 
@@ -190,7 +191,7 @@ const MenuBlock = () => {
         siderProps={{
           // theme: 'dark',
         }}
-        // isCollapsed={true}
+        isCollapsed={collapsed}
         // retractMode='all'
         // menuItemDom={menuItemDom}
         // useCollapsed={true}
@@ -201,6 +202,7 @@ const MenuBlock = () => {
         onJumpway={(url,e) => {console.log(url); console.log('----->',e);}}
         // menuItemOnClick={(e) => { console.log(1111,'00---222', e);}}
       />
+      <Button onClick={() => {setCollapsed({ test: true });}}></Button>
     </Layout>
 
   );
