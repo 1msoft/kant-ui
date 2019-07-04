@@ -25,6 +25,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {String}   props.dataSource.icon              图标
  * @param {String}   props.dataSource.className         类名
  * @param {Boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
+ * @param {Boolean}  [props.isCollapsed=false]          默认收缩状态
  * @param {String}   [props.retractMode='half']         收缩模式       'half' | 'all'
  * @param {String}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
  * @param {Function} [props.header]                     未收缩头部组件 参数(retractMode(处理收缩特效函数)
@@ -85,7 +86,7 @@ const SideMenu = (props) => {
 
   const [selectedKeysState, setSelectedKeys] = useState([]);
   const [openKeysState, setOpenKeys] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(props.isCollapsed);
   const [mark, setMark] = useState(0);
 
   const jumpWay = (url) => {
@@ -355,8 +356,8 @@ const SideMenu = (props) => {
     let headDom = document.getElementsByClassName('kan-head-over')[0];
     let siderDom = document.getElementsByClassName('kant-sidermenu-content')[0];
     let scrollDom = document.getElementsByClassName('kant-scroll')[0];
-    let headHeight = headDom.clientHeight;
-    let siderHeight = siderDom.clientHeight;
+    let headHeight = headDom ? headDom.clientHeight : 0;
+    let siderHeight = siderDom ? siderDom.clientHeight : 0;
     scrollDom.style.height = (siderHeight - headHeight) + 'px';
   };
 
@@ -401,12 +402,20 @@ const SideMenu = (props) => {
     }
   }, [collapsed]);
 
+  const retractModeClassName = (retractMode, collapsed) => {
+    if (retractMode === 'all' && collapsed === true) {
+      return 'retractModeClass';
+    } else {
+      return '';
+    }
+  };
 
   return (
     <AntSider
       className={props.className ?
-        `kant-sidermenu-content ${props.className}`
-        : 'kant-sidermenu-content'}
+        `kant-sidermenu-content ${props.className}
+          ${retractModeClassName(props.retractMode, collapsed)}`
+        : `kant-sidermenu-content ${retractModeClassName(props.retractMode, collapsed)}`}
       style={props.siderStyle}
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}

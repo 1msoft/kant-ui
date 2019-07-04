@@ -186,10 +186,12 @@ const MenuBlock = () => {
     <Layout style={{ width: '100vh', height: '100vh' }}>
       <SideMenu
         dataSource={dataSource}
-        // header={headDom}
+        // header={() => {}}
         siderProps={{
           // theme: 'dark',
         }}
+        // isCollapsed={true}
+        // retractMode='all'
         // menuItemDom={menuItemDom}
         // useCollapsed={true}
         // inlineOpenStyle="normal"
