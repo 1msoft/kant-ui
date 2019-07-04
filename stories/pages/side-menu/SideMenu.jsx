@@ -9,7 +9,7 @@ import { isArray, isRegExp } from 'util';
 
 const MenuBlock = () => {
 
-  const [collapsed, setCollapsed] = useState({ test: false });
+  const [collapsed, setCollapsed] = useState({ isOpen: false });
   const [mark, setMark] = useState(0);
   const [openKeys, setOpenKeys] = useState([]);
 
@@ -202,7 +202,7 @@ const MenuBlock = () => {
         onJumpway={(url,e) => {console.log(url); console.log('----->',e);}}
         // menuItemOnClick={(e) => { console.log(1111,'00---222', e);}}
       />
-      <Button onClick={() => {setCollapsed({ test: true });}}></Button>
+      <Button onClick={() => {setCollapsed({ isOpen: true });}}></Button>
     </Layout>
 
   );

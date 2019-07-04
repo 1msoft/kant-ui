@@ -25,7 +25,8 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {String}   props.dataSource.icon              图标
  * @param {String}   props.dataSource.className         类名
  * @param {Boolean}  [props.useCollapsed=false]         是否可以收缩菜单栏
- * @param {Object}  [props.isCollapsed=false]           默认收缩状态
+ * @param {Object}   [props.isCollapsed]                默认收缩状态
+ * @param {Boolean}  [props.isCollapsed.isOpen]         是否收缩  true|false
  * @param {String}   [props.retractMode='half']         收缩模式       'half' | 'all'
  * @param {String}   [props.openChildMode='inline']     展开子级的方式 'vertical' | 'inline'
  * @param {Function} [props.header]                     未收缩头部组件 参数(retractMode(处理收缩特效函数)
@@ -411,7 +412,7 @@ const SideMenu = (props) => {
   };
 
   useEffect(() => {
-    setCollapsed(props.isCollapsed.test);
+    setCollapsed(props.isCollapsed.isOpen);
   }, [props.isCollapsed]);
 
   return (
