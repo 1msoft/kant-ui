@@ -122,7 +122,7 @@ class FixedMenu extends React.Component {
 }
 
 FixedMenu.propTypes = {
-  display: PropTypes.bool,
+  display: PropTypes.string,
   visibilityHeight: PropTypes.number,
   speed: PropTypes.number,
 };

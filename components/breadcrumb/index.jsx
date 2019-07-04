@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, Breadcrumb as AntBreadcrumb } from 'antd';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import omit from 'omit.js';
 
 /**
@@ -15,6 +16,7 @@ import omit from 'omit.js';
  * @param {String}   [props.targetItemClass ]       当前路由高亮等自定义样式
  * @param {Object}   [props.breadcrumbProps]        breadcrumb组件的api
  * @param {Object}   [props.breadcrumbItemProps]    BreadcrumbItem的api
+ * @param {Function} [props.onJumpway]              自定义跳转方法
  * @returns {ReactComponent} 面包屑组件
  */
 const Breadcrumb = (props) => {
@@ -24,22 +26,35 @@ const Breadcrumb = (props) => {
     'targetItemClass',
     'params',
     'routes',
-    'href'];
+    'href',
+    'onClick',
+  ];
   const breadcrumbProps = omit(props.breadcrumbProps, filterArr);
   const breadcrumbItemProps = omit(props.breadcrumbItemProps, filterArr);
+
+  const jumpWay = (url) => {
+    return {
+      'onClick': !props.itemRender ? (e) => {
+        !props.onJumpway ?  location.href = url :  props.onJumpway(url, e);
+        _.isFunction(props.breadcrumbItemProps.onClick)
+          ? props.breadcrumbItemProps.onClick(e) : null;
+      } : ''
+    };
+  };
+
   return (
     <AntBreadcrumb {...breadcrumbProps}>
       {
         props.breadcrumbs.map( (item, idx, array) => {
           if (idx === array.length - 1 || !item.path) {
             return (
-              <AntBreadcrumb.Item key={idx} className={props.targetItemClass }
-                {...breadcrumbItemProps}
-                {...item.props}
+              <AntBreadcrumb.Item key={idx} className={props.targetItemClass ? `${props
+                .targetItemClass} kant-breadcrumb-current` : 'kant-breadcrumb-current' }
+              {...breadcrumbItemProps}
+              {...item.props}
               >
                 {item.icon ?
-                  <span className={`iconfont ${item.icon}`}>
-                    &nbsp;
+                  <span className={`iconfont ${item.icon}`} style={{ fontSize: '30px' }}>
                   </span>
                   : ''}
                 {item.text}
@@ -50,16 +65,16 @@ const Breadcrumb = (props) => {
               <AntBreadcrumb.Item key={idx}
                 {...breadcrumbItemProps}
                 {...item.props}
+                {...jumpWay(item.path)}
               >
                 {
                   props.itemRender ?
                     props.itemRender(item)
                     :
-                    <a href={item.path}>{
+                    <a>{
                       item.icon ?
                         <span
-                          className={`iconfont ${item.icon}`}>
-                          &nbsp;
+                          className={`iconfont ${item.icon}`} style={{ fontSize: '30px' }}>
                         </span>
                         : ''}
                     <span>{item.text}</span>
@@ -86,6 +101,7 @@ Breadcrumb.propTypes = {
   targetItemClass: PropTypes.string,
   breadcrumbProps: PropTypes.object,
   breadcrumbItemProps: PropTypes.object,
+  onJumpway: PropTypes.func,
 };
 
 Breadcrumb.defaultProps = {
