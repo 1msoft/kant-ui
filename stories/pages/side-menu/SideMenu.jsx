@@ -191,7 +191,7 @@ const MenuBlock = () => {
         siderProps={{
           // theme: 'dark',
         }}
-        isCollapsed={collapsed}
+        isCollapsed={{ isOpen: false }}
         // retractMode='all'
         // menuItemDom={menuItemDom}
         // useCollapsed={true}

@@ -87,7 +87,8 @@ const SideMenu = (props) => {
 
   const [selectedKeysState, setSelectedKeys] = useState([]);
   const [openKeysState, setOpenKeys] = useState([]);
-  const [collapsed, setCollapsed] = useState(props.isCollapsed);
+  const [collapsed, setCollapsed] = useState(props.isCollapsed
+    && props.isCollapsed.isOpen || false);
   const [mark, setMark] = useState(0);
 
   const jumpWay = (url) => {
@@ -412,7 +413,7 @@ const SideMenu = (props) => {
   };
 
   useEffect(() => {
-    setCollapsed(props.isCollapsed.isOpen);
+    setCollapsed(props.isCollapsed && props.isCollapsed.isOpen);
   }, [props.isCollapsed]);
 
   return (
@@ -514,7 +515,7 @@ SideMenu.propTypes = {
 SideMenu.defaultProps = {
   dataSource: [],
   useCollapsed: true,
-  isCollapsed: false,
+  isCollapsed: null,
   retractMode: 'half',
   openChildMode: 'inline',
   inlineOpenStyle: 'normal',
