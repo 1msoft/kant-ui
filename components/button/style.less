@@ -3,15 +3,26 @@
 .kant-button-content {
   display: inline-block;
 }
+.kant-button-content .ant-btn {
+  padding-left: 21px;
+  padding-right: 21px;
+  height: 38px;
+}
 
 .kant-button-content .ant-btn-round {
   font-size:  @font-size-base;
+  padding-left: 21px;
+  padding-right: 21px;
+  height: 38px;
 }
 .kant-button-content .ant-btn-circle {
+  padding-left: 0;
+  padding-right: 0;
+  height: auto;
   font-size: @font-size-base;
 }
 .kant-button-content .ant-btn:focus {
-  background-color: @primary-color;
+  background: @primary-color;
   border: 1px solid @primary-color;
 }
 .kant-button-content .ant-btn:focus.kant-wave-button {
@@ -20,7 +31,24 @@
 .kant-button-content .ant-btn:hover {
   border: 1px solid @primary-color;
   background: @primary-color;
+  box-shadow: 0px 0px 0px 0.3px @primary-color;
 }
+.kant-button-content .ant-btn-default:hover {
+  border: 1px solid @primary-color;
+  color: @primary-color;
+  background: none;
+  box-shadow: 0px 0px 0px 0.3px @primary-color;
+}
+
+.kant-button-content .ant-btn-default:focus.kant-wave-button {
+  animation: checkShawDefault 0.6s ease-in-out, fontsize 0.3s ease-in-out;
+}
+
+.kant-button-content .ant-btn-default:focus {
+  background: none;
+  border: 1px solid @primary-color;
+}
+
 .kant-button-content .kant-wave-button {
   position: relative;
   overflow: hidden;
@@ -56,6 +84,18 @@
     width: 300px;
     height: 300px;
     opacity: 0;
+  }
+}
+
+@keyframes checkShawDefault {
+  0% {
+    box-shadow: @primary-color 0px 0px 0px 0px ;//边框阴影
+  }
+  50% {
+    box-shadow: 0px 0px 0px 4px @primary-color;//边框阴影
+  }
+  100% {
+    box-shadow: @primary-color 0px 0px 0px 0px ;//边框阴影
   }
 }
 

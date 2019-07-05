@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@components/index';
-import { Divider, Icon } from "antd";
+import { Divider, Icon, Button as Bt } from "antd";
 import '@components/button/style';
 import './Button.less';
 const KantButton = () => {
@@ -13,7 +13,7 @@ const KantButton = () => {
           className='kant-button-test1'
           type='primary'
           onClick={(e) => { e.stopPropagation(); } }
-        >按钮1</Button>
+        >按钮</Button>
       </div>
       <div style={{ margin: '50px' }}>
         <Button
@@ -21,7 +21,7 @@ const KantButton = () => {
           className='kant-button-test1'
           type='primary'
           onClick={(e) => { e.stopPropagation(); } }
-        >按钮2</Button>
+        >按钮</Button>
       </div>
       <div style={{ margin: '50px' }}>
         <Button
@@ -31,6 +31,14 @@ const KantButton = () => {
           className="kant-text1"
           onClick={(e) => { e.stopPropagation(); } }
         ><Icon type={'delete'}></Icon></Button>
+      </div>
+      <div style={{ margin: '50px' }}>
+        <Button
+          shape="round"
+          size={'large'}
+          type='default'
+          onClick={(e) => { e.stopPropagation(); } }
+        >按钮</Button>
       </div>
     </div>
   );
