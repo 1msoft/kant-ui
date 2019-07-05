@@ -7,6 +7,7 @@
   .ant-select-open {
     .ant-select-selection {
       background: fade(@primary-color, 20%);
+      box-shadow: none;
     }
   }
 }
@@ -52,4 +53,9 @@
   &.dropdown-hidden {
     display: none;
   }
+}
+
+.ant-select-selection:focus,
+.ant-select-focused  {
+  box-shadow: 0 1px @primary-color;
 }
