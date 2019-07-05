@@ -30,7 +30,11 @@ let Button = (props, ref) => {
   const setElementNoramlStyle = () => {
     let button = document.getElementsByClassName('kant-button-settings');
     for ( let i = 0; i < button.length; i++ ) {
-      button[i].style.width = '100%';
+      if (button[i].style.width) {
+        button[i].style.width = button[i].style.width;
+      } else {
+        button[i].style.width = '100%';
+      }
       button[i].style.lineHeight = '100%';
     };
   };
