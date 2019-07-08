@@ -46,7 +46,7 @@ const Breadcrumb = (props) => {
     <AntBreadcrumb {...breadcrumbProps}>
       {
         props.breadcrumbs.map( (item, idx, array) => {
-          if (idx === array.length - 1 || !item.path) {
+          if (idx === array.length - 1) {
             return (
               <AntBreadcrumb.Item key={idx} className={props.targetItemClass ? `${props
                 .targetItemClass} kant-breadcrumb-current` : 'kant-breadcrumb-current' }
@@ -54,7 +54,7 @@ const Breadcrumb = (props) => {
               {...item.props}
               >
                 {item.icon ?
-                  <span className={`iconfont ${item.icon}`} style={{ fontSize: '30px' }}>
+                  <span className={`iconfont ${item.icon}`} style={{ fontSize: '24px' }}>
                   </span>
                   : ''}
                 {item.text}
@@ -74,7 +74,7 @@ const Breadcrumb = (props) => {
                     <a>{
                       item.icon ?
                         <span
-                          className={`iconfont ${item.icon}`} style={{ fontSize: '30px' }}>
+                          className={`iconfont ${item.icon}`} style={{ fontSize: '24px' }}>
                         </span>
                         : ''}
                     <span>{item.text}</span>
