@@ -12,6 +12,10 @@
         // 行选中高亮
         & .ant-table-selection-column {
           & .ant-table-header-column {
+            .ant-checkbox-inner::after {
+              border-radius: 2px;
+            }
+
             .ant-checkbox-wrapper:hover {
               .ant-checkbox-inner {
                 .custom-checkbox;
@@ -128,6 +132,22 @@
       & .ant-pagination-options {
         & .ant-pagination-options-quick-jumper {
           color: #999999;
+        }
+
+        & .ant-select-selection--single {
+          height: 34px;
+          top: 3px;
+
+          .ant-select-selection__rendered {
+            line-height: 34px;
+          }
+        }
+
+        & .ant-pagination-options-quick-jumper {
+          & input {
+            height: 32px;
+            line-height: 32px;
+          }
         }
       }
     }
