@@ -54,7 +54,7 @@ const Breadcrumb = (props) => {
               {...item.props}
               >
                 {item.icon ?
-                  <span className={`iconfont ${item.icon}`} style={{ fontSize: '24px' }}>
+                  <span className={`iconfont ${item.icon}`}>
                   </span>
                   : ''}
                 {item.text}
@@ -74,7 +74,7 @@ const Breadcrumb = (props) => {
                     <a>{
                       item.icon ?
                         <span
-                          className={`iconfont ${item.icon}`} style={{ fontSize: '24px' }}>
+                          className={`iconfont ${item.icon}`}>
                         </span>
                         : ''}
                     <span>{item.text}</span>
