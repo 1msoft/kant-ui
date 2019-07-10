@@ -358,8 +358,8 @@ const SideMenu = (props) => {
     let headDom = document.getElementsByClassName('kan-head-over')[0];
     let siderDom = document.getElementsByClassName('kant-sidermenu-content')[0];
     let scrollDom = document.getElementsByClassName('kant-scroll')[0];
-    let headHeight = headDom ? headDom.clientHeight : 0;
-    let siderHeight = siderDom ? siderDom.clientHeight : 0;
+    let headHeight = headDom.clientHeight;
+    let siderHeight = siderDom.clientHeight;
     scrollDom.style.height = (siderHeight - headHeight) + 'px';
   };
 
