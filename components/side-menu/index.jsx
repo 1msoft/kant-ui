@@ -47,6 +47,7 @@ const MenuItemGroup = Menu.ItemGroup;
  * @param {Function} [props.menuItemGroupDom]           menuItemGroup标题内自定义dom 参数(item)
  * @param {Function} [props.onJumpway]                  使用默认a标签时的跳转方法 参数(url, e)
  * @param {Function} [props.menuItemOnClick]            覆盖antd中menuItem的onClick事件
+ * @param {Function} [props.onSiderCollapse]            侧边栏收缩展开的的回调事件 参数(collapse)
  * @returns {ReactComponent} 侧边栏
  * @see {@link Layout.Sider参数参考  [antd 官网](https://ant.design/components/layout-cn/#Layout.Sider)}
  * @see {@link Menu参数参考 [antd 官网](https://ant.design/components/menu-cn/#API)}
@@ -74,6 +75,7 @@ const SideMenu = (props) => {
     'className',
     'href',
     'menuItemOnClick',
+    'onSiderCollapse',
   ];
   const filterMenuItem = [
     'onClick'
@@ -402,6 +404,10 @@ const SideMenu = (props) => {
       removeClass();
       setOpenKeys([]);
     }
+
+    if (props.onSiderCollapse) {
+      props.onSiderCollapse(collapsed);
+    }
   }, [collapsed]);
 
   const retractModeClassName = (retractMode, collapsed) => {
@@ -510,6 +516,7 @@ SideMenu.propTypes = {
   menuItemGroupDom: PropTypes.func,
   onJumpway: PropTypes.func,
   menuItemOnClick: PropTypes.func,
+  onSiderCollapse: PropTypes.func,
 };
 
 SideMenu.defaultProps = {
