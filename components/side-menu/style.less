@@ -532,6 +532,7 @@
 
 .ant-layout-sider-collapsed .kant-head-icon {
   margin: 0 !important;
+  animation: moveHeadRevese 0.2s Linear forwards;
 }
 
 .kant-sider-free .kant-menu-head {
@@ -549,13 +550,10 @@
 
 @keyframes moveHeadRevese{
   0% {
-    padding-left: 0px;
-  }
-  50% {
-    padding-left: 80px;
+    padding-left: 229px;
   }
   100% {
-    padding-left: 229px;
+    padding-left: 0px;
   }
 }
 

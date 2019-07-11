@@ -373,7 +373,7 @@ const SideMenu = (props) => {
     setTimeout(() => {
       ele.className = ele.className.replace(/kant-icon-rote/g, '');
       mark = 0;
-    }, 300);
+    }, 190);
   };
 
   window.onresize = function(){
