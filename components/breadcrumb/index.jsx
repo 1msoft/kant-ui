@@ -35,7 +35,7 @@ const Breadcrumb = (props) => {
   const jumpWay = (url) => {
     return {
       'onClick': !props.itemRender ? (e) => {
-        !props.onJumpway ?  location.href = url :  props.onJumpway(url, e);
+        url ? (!props.onJumpway ? location.href = url :  props.onJumpway(url, e)) : null;
         _.isFunction(props.breadcrumbItemProps.onClick)
           ? props.breadcrumbItemProps.onClick(e) : null;
       } : ''
