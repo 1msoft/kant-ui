@@ -4,7 +4,7 @@
 @kant-second-menu-colors:rgba(128,128,128,1);
 @kant-menugroup-color: rgba(51,51,51,1);
 @kant-before-dot: #cccccc;
-
+@box-shadow-bases: 0px 0px 8px 0px rgba(40,40,40,0.1);
 *{
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@
   width: 279px !important;
   height: 100% !important;
   flex: none !important;
-  box-shadow: @box-shadow-base;
+  box-shadow: @box-shadow-bases;
 }
 .kant-sidermenu-content .ant-layout-sider-children > .kant-scroll{
   overflow-x:hidden;
@@ -268,7 +268,7 @@
   animation: moveSider 0.2s Linear forwards;
   height: 100% !important;
   flex: none !important;
-  box-shadow: @box-shadow-base;
+  box-shadow: @box-shadow-bases;
 }
 
 .kant-sidermenu-content .ant-menu-inline-collapsed {
@@ -355,7 +355,7 @@
 .ant-menu-vertical.ant-menu-sub .kant-menuitemgroup-content{
   min-width: 186px !important;
   border:1px solid @border-color-base !important;
-  box-shadow:@box-shadow-base !important;
+  box-shadow:@box-shadow-bases !important;
 }
 
 .kant-menuitemgroup-content .kant-itemgroup-icon {
