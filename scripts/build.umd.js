@@ -21,6 +21,11 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const { version, name, description } = require("../package.json");
 
+// fix: prevents error when .css files are required by node
+if (typeof require !== 'undefined') {
+  require.extensions['.less'] = (file) => {}
+}
+
 const NAME='kant-ui';
 const LOGO = `
               __                    _
@@ -145,7 +150,11 @@ const config = {
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // new BundleAnalyzerPlugin(),
-  ]
+  ],
+  stats: {
+    // 过滤 mini-css-extract-plugin 冲突提示
+    children: false,
+  }
 };
 
 module.exports = config;
