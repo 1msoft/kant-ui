@@ -44,14 +44,19 @@ const FinalyFixedMenu = () => {
   };
   return (
     <div style={{ height: '2000px' }}>
+      <div id="kant-id"
+        style={{ height: '1000px', width: '50px', background: 'red', overflow: 'auto' }}>
+        <div style={{ height: '3600px', background: 'white' }}></div>
+      </div>
       <div
         style={{ margin: '200px 0 0 300px', border: '1px solid red',
           height: '300px', width: '300px', position: 'relative' }}
       >
         <FixedMenu
-          display={'default'}
-          visibilityHeight={300}
-          speed={20}
+          display={'always'}
+          visibilityHeight={100}
+          speed={50}
+          target={() => document.getElementById('kant-id')}
         >
           {FixedMenuDom}
         </FixedMenu>
