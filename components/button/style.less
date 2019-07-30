@@ -21,25 +21,29 @@
   height: auto;
   font-size: @font-size-base;
 }
-.kant-button-content .ant-btn:focus {
+.kant-button-content .ant-btn-primary:focus {
   background: @primary-color;
   border: 1px solid @primary-color;
 }
 .kant-button-content .ant-btn:focus.kant-wave-button {
   animation: checkShaw 0.6s ease-in-out, fontsize 0.3s ease-in-out;
 }
-.kant-button-content .ant-btn:hover {
+.kant-button-content .ant-btn-primary:hover {
   border: 1px solid @primary-color;
   background: @primary-color;
   box-shadow: 0px 0px 0px 0.3px @primary-color;
 }
+.kant-button-content .ant-btn-default:focus {
+  color: rgba(0, 0, 0, 0.7);
+  background: none;
+  border: 1px solid #ebebeb !important;
+}
 .kant-button-content .ant-btn-default:hover {
-  border: 1px solid @primary-color;
+  border: 1px solid @primary-color !important;
   color: @primary-color;
   background: none;
   box-shadow: 0px 0px 0px 0.3px @primary-color;
 }
-
 .kant-button-content .ant-btn-default:focus.kant-wave-button {
   animation: checkShawDefault 0.6s ease-in-out, fontsize 0.3s ease-in-out;
 }

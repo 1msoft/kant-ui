@@ -25,6 +25,17 @@ let Button = (props, ref) => {
   ];
   const otherProps = omit(props, filterArr);
 
+  const otherPropsDisabled = (otherProps) => {
+    if (otherProps.disabled === true) {
+      delete otherProps.type;
+    } else if(otherProps.disabled === false && !otherProps.type) {
+      otherProps.type = 'default';
+    } else if(otherProps.disabled === false && otherProps.type){
+      otherProps.type = otherProps.type;
+    }
+    return otherProps;
+  };
+
   const [isShow, setIsShow] = useState(false);
 
   const setElementNoramlStyle = () => {
@@ -79,7 +90,7 @@ let Button = (props, ref) => {
           e.stopPropagation();
           waveAnimation(e);
         }}
-        {...otherProps}
+        {...otherPropsDisabled(otherProps)}
       />
     </div>
   );
