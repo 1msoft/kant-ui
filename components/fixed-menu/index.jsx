@@ -21,6 +21,7 @@ class FixedMenu extends React.Component {
  * @param {Number}   [props.visibilityHeight]  悬停菜单出现的滚动高度
  * @param {Boolean}  [props.display]           悬停菜单栏是否一直存在 { "always" || "default" }
  * @param {Number}   [props.speed]             回到顶部的速度
+ * @param {ReactDOM}  [props.target]            监听的目标区域
 */
   constructor(props){
     super(props);
@@ -29,11 +30,19 @@ class FixedMenu extends React.Component {
     };
   }
   componentDidMount(){
-    document.addEventListener('scroll', this.debounce(this.onScroll, 50));
+    let target = null;
+    if (this.props.target === window) {
+      target = window;
+    } else {
+      target = this.props.target();
+    }
+    target.addEventListener('scroll', this.debounce(this.onScroll, 5000));
   }
 
   componentWillUnmount(){
-    document.removeEventListener('scroll', this.onScroll);
+    if (this.scrollEvent) {
+      this.scrollEvent.remove();
+    }
   }
   render(){
     return (
@@ -46,11 +55,15 @@ class FixedMenu extends React.Component {
 
   // 获取 document.scrollTop
   get scrollTop(){
-    return (
-      document.documentElement.scrollTop ||
+    let target = 0;
+    if (this.props.target === window) {
+      target = document.documentElement.scrollTop ||
       window.pageYOffset ||
-      document.body.scrollTop
-    );
+      document.body.scrollTop;
+    } else {
+      target = this.props.target().scrollTop;
+    }
+    return target;
   }
 
   // 计算样式
@@ -65,6 +78,7 @@ class FixedMenu extends React.Component {
   // 滚动到顶部
   scrollToTop = () => {
     // speed: 速度（时间）, span 跨度(每次递减数值)
+    console.log('点击了像散', this.scrollTop);
     const animate = (speed = 10, span = 100) => {
       setTimeout(() => {
         let pretreatment = this.scrollTop - span;
@@ -78,9 +92,13 @@ class FixedMenu extends React.Component {
   }
 
   setScrollTop(value){
-    document.documentElement.scrollTop = value;
-    window.pageYOffset = value;
-    document.body.scrollTop = value;
+    if (this.props.target === window) {
+      document.documentElement.scrollTop = value;
+      window.pageYOffset = value;
+      document.body.scrollTop = value;
+    } else {
+      this.props.target().scrollTop = value;
+    }
   }
 
   /**
@@ -88,14 +106,20 @@ class FixedMenu extends React.Component {
    * @param {Event} e
    */
   onScroll = (e) => {
+    let targetEle;
+    if (this.props.target === window ) {
+      targetEle = window;
+    } else {
+      targetEle = this.props.target();
+    }
     const visibilityHeight = this.props.visibilityHeight;
     if (this.props.display === 'always') {
       this.setState({ isShow: true });
     } else if (this.props.display === 'default'
-      && this.scrollTop > visibilityHeight && !this.state.isShow ){
+      && targetEle.scrollTop > visibilityHeight && !this.state.isShow ){
       this.setState({ isShow: true });
     } else if ( this.props.display === 'default'
-      && this.scrollTop < visibilityHeight && this.state.isShow ){
+      && targetEle.scrollTop < visibilityHeight && this.state.isShow ){
       this.setState({ isShow: false });
     }
   }
@@ -131,6 +155,7 @@ FixedMenu.defaultProps = {
   display: 'default',
   visibilityHeight: 0,
   speed: 100,
+  target: window,
 };
 
 export default FixedMenu;
