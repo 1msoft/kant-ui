@@ -11,7 +11,8 @@ const KantButton = () => {
       <div style={{ margin: '50px' }}>
         <Button
           className='kant-button-test1'
-          type='primary'
+          disabled={ishow}
+          type="primary"
           onClick={(e) => { e.stopPropagation(); } }
         >按钮</Button>
       </div>
@@ -20,7 +21,10 @@ const KantButton = () => {
           shape="round"
           className='kant-button-test1'
           type='primary'
-          onClick={(e) => { e.stopPropagation(); } }
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsshow(!ishow);
+          } }
         >按钮</Button>
       </div>
       <div style={{ margin: '50px' }}>
