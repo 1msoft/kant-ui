@@ -392,7 +392,6 @@ const SideMenu = (props) => {
     }
   };
 
-  //事件代替setTimeout
   window.onload = function (){
     setScrollHeight();
     setScroll(isScroll());
