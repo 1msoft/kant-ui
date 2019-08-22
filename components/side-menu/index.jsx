@@ -392,13 +392,16 @@ const SideMenu = (props) => {
     }
   };
 
+  window.onload = function (){
+    setScrollHeight();
+    setScroll(isScroll());
+  };
+
   useEffect( () => {
     if (props.dataSource.length !== 0) {
       resetMenuKeys();
       cascadeKeys();
     }
-    setScrollHeight();
-    setScroll(isScroll());
   }, []);
 
   //设置收缩/展开
