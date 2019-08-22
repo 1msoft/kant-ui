@@ -92,6 +92,7 @@ const SideMenu = (props) => {
   const [collapsed, setCollapsed] = useState(props.isCollapsed
     && props.isCollapsed.isOpen || false);
   const [mark, setMark] = useState(0);
+  const [hasScroll, setScroll] = useState(false);
 
   const jumpWay = (url) => {
     return {
@@ -378,8 +379,17 @@ const SideMenu = (props) => {
     }, 190);
   };
 
+  const isScroll = () => {
+    let divScroll = document.getElementsByClassName('kant-scroll')[0];
+    return divScroll.scrollHeight > divScroll.clientHeight
+      || divScroll.offsetHeight > divScroll.clientHeight;
+  };
+
   window.onresize = function(){
     setScrollHeight();
+    if(isScroll() !== hasScroll) {
+      setScroll(isScroll());
+    }
   };
 
   useEffect( () => {
@@ -389,6 +399,7 @@ const SideMenu = (props) => {
     }
     setTimeout(() => {
       setScrollHeight();
+      setScroll(isScroll());
     }, 0);
   }, []);
 
@@ -424,12 +435,30 @@ const SideMenu = (props) => {
     setCollapsed(props.isCollapsed && props.isCollapsed.isOpen);
   }, [props.isCollapsed]);
 
+  const SiderMenuClassName = (name) => {
+    let className = '';
+    if (name) {
+      calssName = `kant-sidermenu-content ${props.className}
+        ${retractModeClassName(props.retractMode, collapsed)}`;
+    } else {
+      className = `kant-sidermenu-content ${retractModeClassName(props.retractMode, collapsed)}`;
+    }
+    return className;
+  };
+
+  const scrollClassName = (scroll) => {
+    let scrollClassName = '';
+    if (scroll) {
+      scrollClassName = `kant-scroll-content`;
+    } else {
+      scrollClassName = '';
+    }
+    return scrollClassName;
+  };
+
   return (
     <AntSider
-      className={props.className ?
-        `kant-sidermenu-content ${props.className}
-          ${retractModeClassName(props.retractMode, collapsed)}`
-        : `kant-sidermenu-content ${retractModeClassName(props.retractMode, collapsed)}`}
+      className={`${SiderMenuClassName(props.className)} ${scrollClassName(hasScroll)}`}
       style={props.siderStyle}
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}

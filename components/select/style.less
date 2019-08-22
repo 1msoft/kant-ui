@@ -34,7 +34,6 @@
   .kant-menu-wrapper {
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 2px 8px fade(@primary-color, 15%);
     background: #fff;
   }
 
@@ -57,5 +56,13 @@
 
 .ant-select-selection:focus,
 .ant-select-focused  {
-  box-shadow: 0 1px @primary-color;
+  box-shadow: 0 1px 0 0 fade(@primary-color, 20%) !important;
+}
+
+.ant-select-dropdown-menu-item {
+  line-height: 30px;
+}
+
+.has-error .ant-select-focused .ant-select-selection {
+  box-shadow: none;
 }
