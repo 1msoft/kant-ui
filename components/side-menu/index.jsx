@@ -358,12 +358,12 @@ const SideMenu = (props) => {
   };
 
   const setScrollHeight = () => {
-    let headDom = document.getElementsByClassName('kan-head-over')[0];
-    let siderDom = document.getElementsByClassName('kant-sidermenu-content')[0];
+    let headDom = document.getElementsByClassName('kan-head-over')[0] || {};
+    let siderDom = document.getElementsByClassName('kant-sidermenu-content')[0] || {};
     let scrollDom = document.getElementsByClassName('kant-scroll')[0];
-    let headHeight = headDom.clientHeight;
-    let siderHeight = siderDom.clientHeight;
-    scrollDom.style.height = (siderHeight - headHeight) + 'px';
+    let headHeight = headDom && headDom.clientHeight;
+    let siderHeight = siderDom && siderDom.clientHeight;
+    scrollDom && (scrollDom.style.height = (siderHeight - headHeight) + 'px');
   };
 
   const roteIcon = () => {
@@ -381,21 +381,29 @@ const SideMenu = (props) => {
 
   const isScroll = () => {
     let divScroll = document.getElementsByClassName('kant-scroll')[0];
-    return divScroll.scrollHeight > divScroll.clientHeight
-      || divScroll.offsetHeight > divScroll.clientHeight;
+    if (divScroll) {
+      return divScroll.scrollHeight > divScroll.clientHeight
+        || divScroll.offsetHeight > divScroll.clientHeight;
+    }
   };
 
-  window.onresize = function(){
+  const resizeListen = () => {
     setScrollHeight();
     if(isScroll() !== hasScroll) {
       setScroll(isScroll());
     }
   };
 
-  window.onload = function (){
+  window.onload = function () {
     setScrollHeight();
     setScroll(isScroll());
   };
+
+  useEffect(() => {
+    resizeListen();
+    window.addEventListener("resize", resizeListen, false);
+    return () => window.removeEventListener("resize", resizeListen, false);
+  });
 
   useEffect( () => {
     if (props.dataSource.length !== 0) {
