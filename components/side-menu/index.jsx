@@ -471,7 +471,7 @@ const SideMenu = (props) => {
       style={props.siderStyle}
       collapsed={props.useCollapsed ? collapsed : false}
       trigger={null}
-      theme="light"
+      theme={props.theme || "light"}
       style={{ height: '100%' }}
       {...toggelRetractMode(props.retractMode, {})}
       {...siderProps}
