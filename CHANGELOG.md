@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/1msoft/kant-ui/compare/v0.2.0...v0.2.1) (2020-08-25)
+
+
+### Bug Fixes
+
+* 【【KantUI】左侧菜单滚动高度计算错误】https://www.tapd.cn/22105901/bugtrace/bugs/view?bug_id=1122105901001000783 ([9134ecc](https://github.com/1msoft/kant-ui/commit/9134ecc))
+* 【【菜单栏】部分报错处理】 https://www.tapd.cn/22105901/prong/stories/view/1122105901001002311 ([4ddfc4b](https://github.com/1msoft/kant-ui/commit/4ddfc4b))
+
+
+
 ## 0.2.0 (2019-07-31)
 
 
